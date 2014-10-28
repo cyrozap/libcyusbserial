@@ -1,6 +1,6 @@
 all:
 	gcc -g -o CyUSBSerialTestUtility Test_Utility.c -lcyusbserial -w
-	cp CyUSBSerialTestUtility /usr/bin
+	cp CyUSBSerialTestUtility /usr/local/bin
 clean:
 	rm -f CyUSBSerialTestUtility
 help:
