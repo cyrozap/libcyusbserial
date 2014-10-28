@@ -30,7 +30,7 @@
 #include <pthread.h>
 #include <ctype.h>
 
-#include "../../include/CyUSBSerial.h"
+#include "../include/CyUSBSerial.h"
 #define CY_MAX_DEVICES 30
 #define CY_MAX_INTERFACES 4
 
