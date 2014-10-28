@@ -51,6 +51,9 @@ bool exitApp = false;
 unsigned short pageAddress = -1;
 short readWriteLength = -1;
 bool deviceAddedRemoved = false;
+
+void printListOfDevices (bool isPrint);
+
 int getUserInput()
 {
     char userInput[6], x;
