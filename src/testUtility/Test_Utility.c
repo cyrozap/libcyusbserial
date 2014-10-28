@@ -73,8 +73,8 @@ int getUserInput()
     output = atoi(userInput);
     return output;
 }
+
 void deviceHotPlug () {
-    
     CY_RETURN_STATUS rStatus;
     deviceAddedRemoved = true;
     selectedDeviceNum = -1;
@@ -83,7 +83,6 @@ void deviceHotPlug () {
     rStatus = CyGetListofDevices (&numDevices);
     if (rStatus != CY_SUCCESS) {
         printf ("CY:Error in Getting List of Devices: Error NO:<%d> \n", rStatus);
-        return rStatus;
     }
     printListOfDevices (false);
 }
