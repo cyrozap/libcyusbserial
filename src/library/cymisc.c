@@ -250,7 +250,7 @@ void* uartSetEventNotifcation (void *inputParameters)
             if (device->uartCancelEvent == false){
                 CY_DEBUG_PRINT_ERROR ("CY:Error uart interrupt thread encountered error... Libusb transmission error is %d \n", transfer->status);
                 device->uartThreadId = 0;
-				callbackFn(errorStatus);
+                callbackFn(errorStatus);
             }
             break;
         }
@@ -320,7 +320,7 @@ void* spiSetEventNotifcation (void *inputParameters)
         else{
             spiStatus |= CY_ERROR_EVENT_FAILED_BIT;
             if (device->spiCancelEvent == false){
-            	device->spiThreadId = 0;
+                device->spiThreadId = 0;
                 CY_DEBUG_PRINT_ERROR ("CY:Error spi interrupt thread was cancelled... Libusb transmission error is %d \n", transfer->status);    
                 callbackFn (spiStatus);
             }
@@ -329,9 +329,8 @@ void* spiSetEventNotifcation (void *inputParameters)
     }
     libusb_free_transfer (transfer);
 END:
-	
     free (inputParameters);
-	pthread_exit (NULL);
+    pthread_exit (NULL);
     return NULL;
 }
 
@@ -422,7 +421,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
         libusb_cancel_transfer (device->uartTransfer);
         pthread_join (device->uartThreadId, NULL);
         device->uartThreadId = 0;
-		device->uartCancelEvent = false;
+        device->uartCancelEvent = false;
         pthread_mutex_unlock (&device->notificationLock); 
         return CY_SUCCESS;    
     }
