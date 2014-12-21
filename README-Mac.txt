@@ -5,7 +5,7 @@
 
 Copying/Installing Prebuilt binaries:
 
-./bin folder of the SDK contains prebuilt binaries of libusb-1.0.9 (libusb-1.0.0.dylib) which is built 
+./bin folder of the SDK contains prebuilt binaries of libusb-1.0.9 (libusb-1.0.0.dylib) which is built
 from unmodified source of libusb-1.0.9. and Cypress USB-Serial library (libcyusbserial.0.1.dylib).
 Copy all the *.dylib to /usr/local/lib.
 Prebuilt I2C/SPI test application is available in  ./bin/CyUSBSerialTestUtility.
@@ -29,14 +29,14 @@ Installation steps:
 
 3.Type 'sudo make' in the terminal.
 
-3.This will generate shared library libcyusbserial.0.1.dylib and its soft link libcyusbserial.dylib, 
+3.This will generate shared library libcyusbserial.0.1.dylib and its soft link libcyusbserial.dylib,
 both of them will be copied/installed to /usr/local/lib.
 
 4.Application can link and start using the library.
 
 Documentation:
 
-Refer to ./common/doc/CyUSBSerial API Documentation.pdf for APIs supported in Cypress 
+Refer to ./common/doc/CyUSBSerial API Documentation.pdf for APIs supported in Cypress
 USB-Serial vendor mode and ./common/header/CyUSBSerial.h for library header file.
 
 

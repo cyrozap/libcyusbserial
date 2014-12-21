@@ -45,7 +45,7 @@ CY_RETURN_STATUS CyGetFirmwareVersion(
     devHandle = device->devHandle;
 
     bmRequestType = CY_VENDOR_REQUEST_DEVICE_TO_HOST;
-    bmRequest = CY_GET_VERSION_CMD; 
+    bmRequest = CY_GET_VERSION_CMD;
     wValue = 0x00;
     wIndex = 0x00;
     wLength = CY_GET_FIRMWARE_VERSION_LEN;
@@ -68,7 +68,7 @@ CY_RETURN_STATUS CyGetFirmwareVersion(
 /*
 The API resets the device
 */
-CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyResetDevice (  
+CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyResetDevice (
         CY_HANDLE handle                                   /*Valid device handle*/
         )
 {
@@ -107,7 +107,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyResetDevice (
     }
 }
 
-CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CySetGpioValue (  
+CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CySetGpioValue (
         CY_HANDLE handle,                               /*Valid device handle*/
         UINT8 gpioNumber,                         /*GPIO configuration value*/
         UINT8 value                              /*Value that needs to be set*/
@@ -125,7 +125,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CySetGpioValue (
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
     if (value)
-        value = 1; 
+        value = 1;
     bmRequestType = CY_VENDOR_REQUEST_DEVICE_TO_HOST;
     bmRequest = CY_GPIO_SET_VALUE_CMD;
     wValue = gpioNumber;
@@ -148,7 +148,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CySetGpioValue (
     }
 }
 
-CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyGetGpioValue (  
+CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyGetGpioValue (
         CY_HANDLE handle,                                 /*Valid device handle*/
         UINT8 gpioNumber,                           /*GPIO configuration value*/
         UINT8 *value                               /*Value that needs to be set*/
@@ -165,7 +165,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyGetGpioValue (
         return CY_ERROR_INVALID_HANDLE;
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
-    
+
     bmRequestType = CY_VENDOR_REQUEST_DEVICE_TO_HOST;
     bmRequest = CY_GPIO_GET_VALUE_CMD;
     wValue = gpioNumber;
@@ -175,7 +175,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyGetGpioValue (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, buffer, wLength, ioTimeout);
     if (rStatus == CY_GPIO_GET_LEN){
-        CY_DEBUG_PRINT_INFO ("CY: Get GPIO Configuration succedded...size is %d \n", rStatus);   
+        CY_DEBUG_PRINT_INFO ("CY: Get GPIO Configuration succedded...size is %d \n", rStatus);
         //return buffer will tell the status of the command
         if (buffer[0] == 0){
             (*value) = buffer[1];
@@ -223,12 +223,12 @@ void* uartSetEventNotifcation (void *inputParameters)
         goto END;
     }
     while (device->uartCancelEvent == false){
-        libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, uartStatus, length, 
+        libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, uartStatus, length,
             uart_notification_cb, &transferCompleted, CY_EVENT_NOTIFICATION_TIMEOUT);
         rStatus = libusb_submit_transfer (transfer);
         if (rStatus){
             CY_DEBUG_PRINT_ERROR ("CY:Error submitting uart interrupt token ... Libusb error is %d\n", rStatus);
-            errorStatus |= CY_ERROR_EVENT_FAILED_BIT; 
+            errorStatus |= CY_ERROR_EVENT_FAILED_BIT;
             callbackFn(errorStatus);
             break;
         }
@@ -240,13 +240,13 @@ void* uartSetEventNotifcation (void *inputParameters)
         transferCompleted = 0;
         if (transfer->status == LIBUSB_TRANSFER_COMPLETED){
             CY_DEBUG_PRINT_INFO ("Successfully read and recieved data %d \n", transfer->actual_length);
-            memcpy (&errorStatus, &uartStatus[8], 2); 
+            memcpy (&errorStatus, &uartStatus[8], 2);
             printf ("%x %x ", uartStatus[8], uartStatus[9]);
             callbackFn (errorStatus);
             errorStatus = 0;
         }
         else{
-            errorStatus |= CY_ERROR_EVENT_FAILED_BIT; 
+            errorStatus |= CY_ERROR_EVENT_FAILED_BIT;
             if (device->uartCancelEvent == false){
                 CY_DEBUG_PRINT_ERROR ("CY:Error uart interrupt thread encountered error... Libusb transmission error is %d \n", transfer->status);
                 device->uartThreadId = 0;
@@ -291,12 +291,12 @@ void* spiSetEventNotifcation (void *inputParameters)
         callbackFn (errorStatus);
         goto END;
     }
-    libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, &spiStatus, length, 
+    libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, &spiStatus, length,
             spi_notification_cb, &transferCompleted, CY_EVENT_NOTIFICATION_TIMEOUT);
     while (device->spiCancelEvent == false){
         if (libusb_submit_transfer (transfer)){
             CY_DEBUG_PRINT_ERROR ("CY:Error submitting spi interrupt token ... \n");
-            errorStatus |= CY_ERROR_EVENT_FAILED_BIT; 
+            errorStatus |= CY_ERROR_EVENT_FAILED_BIT;
             callbackFn(errorStatus);
             break;
         }
@@ -309,7 +309,7 @@ void* spiSetEventNotifcation (void *inputParameters)
         if (transfer->status == LIBUSB_TRANSFER_COMPLETED){
             CY_DEBUG_PRINT_INFO ("Successfully read and recieved data %d \n", transfer->actual_length);
             if (spiStatus & CY_SPI_UNDERFLOW_ERROR){
-                errorStatus |= (CY_SPI_TX_UNDERFLOW_BIT); 
+                errorStatus |= (CY_SPI_TX_UNDERFLOW_BIT);
             }
             if (spiStatus & CY_SPI_BUS_ERROR){
                 errorStatus |= (CY_SPI_BUS_ERROR_BIT);
@@ -321,7 +321,7 @@ void* spiSetEventNotifcation (void *inputParameters)
             spiStatus |= CY_ERROR_EVENT_FAILED_BIT;
             if (device->spiCancelEvent == false){
                 device->spiThreadId = 0;
-                CY_DEBUG_PRINT_ERROR ("CY:Error spi interrupt thread was cancelled... Libusb transmission error is %d \n", transfer->status);    
+                CY_DEBUG_PRINT_ERROR ("CY:Error spi interrupt thread was cancelled... Libusb transmission error is %d \n", transfer->status);
                 callbackFn (spiStatus);
             }
             break;
@@ -348,7 +348,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if (notificationCbFn == NULL){    
+    if (notificationCbFn == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -374,7 +374,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
             free (args);
             pthread_mutex_unlock (&device->notificationLock);
             CY_DEBUG_PRINT_ERROR ("CY:Error creating spi notification thread ... Function is %s \n", __func__);
-            return CY_ERROR_REQUEST_FAILED;  
+            return CY_ERROR_REQUEST_FAILED;
         }
     }
     else if (device->deviceType == CY_TYPE_UART){
@@ -394,8 +394,8 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
             free (args);
             pthread_mutex_unlock (&device->notificationLock);
             CY_DEBUG_PRINT_ERROR ("CY:Error creating uart notification thread ... Function is %s \n", __func__);
-            return CY_ERROR_REQUEST_FAILED;  
-        }    
+            return CY_ERROR_REQUEST_FAILED;
+        }
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY:Error unknown device type ....Function is %s \n", __func__);
@@ -422,8 +422,8 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
         pthread_join (device->uartThreadId, NULL);
         device->uartThreadId = 0;
         device->uartCancelEvent = false;
-        pthread_mutex_unlock (&device->notificationLock); 
-        return CY_SUCCESS;    
+        pthread_mutex_unlock (&device->notificationLock);
+        return CY_SUCCESS;
     }
     else if (device->deviceType == CY_TYPE_SPI){
         if ((device->spiThreadId == 0)){
@@ -436,8 +436,8 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
         pthread_join (device->spiThreadId, NULL);
         device->spiThreadId = 0;
         device->spiCancelEvent = false;
-        pthread_mutex_unlock (&device->notificationLock); 
-        return CY_SUCCESS;    
+        pthread_mutex_unlock (&device->notificationLock);
+        return CY_SUCCESS;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY:Error.. unknown device type ....function is %s \n", __func__);
@@ -450,7 +450,7 @@ The API is used to programme user flash area
 */
 CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyProgUserFlash (
     CY_HANDLE handle,                       /*Valid device handle*/
-    CY_DATA_BUFFER *progBuffer,             /*data buffer containing buffer address, length to write*/            
+    CY_DATA_BUFFER *progBuffer,             /*data buffer containing buffer address, length to write*/
     UINT32 flashAddress,                    /*Address to the data is written*/
     UINT32 ioTimeout                          /*Timeout value of the API*/
     )
@@ -460,7 +460,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyProgUserFlash (
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
-    
+
     if (handle == NULL)
         return CY_ERROR_INVALID_HANDLE;
     if ((progBuffer == NULL) || (progBuffer->buffer == NULL))
@@ -468,9 +468,9 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyProgUserFlash (
 
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
-    
+
     bmRequestType = CY_VENDOR_REQUEST_HOST_TO_DEVICE;
-    bmRequest = CY_PROG_USER_FLASH_CMD; 
+    bmRequest = CY_PROG_USER_FLASH_CMD;
     wValue = 0;
     wIndex = flashAddress;
     wLength = progBuffer->length;
@@ -498,7 +498,7 @@ The API is used to programme user flash area
 */
 CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyReadUserFlash (
     CY_HANDLE handle,                       /*Valid device handle*/
-    CY_DATA_BUFFER *readBuffer,             /*data buffer containing buffer address, length to write*/            
+    CY_DATA_BUFFER *readBuffer,             /*data buffer containing buffer address, length to write*/
     UINT32 flashAddress,                    /*Address to the data is written*/
     UINT32 ioTimeout                          /*Timeout value of the API*/
     )
@@ -508,7 +508,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyReadUserFlash (
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
-    
+
     if (handle == NULL)
         return CY_ERROR_INVALID_HANDLE;
     if ((readBuffer == NULL) || (readBuffer == NULL))
@@ -516,9 +516,9 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyReadUserFlash (
 
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
-    
+
     bmRequestType = CY_VENDOR_REQUEST_DEVICE_TO_HOST;
-    bmRequest = CY_READ_USER_FLASH_CMD; 
+    bmRequest = CY_READ_USER_FLASH_CMD;
     wValue = 0;
     wIndex = flashAddress;
     wLength = readBuffer->length;
@@ -542,7 +542,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyReadUserFlash (
     }
 }
 /*
-   This Api is used to get the signature of the device. It would be CYUS when we are in actual device mode 
+   This Api is used to get the signature of the device. It would be CYUS when we are in actual device mode
    and CYBL when we are bootloader modeñ
  */
 CY_RETURN_STATUS CyGetSignature (
@@ -562,7 +562,7 @@ CY_RETURN_STATUS CyGetSignature (
     devHandle = device->devHandle;
 
     bmRequestType = CY_VENDOR_REQUEST_DEVICE_TO_HOST;
-    bmRequest = CY_GET_SIGNATURE_CMD; 
+    bmRequest = CY_GET_SIGNATURE_CMD;
     wValue = 0x00;
     wIndex = 0x00;
     wLength = CY_GET_SIGNATURE_LEN;

@@ -29,7 +29,7 @@ CY_RETURN_STATUS CyLibraryInit ()
 {
     UINT32 rStatus;
     rStatus = libusb_init (NULL);
-    
+
     if (glDriverInit != true){
         if (rStatus != LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_ERROR ("CY:Driver Init Failed ...\n");
@@ -67,8 +67,8 @@ CY_RETURN_STATUS CyLibraryExit ()
     return CY_ERROR_REQUEST_FAILED;
 }
 /*
- * This function Gets the number of all the devices currently 
- * Connected to the host (It includes Cypress Device as well as 
+ * This function Gets the number of all the devices currently
+ * Connected to the host (It includes Cypress Device as well as
  * no Cypress Devices connected)
  */
 CY_RETURN_STATUS CyGetListofDevices (
@@ -92,10 +92,10 @@ CY_RETURN_STATUS CyGetListofDevices (
         (*numDevices) = -1;
         return CY_ERROR_REQUEST_FAILED;
     }
-    return CY_SUCCESS;     
+    return CY_SUCCESS;
 }
 /* This function gets all the neccessary info such as VID,PID,
-   String Descriptors and if is a cypress serial device you will 
+   String Descriptors and if is a cypress serial device you will
    get the info on class and device type
  */
 CY_RETURN_STATUS CyGetDeviceInfo (
@@ -121,24 +121,24 @@ CY_RETURN_STATUS CyGetDeviceInfo (
     if (deviceNumber >= glNumDevices){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid device number... \n");
         pthread_mutex_unlock (&criticalSection);
-        return CY_ERROR_INVALID_PARAMETER;    
+        return CY_ERROR_INVALID_PARAMETER;
     }
-    usbDevice = glDeviceList[deviceNumber]; 
+    usbDevice = glDeviceList[deviceNumber];
     rStatus = libusb_get_device_descriptor (usbDevice, &deviceDesc);
     if (rStatus != LIBUSB_SUCCESS){
         CY_DEBUG_PRINT_ERROR ("CY:Error ... unable to retrieve device descriptor \n");
         pthread_mutex_unlock (&criticalSection);
-        return CY_ERROR_DEVICE_INFO_FETCH_FAILED;    
+        return CY_ERROR_DEVICE_INFO_FETCH_FAILED;
     }
-    
+
     deviceInfo->vidPid.vid = deviceDesc.idVendor;
     deviceInfo->vidPid.pid = deviceDesc.idProduct;
-    // Get the all the index of the String descriptors so that it can be used 
+    // Get the all the index of the String descriptors so that it can be used
     // to retrieve the string descriptor info.
     iManufacturer = deviceDesc.iManufacturer;
     iProduct = deviceDesc.iProduct;
     iSerial = deviceDesc.iSerialNumber;
-    //Get the Device handle so that we can communicate with the device retreiving 
+    //Get the Device handle so that we can communicate with the device retreiving
     // descriptor info
     deviceInfo->manufacturerName[0] = '\0';
     deviceInfo->productName[0] = '\0';
@@ -196,7 +196,7 @@ CY_RETURN_STATUS CyGetDeviceInfo (
         CY_DEBUG_PRINT_ERROR ("CY: Error in Getting config descriptor ...Libusb error is %d \n", rStatus);
         if (devHandle)
             libusb_close (devHandle);
-        pthread_mutex_unlock (&criticalSection);    
+        pthread_mutex_unlock (&criticalSection);
         return CY_ERROR_DEVICE_INFO_FETCH_FAILED;
     }
     if (devHandle)
@@ -205,7 +205,7 @@ CY_RETURN_STATUS CyGetDeviceInfo (
     return CY_SUCCESS;
 }
 /* This function gets all the neccessary info such as VID,PID,
-   String Descriptors and if is a cypress serial device you will 
+   String Descriptors and if is a cypress serial device you will
    get the info on class and device type
  */
 CY_RETURN_STATUS CyGetDeviceInfoVidPid (
@@ -223,7 +223,7 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
     struct libusb_config_descriptor *configDesc;
     libusb_device_handle *devHandle = NULL;
     PCY_DEVICE_INFO deviceInfo;
-    
+
     if (glDriverInit == false){
         CY_DEBUG_PRINT_ERROR ("CY:Error Library not initialised ...function is %s\n", __func__);
         return CY_ERROR_REQUEST_FAILED;
@@ -238,7 +238,7 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
     (*deviceCount) = 0;
     pthread_mutex_lock (&criticalSection);
     for (devNum = 0; devNum < glNumDevices; devNum++) {
-        //We are making sure that we do not overrun 
+        //We are making sure that we do not overrun
         //the list.
         deviceInfo = &(deviceInfoList [index]);
         usbDevice = glDeviceList[devNum];
@@ -246,7 +246,7 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
         if (rStatus != LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_ERROR ("CY:Error in getting device descriptor for device-%d... Libusb Error is %d \n", devNum, rStatus);
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DEVICE_INFO_FETCH_FAILED; 
+            return CY_ERROR_DEVICE_INFO_FETCH_FAILED;
         }
         if ((deviceDesc.idVendor != vidPid.vid) || (deviceDesc.idProduct != vidPid.pid)){
             continue;
@@ -260,22 +260,22 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
             CY_DEBUG_PRINT_ERROR ("CY:Insufficient permission ... Libusb error is %d \n", rStatus);
             pthread_mutex_unlock (&criticalSection);
             return CY_ERROR_ACCESS_DENIED;
-        } 
+        }
         else if (rStatus != LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_ERROR ("CY:Error in Opening the Device ...Error is %d \n", rStatus);
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DEVICE_INFO_FETCH_FAILED;     
+            return CY_ERROR_DEVICE_INFO_FETCH_FAILED;
         }
         deviceNumber[index] = devNum;
         index++;
         deviceInfo->vidPid.vid = deviceDesc.idVendor;
         deviceInfo->vidPid.pid = deviceDesc.idProduct;
-        // Get all the index of the String descriptors so that it can be used 
+        // Get all the index of the String descriptors so that it can be used
         // to retrieve the string descriptor info.
         iManufacturer = deviceDesc.iManufacturer;
         iProduct = deviceDesc.iProduct;
         iSerial = deviceDesc.iSerialNumber;
-        //Get the Device handle so that we can communicate with the device retreiving 
+        //Get the Device handle so that we can communicate with the device retreiving
         // descriptor info
         //Initialise manufacturer, product and serial names
         deviceInfo->manufacturerName[0] = '\0';
@@ -323,7 +323,7 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
         else {
             CY_DEBUG_PRINT_ERROR ("CY: Error in Getting config descriptor ... Libusb Error is %d\n", rStatus);
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DEVICE_INFO_FETCH_FAILED; 
+            return CY_ERROR_DEVICE_INFO_FETCH_FAILED;
         }
         libusb_free_config_descriptor (configDesc);
         libusb_close (devHandle);
@@ -343,7 +343,7 @@ CY_RETURN_STATUS CySelectInterface (
         )
 {
     UINT32 rStatus, numEP;
-    CY_DEVICE *device; 
+    CY_DEVICE *device;
     libusb_device_handle *devHandle;
     libusb_device *usbDev;
     struct libusb_config_descriptor *configDesc;
@@ -360,8 +360,8 @@ CY_RETURN_STATUS CySelectInterface (
         CY_DEBUG_PRINT_ERROR ("CY:Error Invalide handle ..function is %s\n", __func__);
         return CY_ERROR_REQUEST_FAILED;
     }
-    //Get the config descriptor and parse it to get the 
-    //interface and endpoint descriptor 
+    //Get the config descriptor and parse it to get the
+    //interface and endpoint descriptor
     rStatus = libusb_get_config_descriptor (usbDev, 0, &configDesc);
     if (rStatus != LIBUSB_SUCCESS){
         CY_DEBUG_PRINT_ERROR ("CY:Error in Getting Config Desc ...function is %s\n", __func__);
@@ -395,7 +395,7 @@ CY_RETURN_STATUS CySelectInterface (
     device->interfaceNum = interfaceNum;
     while (interfaceNum--)
         interfaceDesc++;
-    
+
     epDesc = interfaceDesc->altsetting->endpoint;
     numEP = interfaceDesc->altsetting->bNumEndpoints;
     device->numEndpoints = numEP;
@@ -406,15 +406,15 @@ CY_RETURN_STATUS CySelectInterface (
         if (epDesc->bmAttributes == 0x2){ //Bulk EP checking
             if (epDesc->bEndpointAddress & 0x80)
                 device->inEndpoint = epDesc->bEndpointAddress;
-            else 
+            else
                 device->outEndpoint = epDesc->bEndpointAddress;
         }
         else if (epDesc->bmAttributes == 0x3) //Interrupt EP checking (We have only one interrupt EP)
             device->interruptEndpoint = epDesc->bEndpointAddress;
         epDesc++;
-        numEP--;     
+        numEP--;
     }
-    CY_DEBUG_PRINT_INFO ("CY:Info The Endpoints are in %d and out %d and interrup %d\n", 
+    CY_DEBUG_PRINT_INFO ("CY:Info The Endpoints are in %d and out %d and interrup %d\n",
             device->inEndpoint, device->outEndpoint, device->interruptEndpoint);
     libusb_free_config_descriptor (configDesc);
     return CY_SUCCESS;
@@ -478,15 +478,15 @@ CY_RETURN_STATUS CyOpen (
         rStatus = libusb_open (dev, &devHandle);
         if (rStatus == LIBUSB_ERROR_ACCESS){
             CY_DEBUG_PRINT_ERROR ("CY:Error in opening the device ..Access denied \n");
-            handle = NULL; 
+            handle = NULL;
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_ACCESS_DENIED;     
+            return CY_ERROR_ACCESS_DENIED;
         }
         if (rStatus != LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_ERROR ("CY:Error in Opening the Device ...Error is %d \n", rStatus);
-            handle = NULL; 
+            handle = NULL;
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DRIVER_OPEN_FAILED;     
+            return CY_ERROR_DRIVER_OPEN_FAILED;
         }
         device = (CY_DEVICE *)malloc(sizeof (CY_DEVICE));
         if (device == NULL){
@@ -521,21 +521,21 @@ CY_RETURN_STATUS CyOpen (
             libusb_close (devHandle);
             free (device);
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DRIVER_OPEN_FAILED; 
+            return CY_ERROR_DRIVER_OPEN_FAILED;
         }
         if (pthread_mutex_init (&device->writeLock, NULL)){
             CY_DEBUG_PRINT_ERROR ("CY:Error initializing the write mutex .. Function is %s \n", __func__);
             libusb_close (devHandle);
             free (device);
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DRIVER_OPEN_FAILED; 
+            return CY_ERROR_DRIVER_OPEN_FAILED;
         }
         if (pthread_mutex_init (&device->notificationLock, NULL)){
             CY_DEBUG_PRINT_ERROR ("CY:Error initializing the write mutex .. Function is %s \n", __func__);
             libusb_close (devHandle);
             free (device);
             pthread_mutex_unlock (&criticalSection);
-            return CY_ERROR_DRIVER_OPEN_FAILED; 
+            return CY_ERROR_DRIVER_OPEN_FAILED;
         }
         pthread_mutex_unlock (&criticalSection);
         return CY_SUCCESS;
@@ -573,15 +573,15 @@ CY_RETURN_STATUS CyClose (
         }
         if (pthread_mutex_destroy (&device->readLock)){
             CY_DEBUG_PRINT_ERROR ("CY:Error de initializing the read mutex .. Function is %s \n", __func__);
-            return CY_ERROR_REQUEST_FAILED; 
+            return CY_ERROR_REQUEST_FAILED;
         }
         if (pthread_mutex_destroy (&device->writeLock)){
             CY_DEBUG_PRINT_ERROR ("CY:Error de initializing the write mutex .. Function is %s \n", __func__);
-            return CY_ERROR_REQUEST_FAILED; 
+            return CY_ERROR_REQUEST_FAILED;
         }
         if (pthread_mutex_destroy (&device->notificationLock)){
             CY_DEBUG_PRINT_ERROR ("CY:Error de initializing the write mutex .. Function is %s \n", __func__);
-            return CY_ERROR_REQUEST_FAILED; 
+            return CY_ERROR_REQUEST_FAILED;
         }
         libusb_close ((libusb_device_handle*)devHandle);
         free (device);
@@ -611,10 +611,10 @@ CY_RETURN_STATUS CyResetPipe (
         return CY_ERROR_REQUEST_FAILED;
     }
     return CY_SUCCESS;
-}   
+}
 /*
    This Api will get the library version,patch
-   and build number 
+   and build number
  */
 CY_RETURN_STATUS CyGetLibraryVersion (
         CY_HANDLE handle,

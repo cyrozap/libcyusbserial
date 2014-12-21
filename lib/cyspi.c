@@ -1,5 +1,5 @@
 /*
- * SPI routines of Cypress USB Serial 
+ * SPI routines of Cypress USB Serial
  * Copyright (C) 2013  Cypress Semiconductor
  *
  * This library is free software; you can redistribute it and/or
@@ -48,12 +48,12 @@ typedef struct
 #pragma pack()
 
 struct timeval startSpiTimeWrite, endSpiTimeWrite, startSpiTimeRead, endSpiTimeRead;
-//Timer helper functions for proper timing 
+//Timer helper functions for proper timing
 void startSpiTick (bool isWrite) {
     if (isWrite)
         gettimeofday (&startSpiTimeWrite, NULL);
-    else 
-        gettimeofday (&startSpiTimeRead, NULL);   
+    else
+        gettimeofday (&startSpiTimeRead, NULL);
 }
 
 UINT32 getSpiLapsedTime (bool isWrite){
@@ -81,7 +81,7 @@ UINT32 getSpiLapsedTime (bool isWrite){
 CY_RETURN_STATUS CyGetSpiConfig (
         CY_HANDLE handle,
         CY_SPI_CONFIG *spiConfig
-        )	
+        )
 {
     UINT16 wValue, wIndex, wLength;
     UINT16 bmRequestType, bmRequest;
@@ -96,7 +96,7 @@ CY_RETURN_STATUS CyGetSpiConfig (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if (spiConfig == NULL){    
+    if (spiConfig == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -108,7 +108,7 @@ CY_RETURN_STATUS CyGetSpiConfig (
     }
     if (device->interfaceNum > 0)
         scbIndex = 1;
-        
+
     bmRequestType = CY_VENDOR_REQUEST_DEVICE_TO_HOST;
     bmRequest = CY_SPI_GET_CONFIG_CMD;
     wValue = (scbIndex << CY_SCB_INDEX_POS);
@@ -119,7 +119,7 @@ CY_RETURN_STATUS CyGetSpiConfig (
             wValue, wIndex, (unsigned char*)&localSpiConfig, wLength, ioTimeout);
     if (rStatus == CY_SPI_CONFIG_LEN){
         //CY_DUMP_DATA ((unsigned char*)&localSpiConfig, wLength);
-        CY_DEBUG_PRINT_INFO ("CY: Read SPI config successfully %d\n", rStatus);   
+        CY_DEBUG_PRINT_INFO ("CY: Read SPI config successfully %d\n", rStatus);
         spiConfig->frequency = localSpiConfig.frequency;
         spiConfig->dataWidth = localSpiConfig.dataWidth;
         spiConfig->protocol = localSpiConfig.mode;
@@ -141,13 +141,13 @@ CY_RETURN_STATUS CyGetSpiConfig (
     }
 }
 /*
-   This API sets SPI config of the device for that 
-   interface  
+   This API sets SPI config of the device for that
+   interface
  */
 CY_RETURN_STATUS CySetSpiConfig (
         CY_HANDLE handle,
         CY_SPI_CONFIG *spiConfig
-        )	
+        )
 {
     UINT16 wValue, wIndex, wLength;
     UINT8 bmRequestType, bmRequest;
@@ -162,7 +162,7 @@ CY_RETURN_STATUS CySetSpiConfig (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if (spiConfig == NULL){    
+    if (spiConfig == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -175,7 +175,7 @@ CY_RETURN_STATUS CySetSpiConfig (
     }
     if (spiConfig->frequency < 1000 || spiConfig->frequency > 3000000){
         CY_DEBUG_PRINT_ERROR ("CY:Error frequency trying to set in out of range ... Function is %s\n", __func__);
-        return CY_ERROR_INVALID_PARAMETER;            
+        return CY_ERROR_INVALID_PARAMETER;
     }
     if (spiConfig->protocol == CY_SPI_TI){
         if (!(spiConfig->isCpol == false && spiConfig->isCpha == true && spiConfig->isContinuousMode == false)){
@@ -186,7 +186,7 @@ CY_RETURN_STATUS CySetSpiConfig (
     if (spiConfig->protocol == CY_SPI_NS){
         if (!(spiConfig->isCpol == false && spiConfig->isCpha == false && spiConfig->isSelectPrecede == false)){
             CY_DEBUG_PRINT_ERROR ("CY:Error ... Wrong configuration for SPI ti mode \n");
-            return CY_ERROR_REQUEST_FAILED; 
+            return CY_ERROR_REQUEST_FAILED;
         }
     }
     else{
@@ -218,8 +218,8 @@ CY_RETURN_STATUS CySetSpiConfig (
     //CY_DUMP_DATA ((unsigned char*)&localSpiConfig, wLength);
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, (unsigned char*)&localSpiConfig, wLength, ioTimeout);
-    if (rStatus == CY_SPI_CONFIG_LEN){ 
-        CY_DEBUG_PRINT_INFO ("CY: Setting SPI config success ...\n");   
+    if (rStatus == CY_SPI_CONFIG_LEN){
+        CY_DEBUG_PRINT_INFO ("CY: Setting SPI config success ...\n");
         return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
@@ -256,7 +256,7 @@ CY_RETURN_STATUS CySpiReset (CY_HANDLE handle)
     bmRequest = CY_SPI_RESET_CMD;
     wValue = ((scbIndex << CY_SCB_INDEX_POS));
     wIndex = 0;
-    wLength = 0; 
+    wLength = 0;
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,wValue, wIndex, NULL, wLength, ioTimeout);
     if (rStatus < 0){
         CY_DEBUG_PRINT_ERROR ("CY:Error in sending spi reset command...Libusb error is %d\n", rStatus);
@@ -265,8 +265,8 @@ CY_RETURN_STATUS CySpiReset (CY_HANDLE handle)
     return CY_SUCCESS;
 }
 /*
-   This API reads SPI data from the specified interface of the device 
-   interface  
+   This API reads SPI data from the specified interface of the device
+   interface
  */
 
 static void LIBUSB_CALL spi_read_cb(struct libusb_transfer *transfer)
@@ -280,8 +280,8 @@ static void LIBUSB_CALL spi_read_cb(struct libusb_transfer *transfer)
 CY_RETURN_STATUS CySpiRead (
         CY_HANDLE handle,
         CY_DATA_BUFFER *readBuffer,
-        UINT32 ioTimeout        
-        )	
+        UINT32 ioTimeout
+        )
 {
     struct libusb_transfer *readTransfer;
     CY_DEVICE *device;
@@ -321,7 +321,7 @@ CY_RETURN_STATUS CySpiRead (
     if ((readTransfer->status == LIBUSB_TRANSFER_COMPLETED)){
         readBuffer->transferCount = readTransfer->actual_length;
         libusb_free_transfer (readTransfer);
-        return CY_SUCCESS; 
+        return CY_SUCCESS;
     }
     else{
         if (readTransfer->status == LIBUSB_TRANSFER_TIMED_OUT){
@@ -344,7 +344,7 @@ CY_RETURN_STATUS CySpiRead (
         }
         if (readTransfer->status != LIBUSB_TRANSFER_COMPLETED){
             CY_DEBUG_PRINT_ERROR ("CY:Error in doing SPI read/write .... Libusb errors are %d %d\n",
-                            readTransfer->status, readTransfer->actual_length);             
+                            readTransfer->status, readTransfer->actual_length);
             readBuffer->transferCount = readTransfer->actual_length;
             CySpiReset (handle);
             libusb_free_transfer (readTransfer);
@@ -381,7 +381,7 @@ CY_RETURN_STATUS CyGetSpiStatus (CY_HANDLE handle,
     bmRequest = CY_SPI_GET_STATUS_CMD;
     wValue = ((scbIndex << CY_SCB_INDEX_POS));
     wIndex = 0;
-    wLength = CY_SPI_GET_STATUS_LEN; 
+    wLength = CY_SPI_GET_STATUS_LEN;
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,wValue, wIndex, (UCHAR*)spiStatus, wLength, ioTimeout);
     if (rStatus < CY_SPI_GET_STATUS_LEN){
         CY_DEBUG_PRINT_INFO ("CY:Error in sending spi Get Status command...Libusb error is %d\n", rStatus);
@@ -393,8 +393,8 @@ CY_RETURN_STATUS CyGetSpiStatus (CY_HANDLE handle,
 CY_RETURN_STATUS CySpiWrite (
         CY_HANDLE handle,
         CY_DATA_BUFFER *writeBuffer,
-        UINT32 ioTimeout        
-        )	
+        UINT32 ioTimeout
+        )
 {
     int rStatus;
     CY_DEVICE *device;
@@ -410,14 +410,14 @@ CY_RETURN_STATUS CySpiWrite (
         return CY_ERROR_REQUEST_FAILED;
     }
     startSpiTick (true);
-    rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length, 
+    rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length,
             (int*)&(writeBuffer->transferCount), newIoTimeout);
     elapsedTime = getSpiLapsedTime(true);
     newIoTimeout = ioTimeout - elapsedTime;
     //because we have a sleep of 1 msec after every getstatus
     if (newIoTimeout)
         loopCount = (newIoTimeout);
-    if ((rStatus == LIBUSB_SUCCESS)){ 
+    if ((rStatus == LIBUSB_SUCCESS)){
         CY_DEBUG_PRINT_INFO ("CY: Successfully written SPI data.. %d bytes Read ...\n", writeBuffer->transferCount);
         while (loopCount){
             usleep (1000);
@@ -444,13 +444,13 @@ CY_RETURN_STATUS CySpiWrite (
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         CY_DEBUG_PRINT_ERROR ("CY:Error TimeOut ...function is %s\n", __func__);
         CySpiReset (handle);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else if (rStatus == LIBUSB_ERROR_PIPE){
         CY_DEBUG_PRINT_ERROR ("CY:Error Pipe error..function is %s\n", __func__);
         CySpiReset (handle);
         CyResetPipe (handle, device->outEndpoint);
-        return CY_ERROR_PIPE_HALTED;   
+        return CY_ERROR_PIPE_HALTED;
     }
     else if (rStatus == LIBUSB_ERROR_OVERFLOW){
         CY_DEBUG_PRINT_ERROR ("CY:Error Buffer Overflow...function is %s\n", __func__);
@@ -458,7 +458,7 @@ CY_RETURN_STATUS CySpiWrite (
     }
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         CY_DEBUG_PRINT_ERROR ("CY:Error Device Disconnected ...function is %s\n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY:Error in writing SPI data ...Libusb Error is %d and bytes read is %d!\n", rStatus, writeBuffer->transferCount);
@@ -480,13 +480,13 @@ void spiCollectData (void *inputParameters) {
     CY_HANDLE handle = inputData->handle;
     int newTimeout = inputData->ioTimeout, elapsedTime;
     while (readLength != length && newTimeout >= 0 && rStatus == CY_SUCCESS){
-        //Get current time 
+        //Get current time
         //Buffer is pointing to next address where we are suppose to fill the data
         readBuffer.buffer = &buffer[readLength];
         //Updated length which total length minus the total length of data read
         readBuffer.length = length - readLength;
         //Libusb fix for mac os!!
-        //ISSUE:when api times out in MAC it comes back and say read length = 0!! 
+        //ISSUE:when api times out in MAC it comes back and say read length = 0!!
 #ifdef __APPLE__
         if (readBuffer.length > 64)
             readBuffer.length = 64;
@@ -498,7 +498,7 @@ void spiCollectData (void *inputParameters) {
         if (newTimeout){
             newTimeout = newTimeout - elapsedTime;
             //If timeout is 0 then libusb considers that as infinite
-            //So forcefully make the loop to comeout    
+            //So forcefully make the loop to comeout
             if (newTimeout <= 0)
                 rStatus = CY_ERROR_IO_TIMEOUT;
         }
@@ -515,10 +515,10 @@ void spiCollectData (void *inputParameters) {
     inputData->rStatus = rStatus;
 }
 /*
- * Api used to do read as well as write on spi 
+ * Api used to do read as well as write on spi
  */
-CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle, 
-        CY_DATA_BUFFER *readBuffer, 
+CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle,
+        CY_DATA_BUFFER *readBuffer,
         CY_DATA_BUFFER *writeBuffer,
         UINT32 ioTimeout)
 {
@@ -531,7 +531,7 @@ CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle,
     unsigned short spiTransferMode = 0, scbIndex = 0;
     UINT16 wValue, wIndex = 0, wLength;
     UINT16 bmRequestType, bmRequest;
-    
+
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
@@ -539,7 +539,7 @@ CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle,
     if (readBuffer == NULL && writeBuffer == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
-    }  
+    }
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
     if (device->deviceType != CY_TYPE_SPI) {
@@ -552,19 +552,19 @@ CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle,
         spiTransferMode &= ~(CY_SPI_READ_BIT);
     if ((writeBuffer == NULL || writeBuffer->length == 0 || writeBuffer->buffer == NULL))
         spiTransferMode &= ~(CY_SPI_WRITE_BIT);
-    //if none of the bit is set it implies parameters sent is wrong    
+    //if none of the bit is set it implies parameters sent is wrong
     if (spiTransferMode == 0){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
-    }  
+    }
     if (device->interfaceNum > 0)
         scbIndex = 1;
     //In read only case we take length to be equal to readBuffer length.
-    //But in write or in write/read case we take length = writeBuffer length. 
-    if (spiTransferMode == 0x1) 
+    //But in write or in write/read case we take length = writeBuffer length.
+    if (spiTransferMode == 0x1)
         wIndex = readBuffer->length;
     else
-        wIndex = writeBuffer->length;     
+        wIndex = writeBuffer->length;
     spiTransferMode |= (scbIndex << 15);
     bmRequestType = CY_VENDOR_REQUEST_HOST_TO_DEVICE;
     bmRequest = CY_SPI_READ_WRITE_CMD;

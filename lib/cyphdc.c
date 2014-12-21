@@ -1,5 +1,5 @@
 /*
- * PHDC routines of Cypress USB Serial 
+ * PHDC routines of Cypress USB Serial
  * Copyright (C) 2013  Cypress Semiconductor
  *
  * This library is free software; you can redistribute it and/or

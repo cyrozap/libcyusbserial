@@ -1,5 +1,5 @@
 /*
- * JTAG routines of Cypress USB Serial 
+ * JTAG routines of Cypress USB Serial
  * Copyright (C) 2013  Cypress Semiconductor
  *
  * This library is free software; you can redistribute it and/or
@@ -23,7 +23,7 @@
  */
 CY_RETURN_STATUS CyJtagEnable (
         CY_HANDLE handle
-        )	
+        )
 {
     UINT16 wValue, wIndex, wLength;
     UINT16 bmRequestType, bmRequest;
@@ -35,7 +35,7 @@ CY_RETURN_STATUS CyJtagEnable (
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
-    }    
+    }
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
     if (device->deviceType != CY_TYPE_JTAG) {
@@ -50,7 +50,7 @@ CY_RETURN_STATUS CyJtagEnable (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, NULL, wLength, ioTimeout);
     if (rStatus >= 0){
-        CY_DEBUG_PRINT_INFO ("CY: JTAG enable successfully \n");   
+        CY_DEBUG_PRINT_INFO ("CY: JTAG enable successfully \n");
         return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
@@ -67,7 +67,7 @@ CY_RETURN_STATUS CyJtagEnable (
  */
 CY_RETURN_STATUS CyJtagDisable (
         CY_HANDLE handle
-        )	
+        )
 {
     UINT16 wValue, wIndex, wLength;
     UINT16 bmRequestType, bmRequest;
@@ -94,7 +94,7 @@ CY_RETURN_STATUS CyJtagDisable (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, NULL, wLength, ioTimeout);
     if (rStatus >= 0){
-        CY_DEBUG_PRINT_INFO ("CY: JTAG disable successfully \n");   
+        CY_DEBUG_PRINT_INFO ("CY: JTAG disable successfully \n");
         return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
@@ -112,20 +112,20 @@ CY_RETURN_STATUS CyJtagDisable (
 CY_RETURN_STATUS CyJtagWrite (
         CY_HANDLE handle,
         CY_DATA_BUFFER *writeBuffer,
-        UINT32 ioTimeout        
-        )	
+        UINT32 ioTimeout
+        )
 {
     int rStatus = 0;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
     UINT16 wValue, wIndex, wLength;
     UINT16 bmRequestType, bmRequest;
-    
+
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if ((writeBuffer == NULL) || (writeBuffer->buffer == NULL) || (writeBuffer->length == 0)){    
+    if ((writeBuffer == NULL) || (writeBuffer->buffer == NULL) || (writeBuffer->length == 0)){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -144,23 +144,23 @@ CY_RETURN_STATUS CyJtagWrite (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, NULL, wLength, ioTimeout);
     if (rStatus < 0){
-        CY_DEBUG_PRINT_ERROR ("CY: JTAG Vendor command failed %d...function is %s \n", rStatus, __func__);   
+        CY_DEBUG_PRINT_ERROR ("CY: JTAG Vendor command failed %d...function is %s \n", rStatus, __func__);
         return CY_ERROR_REQUEST_FAILED;
     }
-    rStatus = libusb_bulk_transfer (devHandle, CY_JTAG_OUT_EP, writeBuffer->buffer, writeBuffer->length, 
+    rStatus = libusb_bulk_transfer (devHandle, CY_JTAG_OUT_EP, writeBuffer->buffer, writeBuffer->length,
             (int*)&(writeBuffer->transferCount), ioTimeout);
     if ((rStatus == CY_SUCCESS)) {
         CY_DEBUG_PRINT_ERROR ("CY: Number of bytes written is .... %d \n", writeBuffer->transferCount);
-        return CY_SUCCESS;    
+        return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         CY_DEBUG_PRINT_ERROR ("CY:TimeOut error ...Function is %s %d\n", __func__, writeBuffer->transferCount);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else if (rStatus == LIBUSB_ERROR_PIPE){
         CY_DEBUG_PRINT_ERROR ("CY:Pipe error Function is %s \n", __func__);
         CyResetPipe (handle, CY_JTAG_OUT_EP);
-        return CY_ERROR_PIPE_HALTED;   
+        return CY_ERROR_PIPE_HALTED;
     }
     else if (rStatus == LIBUSB_ERROR_OVERFLOW){
         CY_DEBUG_PRINT_ERROR ("CY:Error Buffer Overflow..Function is %s \n", __func__);
@@ -168,7 +168,7 @@ CY_RETURN_STATUS CyJtagWrite (
     }
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s \n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY: Error in Function %s...Libusb Error is %d !\n", __func__, rStatus);
@@ -176,20 +176,20 @@ CY_RETURN_STATUS CyJtagWrite (
     }
 }
 /*
-   This API is used to read JTAG data from device interface  
+   This API is used to read JTAG data from device interface
  */
 CY_RETURN_STATUS CyJtagRead (
         CY_HANDLE handle,
         CY_DATA_BUFFER *readBuffer,
-        UINT32 ioTimeout        
-        )	
+        UINT32 ioTimeout
+        )
 {
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
     UINT16 wValue, wIndex, wLength;
     UINT16 bmRequestType, bmRequest;
-    
+
     bmRequestType = CY_VENDOR_REQUEST_HOST_TO_DEVICE;
     bmRequest = CY_JTAG_READ_CMD;
     wValue = readBuffer->length;
@@ -200,7 +200,7 @@ CY_RETURN_STATUS CyJtagRead (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if ((readBuffer == NULL) || (readBuffer->buffer == NULL) || (readBuffer->length == 0)){    
+    if ((readBuffer == NULL) || (readBuffer->buffer == NULL) || (readBuffer->length == 0)){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -214,23 +214,23 @@ CY_RETURN_STATUS CyJtagRead (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, NULL, wLength, ioTimeout);
     if (rStatus < 0){
-        CY_DEBUG_PRINT_INFO ("CY: JTAG Vendor Command failed %d..  Function is %s \n", rStatus, __func__);   
+        CY_DEBUG_PRINT_INFO ("CY: JTAG Vendor Command failed %d..  Function is %s \n", rStatus, __func__);
         return CY_ERROR_REQUEST_FAILED;
     }
-    rStatus = libusb_bulk_transfer (devHandle, CY_JTAG_IN_EP, readBuffer->buffer, readBuffer->length, 
+    rStatus = libusb_bulk_transfer (devHandle, CY_JTAG_IN_EP, readBuffer->buffer, readBuffer->length,
             (int*)&(readBuffer->transferCount), ioTimeout);
      if (rStatus == CY_SUCCESS){
         CY_DEBUG_PRINT_ERROR ("CY: Number of bytes read is .... %d \n", readBuffer->transferCount);
-        return CY_SUCCESS;    
+        return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         CY_DEBUG_PRINT_ERROR ("CY:TimeOut error ...Function is %s \n", __func__);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else if (rStatus == LIBUSB_ERROR_PIPE){
         CY_DEBUG_PRINT_ERROR ("CY:Pipe error Function is %s \n", __func__);
         CyResetPipe (handle, CY_JTAG_IN_EP);
-        return CY_ERROR_PIPE_HALTED;   
+        return CY_ERROR_PIPE_HALTED;
     }
     else if (rStatus == LIBUSB_ERROR_OVERFLOW){
         CY_DEBUG_PRINT_ERROR ("CY:Error Buffer Overflow..Function is %s \n", __func__);
@@ -238,7 +238,7 @@ CY_RETURN_STATUS CyJtagRead (
     }
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s \n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY: Error in function is %s ...Libusb Error is %d!\n", __func__, rStatus);

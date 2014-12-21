@@ -1,5 +1,5 @@
 /*
- * Common header file of Cypress USB Serial 
+ * Common header file of Cypress USB Serial
  * Copyright (C) 2013  Cypress Semiconductor
  *
  * This library is free software; you can redistribute it and/or
@@ -29,7 +29,6 @@
 #include "../include/CyUSBSerial.h"
 #pragma pack(1)
 typedef struct CY_DEVICE {
-    
     unsigned char inEndpoint;
     unsigned char outEndpoint;
     unsigned char interruptEndpoint;
@@ -68,7 +67,7 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
         }\
         printf ("\n");\
 }
-#else 
+#else
 #define CY_DUMP_DATA (INPUT, LEN) do { }while (0);
 #endif
 #define CY_USB_SERIAL_TIMEOUT 5000
@@ -100,13 +99,13 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 #define CY_SPI_EVENT_NOTIFICATION_LEN 2
 #define CY_SPI_READ_BIT (1)
 #define CY_SPI_WRITE_BIT (1 << 1)
-#define CY_SPI_SCB_INDEX_BIT (1 << 15)  
+#define CY_SPI_SCB_INDEX_BIT (1 << 15)
 #define CY_SPI_GET_STATUS_LEN 4
 #define CY_SPI_UNDERFLOW_ERROR (1)
 #define CY_SPI_BUS_ERROR (1 << 1)
 //Vendor UART related macros
 #define CY_UART_SET_FLOW_CONTROL_CMD 0x60
-#define CY_UART_SEND_BREAK_CMD  0x17 
+#define CY_UART_SEND_BREAK_CMD  0x17
 #define CY_UART_CONFIG_LEN 16
 #define CY_SET_LINE_CONTROL_STATE_CMD 0x22
 #define CY_UART_EVENT_NOTIFICATION_LEN 10
@@ -192,15 +191,15 @@ typedef enum CY_VENDOR_CMDS
     CY_GPIO_SET_CONFIG_CMD,             /* Set the GPIO configuration */
     CY_GPIO_GET_VALUE_CMD,              /* Get GPIO value: */
     CY_GPIO_SET_VALUE_CMD,                  /* Set the GPIO value:*/
-    CY_PROG_USER_FLASH_CMD = 0xE0,      /*Program user flash area. The total space available is 512 bytes. 
+    CY_PROG_USER_FLASH_CMD = 0xE0,      /*Program user flash area. The total space available is 512 bytes.
                                             This can be accessed by the user from USB. The flash area
                                             address offset is from 0x0000 to 0x00200 and can be written to
                                             page wise (128 byte).*/
-    CY_READ_USER_FLASH_CMD,             /*Read user flash area. The total space available is 512 bytes. 
+    CY_READ_USER_FLASH_CMD,             /*Read user flash area. The total space available is 512 bytes.
                                             This can be accessed by the user from USB. The flash area
                                             address offset is from 0x0000 to 0x00200 and can be written to
                                             page wise (128 byte).*/
-    CY_DEVICE_RESET_CMD = 0xE3,         /*Performs a device reset from firmware*/    
+    CY_DEVICE_RESET_CMD = 0xE3,         /*Performs a device reset from firmware*/
 
 } CY_VENDOR_CMDS;
 

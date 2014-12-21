@@ -1,5 +1,5 @@
 /*
- * UART routines of Cypress USB Serial 
+ * UART routines of Cypress USB Serial
  * Copyright (C) 2013  Cypress Semiconductor
  *
  * This library is free software; you can redistribute it and/or
@@ -35,9 +35,8 @@ typedef struct {
     UINT8 flags;
 }CyUsUartConfig_t;
 #pragma pack()
-//Timer helper functions for proper timing 
+//Timer helper functions for proper timing
 UINT32 getUartLapsedTime (struct timeval startTime){
-    
     signed int currentTime_sec, currentTime_usec, currentTime;
     struct timeval endTime;
     gettimeofday (&endTime, NULL);
@@ -46,8 +45,8 @@ UINT32 getUartLapsedTime (struct timeval startTime){
     currentTime = currentTime_sec + currentTime_usec;
     return (unsigned int)currentTime;
 }
-/* 
-   This API gets the current UART configuration of the 
+/*
+   This API gets the current UART configuration of the
    device.Such as GPIO's assigned, flowcontrol, BaudRate
    etc.
  */
@@ -72,7 +71,7 @@ CY_RETURN_STATUS CyGetUartConfig (
     if (uartConfig == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid input parameter..Function is %s\n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
-    } 
+    }
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
     if (device->deviceType != CY_TYPE_UART){
@@ -91,22 +90,22 @@ CY_RETURN_STATUS CyGetUartConfig (
     //Since we are not exposing all the configuration elements
     //parse and fill only relevant elements.
     if (rStatus == CY_UART_CONFIG_LEN){
-        uartConfig->dataWidth = localUartConfig.dataWidth;       
+        uartConfig->dataWidth = localUartConfig.dataWidth;
         uartConfig->baudRate = localUartConfig.baudRate;
         uartConfig->stopBits = localUartConfig.stopBits;
         uartConfig->parityMode = (CY_UART_PARITY_MODE)localUartConfig.parity;;
         uartConfig->isDropOnRxErrors = localUartConfig.rxIgnoreError;
-        //We are currently ignoring rest of the bits 
+        //We are currently ignoring rest of the bits
         CY_DEBUG_PRINT_INFO ("CY:Successfully read UART Config\n");
-        return CY_SUCCESS;    
+        return CY_SUCCESS;
     }
     else{
         CY_DEBUG_PRINT_ERROR ("CY:Error in reading UART config ... Libusb Error is %d \n", rStatus);
         return CY_ERROR_REQUEST_FAILED;
     }
 }
-/* 
-   This API sets the current UART configuration of the 
+/*
+   This API sets the current UART configuration of the
    device.Such as GPIO's assigned, flowcontrol, BaudRate
    etc.
  */
@@ -143,7 +142,7 @@ CY_RETURN_STATUS CySetUartConfig (
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
     if (device->interfaceNum > 0)
-        scbIndex = 1;        
+        scbIndex = 1;
     if (device->deviceType != CY_TYPE_UART){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid device type needs to be uart..Function is %s\n", __func__);
         return CY_ERROR_REQUEST_FAILED;
@@ -153,9 +152,9 @@ CY_RETURN_STATUS CySetUartConfig (
     wValue = (scbIndex << CY_SCB_INDEX_POS);
     wIndex = 0;
     wLength = CY_UART_CONFIG_LEN;
-    
-    memset (&localUartConfig, 0, CY_UART_CONFIG_LEN); 
-    //Fill in rest of the UART config structure elements 
+
+    memset (&localUartConfig, 0, CY_UART_CONFIG_LEN);
+    //Fill in rest of the UART config structure elements
     //that are not exposed in API with default values
     localUartConfig.baudRate = uartConfig->baudRate;
     localUartConfig.dataWidth = uartConfig->dataWidth;
@@ -166,7 +165,7 @@ CY_RETURN_STATUS CySetUartConfig (
             wValue, wIndex, (unsigned char*)&localUartConfig, wLength, ioTimeout);
     if (rStatus == CY_UART_CONFIG_LEN){
         CY_DEBUG_PRINT_INFO ("CY:Successfully Set UART Config \n");
-        return CY_SUCCESS;    
+        return CY_SUCCESS;
     }
     else{
         CY_DEBUG_PRINT_ERROR ("CY:Error in Setting UART config ... Libusb Error is %d \n", rStatus);
@@ -174,11 +173,11 @@ CY_RETURN_STATUS CySetUartConfig (
     }
 }
 /*
-   This Api writes the Data to UART block of the 
+   This Api writes the Data to UART block of the
    device.
  */
 CY_RETURN_STATUS CyUartWrite (
-        CY_HANDLE handle,		
+        CY_HANDLE handle,
         CY_DATA_BUFFER* writeBuffer,
         unsigned int ioTimeOut
         )
@@ -203,19 +202,19 @@ CY_RETURN_STATUS CyUartWrite (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid device type needs to be uart..Function is %s\n", __func__);
         return CY_ERROR_REQUEST_FAILED;
     }
-    rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length, 
+    rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length,
             (int *)&((writeBuffer->transferCount)), ioTimeOut);
     if ((rStatus == CY_SUCCESS)) {
         CY_DEBUG_PRINT_INFO ("CY: SuccessFull in Wrting Data,%d bytes were transfered \n", (writeBuffer->transferCount));
-        return CY_SUCCESS;    
+        return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         CY_DEBUG_PRINT_ERROR ("CY:TimeOut error ...Function is %s\n", __func__);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else if (rStatus == LIBUSB_ERROR_PIPE){
         CY_DEBUG_PRINT_ERROR ("CY:Pipe error endpoint Halted ...Function is %s\n", __func__);
-        CyResetPipe (handle, device->outEndpoint);    
+        CyResetPipe (handle, device->outEndpoint);
         return CY_ERROR_PIPE_HALTED;
     }
     else if (rStatus == LIBUSB_ERROR_OVERFLOW){
@@ -224,19 +223,19 @@ CY_RETURN_STATUS CyUartWrite (
     }
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected .... Function is %s\n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY: Unknown error ....Libusb error is %d Function is %s\n", rStatus, __func__);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
 }
 /*
-   This Api Reads the Data from UART block of the 
+   This Api Reads the Data from UART block of the
    device.
  */
 CY_RETURN_STATUS CyUartRead (
-        CY_HANDLE handle,		
+        CY_HANDLE handle,
         CY_DATA_BUFFER* readBuffer,
         unsigned int ioTimeOut
         )
@@ -269,10 +268,10 @@ CY_RETURN_STATUS CyUartRead (
     //Collect all the data in low baud rate for uart. As we get data in short packet
     do {
         // buffer will be pointing to new pointer
-        buffer = &(readBuffer->buffer[totalRead]); 
+        buffer = &(readBuffer->buffer[totalRead]);
         //Start the tick
         gettimeofday(&startTime, NULL);
-        rStatus = libusb_bulk_transfer (devHandle, device->inEndpoint, buffer, length, 
+        rStatus = libusb_bulk_transfer (devHandle, device->inEndpoint, buffer, length,
                 &transferCount, newIoTimeout);
         elapsedTime = getUartLapsedTime(startTime);
         //Get the new timeout.
@@ -289,18 +288,18 @@ CY_RETURN_STATUS CyUartRead (
         //CY_DUMP_DATA (readBuffer->buffer, readBuffer->transferCount);
         readBuffer->transferCount = totalRead;
         CY_DEBUG_PRINT_INFO ("CY: SuccessFull in Reading Data,%d bytes were transfered \n", (readBuffer->transferCount));
-        return CY_SUCCESS;    
+        return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         readBuffer->transferCount = totalRead;
         CY_DEBUG_PRINT_ERROR ("CY:TimeOut error... Function is %s\n", __func__);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else if (rStatus == LIBUSB_ERROR_PIPE){
         readBuffer->transferCount = totalRead;
         CY_DEBUG_PRINT_ERROR ("CY:Pipe error endpoint Halted ...Function is %s\n", __func__);
-        CyResetPipe (handle, device->inEndpoint);    
-        return CY_ERROR_PIPE_HALTED;   
+        CyResetPipe (handle, device->inEndpoint);
+        return CY_ERROR_PIPE_HALTED;
     }
     else if (rStatus == LIBUSB_ERROR_OVERFLOW){
         readBuffer->transferCount = totalRead;
@@ -310,12 +309,12 @@ CY_RETURN_STATUS CyUartRead (
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         readBuffer->transferCount = totalRead;
         CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s\n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else {
         readBuffer->transferCount = totalRead;
         CY_DEBUG_PRINT_ERROR ("CY: Unknown error ....Libusb error is %d Function is %s\n", rStatus, __func__);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
 }
 /*
@@ -362,7 +361,7 @@ CY_RETURN_STATUS CyUartSetHwFlowControl (
     return CY_SUCCESS;
 }
 /*
-Api gets the current flow control mode 
+Api gets the current flow control mode
 */
 CY_RETURN_STATUS CyUartGetHwFlowControl (
         CY_HANDLE handle,
@@ -370,7 +369,7 @@ CY_RETURN_STATUS CyUartGetHwFlowControl (
         )
 {
     CY_DEVICE *device;
-    
+
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle..Function is %s\n", __func__);
         return CY_ERROR_INVALID_HANDLE;
@@ -387,7 +386,7 @@ CY_RETURN_STATUS CyUartGetHwFlowControl (
     (*mode) = device->uartFlowControlMode;
     return CY_SUCCESS;
 }
-/* The API is used to break 
+/* The API is used to break
 */
 CYWINEXPORT CY_RETURN_STATUS CyUartSetBreak(
     CY_HANDLE handle,                   /*Valid handle to communicate with device*/

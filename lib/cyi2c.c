@@ -1,5 +1,5 @@
 /*
- * I2C routines of Cypress USB Serial 
+ * I2C routines of Cypress USB Serial
  * Copyright (C) 2013  Cypress Semiconductor
  *
  * This library is free software; you can redistribute it and/or
@@ -37,12 +37,12 @@ typedef struct
 #pragma pack()
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
 struct timeval startTimeWrite, endTimeWrite, startTimeRead, endTimeRead;
-//Timer helper functions for proper timing 
+//Timer helper functions for proper timing
 void startI2cTick (bool isWrite) {
     if (isWrite)
         gettimeofday (&startTimeWrite, NULL);
-    else 
-        gettimeofday (&startTimeRead, NULL);   
+    else
+        gettimeofday (&startTimeRead, NULL);
 }
 
 UINT32 getI2cLapsedTime (bool isWrite){
@@ -67,24 +67,24 @@ UINT32 getI2cLapsedTime (bool isWrite){
 CY_RETURN_STATUS handleI2cError (UINT8 i2cStatus){
 
     if (i2cStatus & CY_I2C_NAK_ERROR_BIT){
-        CY_DEBUG_PRINT_ERROR ("CY:Error Nacked by device ...Function is %s\n", __func__);   
+        CY_DEBUG_PRINT_ERROR ("CY:Error Nacked by device ...Function is %s\n", __func__);
         return CY_ERROR_I2C_NAK_ERROR;
     }
     if (i2cStatus & CY_I2C_BUS_ERROR_BIT){
-        CY_DEBUG_PRINT_ERROR ("CY:Error bus error occured... Function is %s\n", __func__);   
+        CY_DEBUG_PRINT_ERROR ("CY:Error bus error occured... Function is %s\n", __func__);
         return CY_ERROR_I2C_BUS_ERROR;
     }
     if (i2cStatus & CY_I2C_ARBITRATION_ERROR_BIT){
-        CY_DEBUG_PRINT_ERROR ("CY:Error Arbitration error occured.. Function is %s\n", __func__);   
+        CY_DEBUG_PRINT_ERROR ("CY:Error Arbitration error occured.. Function is %s\n", __func__);
         return CY_ERROR_I2C_ARBITRATION_ERROR;
     }
     if (i2cStatus & CY_I2C_STOP_BIT_ERROR){
-        CY_DEBUG_PRINT_ERROR ("CY:Error Stop bit set by master..Function is %s\n", __func__);   
+        CY_DEBUG_PRINT_ERROR ("CY:Error Stop bit set by master..Function is %s\n", __func__);
         return CY_ERROR_I2C_STOP_BIT_SET;
     }
     else {
         //We should never hit this case!!!!
-        CY_DEBUG_PRINT_ERROR ("CY:Unknown error..Function is %s\n", __func__);   
+        CY_DEBUG_PRINT_ERROR ("CY:Unknown error..Function is %s\n", __func__);
         return CY_ERROR_REQUEST_FAILED;
     }
 }
@@ -98,10 +98,10 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
 CY_RETURN_STATUS CyGetI2cConfig (
         CY_HANDLE handle,
         CY_I2C_CONFIG *i2cConfig
-        )	
+        )
 {
     UINT16 wValue, wIndex, wLength;
-    UINT8 bmRequestType, bmRequest; 
+    UINT8 bmRequestType, bmRequest;
     int rStatus;
     CyUsI2cConfig_t localI2cConfig;
     CY_DEVICE *device;
@@ -113,7 +113,7 @@ CY_RETURN_STATUS CyGetI2cConfig (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if (i2cConfig == NULL){    
+    if (i2cConfig == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -135,7 +135,7 @@ CY_RETURN_STATUS CyGetI2cConfig (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, (unsigned char*)&localI2cConfig, wLength, ioTimeout);
     if (rStatus == CY_I2C_CONFIG_LENGTH){
-        CY_DEBUG_PRINT_INFO ("CY: Read I2C config ...size is %d \n", rStatus);   
+        CY_DEBUG_PRINT_INFO ("CY: Read I2C config ...size is %d \n", rStatus);
         i2cConfig->frequency = localI2cConfig.frequency;
         i2cConfig->slaveAddress = localI2cConfig.sAddress;
         i2cConfig->isMaster = localI2cConfig.isMaster;
@@ -144,25 +144,25 @@ CY_RETURN_STATUS CyGetI2cConfig (
     }
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s\n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         CY_DEBUG_PRINT_ERROR ("CY:Error time out ....Function is %s\n", __func__);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY: Error in doing I2C read ...libusb error is %d function is %s!\n", rStatus, __func__);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
 }
 /*
-   This API sets I2C config of the device for that 
-   interface  
+   This API sets I2C config of the device for that
+   interface
  */
 CY_RETURN_STATUS CySetI2cConfig (
         CY_HANDLE handle,
         CY_I2C_CONFIG *i2cConfig
-        )	
+        )
 {
     UINT16 wValue, wIndex, wLength;
     UINT8 bmRequestType, bmRequest;
@@ -177,17 +177,17 @@ CY_RETURN_STATUS CySetI2cConfig (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if (i2cConfig == NULL){    
+    if (i2cConfig == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
     if (i2cConfig->frequency < 1000 || i2cConfig->frequency > 400000){
         CY_DEBUG_PRINT_ERROR ("CY:Error frequency trying to set in out of ..range Function is %s \n", __func__);
-        return CY_ERROR_INVALID_PARAMETER;            
+        return CY_ERROR_INVALID_PARAMETER;
     }
     if ((i2cConfig->slaveAddress % 2) != 0){
         CY_DEBUG_PRINT_ERROR ("CY:Error slave address needs to even..Function is %s \n", __func__);
-        return CY_ERROR_INVALID_PARAMETER;            
+        return CY_ERROR_INVALID_PARAMETER;
     }
     device = (CY_DEVICE *)handle;
     devHandle = device->devHandle;
@@ -204,7 +204,7 @@ CY_RETURN_STATUS CySetI2cConfig (
     wIndex = 0x00;
     wLength = CY_I2C_CONFIG_LENGTH;
     //We need to pass entire 16 bytes config structure to firmware
-    //but we will not expose all the structure elements to user. 
+    //but we will not expose all the structure elements to user.
     //so filling some of the values.
     memset (&localI2cConfig, 0, CY_I2C_CONFIG_LENGTH);
     localI2cConfig.frequency = i2cConfig->frequency;
@@ -215,32 +215,32 @@ CY_RETURN_STATUS CySetI2cConfig (
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, (unsigned char*)&localI2cConfig, wLength, ioTimeout);
     if (rStatus == CY_I2C_CONFIG_LENGTH){
-        CY_DEBUG_PRINT_INFO ("CY: Setting I2C config successful ...\n");   
+        CY_DEBUG_PRINT_INFO ("CY: Setting I2C config successful ...\n");
         return CY_SUCCESS;
     }
     else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
         CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s\n", __func__);
-        return CY_ERROR_DEVICE_NOT_FOUND;    
+        return CY_ERROR_DEVICE_NOT_FOUND;
     }
     else if (rStatus == LIBUSB_ERROR_TIMEOUT){
         CY_DEBUG_PRINT_ERROR ("CY:Error time out ....Function is %s\n", __func__);
-        return CY_ERROR_IO_TIMEOUT;    
+        return CY_ERROR_IO_TIMEOUT;
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY: Error in doing I2C read ...libusb error is %d function is %s!\n", rStatus, __func__);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
 }
 /*
-   This API reads I2C data from the specified interface of the device 
-   interface  
+   This API reads I2C data from the specified interface of the device
+   interface
  */
 CY_RETURN_STATUS CyI2cRead (
         CY_HANDLE handle,
         CY_I2C_DATA_CONFIG *i2cDataConfig,
         CY_DATA_BUFFER *readBuffer,
-        UINT32 ioTimeout        
-        )	
+        UINT32 ioTimeout
+        )
 {
     int rStatus;
     CY_DEVICE *device = NULL;
@@ -255,7 +255,7 @@ CY_RETURN_STATUS CyI2cRead (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if ((readBuffer == NULL) || (readBuffer->buffer == NULL) || (readBuffer->length == 0)){    
+    if ((readBuffer == NULL) || (readBuffer->buffer == NULL) || (readBuffer->length == 0)){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -301,7 +301,7 @@ CY_RETURN_STATUS CyI2cRead (
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
         startI2cTick(false);
 #endif
-        rStatus = libusb_bulk_transfer (devHandle, device->inEndpoint, readBuffer->buffer, readBuffer->length, 
+        rStatus = libusb_bulk_transfer (devHandle, device->inEndpoint, readBuffer->buffer, readBuffer->length,
                 (int*)&readBuffer->transferCount, ioTimeout);
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
         elapsedTime = getI2cLapsedTime(false);
@@ -310,7 +310,7 @@ CY_RETURN_STATUS CyI2cRead (
         if (ioTimeout == 0)
             ioTimeout = 10;
 #endif
-        if (rStatus == LIBUSB_SUCCESS){ 
+        if (rStatus == LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_INFO ("CY: Successfully read i2c data.. %d bytes Read ...\n", readBuffer->transferCount);
             bytesPending = readBuffer->length;
             rStatus = waitForNotification (handle, &bytesPending, ioTimeout);
@@ -332,7 +332,7 @@ CY_RETURN_STATUS CyI2cRead (
             if (rStatus != CY_SUCCESS){
                 CY_DEBUG_PRINT_ERROR ("Error in reseting the pipe \n");
             }
-            else 
+            else
                 CY_DEBUG_PRINT_INFO ("Reset pipe succeded \n");
 
             rStatus = CyI2cGetStatus (handle, mode, (UCHAR *)i2cStatus);
@@ -344,40 +344,40 @@ CY_RETURN_STATUS CyI2cRead (
                 return rStatus;
             }
             else {
-                pthread_mutex_unlock (&device->readLock);   
+                pthread_mutex_unlock (&device->readLock);
                 return CY_ERROR_I2C_DEVICE_BUSY;
             }
         }
         else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
             pthread_mutex_unlock (&device->readLock);
             CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s\n", __func__);
-            return CY_ERROR_DEVICE_NOT_FOUND;    
+            return CY_ERROR_DEVICE_NOT_FOUND;
         }
         else if (rStatus == LIBUSB_ERROR_TIMEOUT){
             pthread_mutex_unlock (&device->readLock);
             CY_DEBUG_PRINT_ERROR ("CY:Error time out ....Function is %s\n", __func__);
-            return CY_ERROR_IO_TIMEOUT;    
+            return CY_ERROR_IO_TIMEOUT;
         }
         else {
             pthread_mutex_unlock (&device->readLock);
             CY_DEBUG_PRINT_ERROR ("CY: Error in doing I2C read ...libusb error is %d function is %s!\n", rStatus, __func__);
-            return CY_ERROR_REQUEST_FAILED;    
+            return CY_ERROR_REQUEST_FAILED;
         }
     }
     else{
         CY_DEBUG_PRINT_ERROR ("CY: Error API busy in servicing previous request... function is %s!\n", __func__);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
 }
 /*
-   This API writes I2C data into the specified interface of the device 
+   This API writes I2C data into the specified interface of the device
  */
 CY_RETURN_STATUS CyI2cWrite (
         CY_HANDLE handle,
         CY_I2C_DATA_CONFIG *i2cDataConfig,
         CY_DATA_BUFFER *writeBuffer,
-        UINT32 ioTimeout        
-        )	
+        UINT32 ioTimeout
+        )
 {
     int rStatus;
     UCHAR i2cStatus[CY_I2C_GET_STATUS_LEN];
@@ -392,7 +392,7 @@ CY_RETURN_STATUS CyI2cWrite (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if ((writeBuffer == NULL) || (writeBuffer->buffer == NULL) || (writeBuffer->length == 0)){    
+    if ((writeBuffer == NULL) || (writeBuffer->buffer == NULL) || (writeBuffer->length == 0)){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
@@ -406,7 +406,7 @@ CY_RETURN_STATUS CyI2cWrite (
     }
     if (pthread_mutex_trylock (&device->writeLock) == 0){
         if (scbIndex > 0)
-            scbIndex = 1; 
+            scbIndex = 1;
         bmRequestType = CY_VENDOR_REQUEST_HOST_TO_DEVICE;
         bmRequest = CY_I2C_WRITE_CMD;
         i2cDataConfig->slaveAddress = ((i2cDataConfig->slaveAddress & 0x7F) | (scbIndex << 7));
@@ -415,14 +415,14 @@ CY_RETURN_STATUS CyI2cWrite (
         wIndex = (UINT16)(writeBuffer->length);
         wLength = 0;
         CY_DEBUG_PRINT_INFO ("wValue is %x \n", wValue);
-        //Send I2C write vendor command before actually sending the data over bulk ep 
+        //Send I2C write vendor command before actually sending the data over bulk ep
         rStatus = CyI2cGetStatus (handle, mode, (UCHAR *)i2cStatus);
         if (rStatus == CY_SUCCESS)
         {
             if ((i2cStatus[0] & CY_I2C_ERROR_BIT)){
                 CY_DEBUG_PRINT_ERROR ("CY:Error ... Device busy ... function is %s \n", __func__);
                 pthread_mutex_unlock (&device->writeLock);
-                return CY_ERROR_I2C_DEVICE_BUSY;    
+                return CY_ERROR_I2C_DEVICE_BUSY;
             }
         }
         else if (rStatus == LIBUSB_ERROR_NO_DEVICE){
@@ -445,7 +445,7 @@ CY_RETURN_STATUS CyI2cWrite (
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
         startI2cTick(true);
 #endif
-        rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length, 
+        rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length,
                 (int*)&(writeBuffer->transferCount), ioTimeout);
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
         elapsedTime = getI2cLapsedTime(true);
@@ -455,7 +455,7 @@ CY_RETURN_STATUS CyI2cWrite (
             ioTimeout = 10;
 #endif
         //Once the data is sent to usbserial, check if it was actually written to i2c device.
-        if (rStatus == LIBUSB_SUCCESS){ 
+        if (rStatus == LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_INFO ("CY: Successfully written i2c data.. %d bytes written ...\n", writeBuffer->transferCount);
             bytesPending = writeBuffer->length;
             rStatus = waitForNotification (handle, &bytesPending, ioTimeout);
@@ -463,11 +463,11 @@ CY_RETURN_STATUS CyI2cWrite (
                 writeBuffer->transferCount = (writeBuffer->length - bytesPending);
             else
                 writeBuffer->transferCount = writeBuffer->length;
-            pthread_mutex_unlock (&device->writeLock);    
+            pthread_mutex_unlock (&device->writeLock);
             return rStatus;
         }
         //Transaction is stallled when we hit some I2C error while the transfer
-        //was going on. After we hit this error clear stall and check why we hit this by 
+        //was going on. After we hit this error clear stall and check why we hit this by
         //CyGetStatus.
         else if (rStatus == LIBUSB_ERROR_PIPE){
             CY_DEBUG_PRINT_INFO ("CY:Pipe Error ... Function is %s\n", __func__);
@@ -475,7 +475,7 @@ CY_RETURN_STATUS CyI2cWrite (
             if (rStatus != CY_SUCCESS){
                 CY_DEBUG_PRINT_ERROR ("CY:Error in reseting the pipe ..Function is %s\n", __func__);
             }
-            else 
+            else
                 CY_DEBUG_PRINT_INFO ("Reset pipe succeded \n");
 
             rStatus = CyI2cGetStatus (handle, mode, (UCHAR *)i2cStatus);
@@ -490,24 +490,24 @@ CY_RETURN_STATUS CyI2cWrite (
         else if (rStatus == LIBUSB_ERROR_NO_DEVICE) {
             CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s\n", __func__);
             pthread_mutex_unlock (&device->writeLock);
-            return CY_ERROR_DEVICE_NOT_FOUND;    
+            return CY_ERROR_DEVICE_NOT_FOUND;
         }
         else if (rStatus == LIBUSB_ERROR_TIMEOUT){
             CY_DEBUG_PRINT_ERROR ("CY:Error time out ....Function is %s\n", __func__);
             pthread_mutex_unlock (&device->writeLock);
-            return CY_ERROR_IO_TIMEOUT;    
+            return CY_ERROR_IO_TIMEOUT;
         }
         else{
             CY_DEBUG_PRINT_ERROR ("CY: Error in doing I2C read ...libusb error is %d function is %s!\n", rStatus, __func__);
             pthread_mutex_unlock (&device->writeLock);
-            return CY_ERROR_REQUEST_FAILED;    
+            return CY_ERROR_REQUEST_FAILED;
         }
     }
     else{
         CY_DEBUG_PRINT_ERROR ("CY:API busy with servicing previous request... function is %s!\n", __func__);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
-    return CY_ERROR_REQUEST_FAILED;    
+    return CY_ERROR_REQUEST_FAILED;
 }
 /*
    This Api gets the current status of the I2C data transaction
@@ -542,7 +542,7 @@ CY_RETURN_STATUS CyI2cGetStatus (
     bmRequest = CY_I2C_GET_STATUS_CMD;
     wValue = ((scbIndex << CY_SCB_INDEX_POS) | mode);
     wIndex = 0;
-    wLength = CY_I2C_GET_STATUS_LEN; 
+    wLength = CY_I2C_GET_STATUS_LEN;
 
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,wValue, wIndex, (UCHAR*)i2cStatus, wLength, ioTimeout);
     if (rStatus < CY_I2C_GET_STATUS_LEN){
@@ -581,7 +581,7 @@ CY_RETURN_STATUS CyI2cReset (
     bmRequest = CY_I2C_RESET_CMD;
     wValue = ((scbIndex << CY_SCB_INDEX_POS) | resetMode );
     wIndex = 0;
-    wLength = 0; 
+    wLength = 0;
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,wValue, wIndex, NULL, wLength, ioTimeout);
     if (rStatus < 0){
         CY_DEBUG_PRINT_ERROR ("CY:Error in sending I2C Reset command ..libusb error is %d\n", rStatus);
@@ -615,7 +615,7 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
         return errorStatus;
         //callbackFn (errorStatus, 0);
     }
-    libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, i2cStatus, length, 
+    libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, i2cStatus, length,
             i2c_notification_cb, &transferCompleted, ioTimeout);
     if (libusb_submit_transfer (transfer)){
         CY_DEBUG_PRINT_ERROR ("CY:Error in submitting interrupt transfer ...\n");
@@ -637,7 +637,7 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
             if ((i2cStatus[0] & CY_I2C_ERROR_BIT)){
                 CY_DEBUG_PRINT_INFO ("Bytes pending is %x %x %x", i2cStatus[0], i2cStatus[1], i2cStatus[2]);
                 if (i2cStatus[0] & 0x1E){
-                    //There was some error, so reset the i2c module and usb module 
+                    //There was some error, so reset the i2c module and usb module
                     //of the device, so branch out of the loop(Check below for the errors reported).
                     rStatus = CyI2cReset (device, CY_I2C_MODE_WRITE);
                     if (rStatus != CY_SUCCESS)
@@ -672,7 +672,7 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
     else{
         libusb_cancel_transfer (transfer);
         if (transfer->status == LIBUSB_TRANSFER_TIMED_OUT){
-            CY_DEBUG_PRINT_ERROR ("CY:Error Timeout in getting i2c transfer status ....\n"); 
+            CY_DEBUG_PRINT_ERROR ("CY:Error Timeout in getting i2c transfer status ....\n");
             CyI2cGetStatus (handle, 1, (UCHAR *)&errorStatus);
             errorStatus = CY_ERROR_IO_TIMEOUT;
         }

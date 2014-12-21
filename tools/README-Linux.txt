@@ -49,7 +49,7 @@ Using the test utility:
 
    $ CyUSBSerial
    ----------------------------------------------------------------------
-   Device Number | VID | PID | INTERFACE NUMBER | FUNCTIONALITY 
+   Device Number | VID | PID | INTERFACE NUMBER | FUNCTIONALITY
    ----------------------------------------------------------------------
    0             |4b4  |a    | 0     | VENDOR_I2C
    0             |4b4  |a    | 1     | VENDOR_SPI
@@ -58,7 +58,7 @@ Using the test utility:
 
 2. A menu providing the various operations is also printed:
    ----------------------------------------------------------------------
-   1: Print list of devices 
+   1: Print list of devices
    2: Select device...No device selected !!
    3: Enter I2C/SPI Flash page address and length to write/read.
    4: Verify data
@@ -77,7 +77,7 @@ Using the test utility:
 
    Once the selections are made, the menu will be updated with the details.
    ----------------------------------------------------------------------
-   1: Print list of devices 
+   1: Print list of devices
    2: Change device selection--selected device: [Device number 0] : [Interface No 1] : SPI
    3: Enter I2C/SPI Flash page address and length to write/read.
    4: Verify data
@@ -101,7 +101,7 @@ Using the test utility:
 
    Once the values are selected, the menu is updated with the details as below:
    -------------------------------------------------------------------
-   1: Print list of devices 
+   1: Print list of devices
    2: Change device selection--selected device: [Device number 0] : [Interface No 1] : SPI
    3: Change Flash page address and length ...Entered is page address 1234 and length 123
    4: Verify data
@@ -113,13 +113,13 @@ Using the test utility:
 
    The data pattern written and read back will be displayed as shown below:
    --------------------------------------------------------------------
-   67 c6 69 73 51 ff 4a ec 29 cd ba ab f2 fb e3 46 7c c2 54 f8 1b e8 e7 8d 76 5a 2e 63 33 9f c9 9a 
+   67 c6 69 73 51 ff 4a ec 29 cd ba ab f2 fb e3 46 7c c2 54 f8 1b e8 e7 8d 76 5a 2e 63 33 9f c9 9a
    --------------------------------------------------------------------
    Data Read back is:
    ---------------------------------------------------------------------
-   67 c6 69 73 51 ff 4a ec 29 cd ba ab f2 fb e3 46 7c c2 54 f8 1b e8 e7 8d 76 5a 2e 63 33 9f c9 9a 
+   67 c6 69 73 51 ff 4a ec 29 cd ba ab f2 fb e3 46 7c c2 54 f8 1b e8 e7 8d 76 5a 2e 63 33 9f c9 9a
    ---------------------------------------------------------------------
-   Data verified successfully 
+   Data verified successfully
    -------------------------------------------------------------------
 
 6. The utility runs through these menu options until the user selects the

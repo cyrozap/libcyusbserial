@@ -15,7 +15,7 @@ Installation steps:
 2.This will generate shared library libcyusbserial.so.1 and its soft link libcyusbserial.so.
   Both of them will be copied/installed to /usr/local/lib.
 
-3.Go to ./linux/testUtility (I2C/SPI test utility program) and type 'sudo make'. 
+3.Go to ./linux/testUtility (I2C/SPI test utility program) and type 'sudo make'.
 This will generate CyUSBSerialTestUtility binary (Refer to README in testUtility folder).
 
 4.User can launch the application and test the communication with Cypress USB-Serial DVk in vendor mode.
@@ -28,7 +28,7 @@ which is inside the library folder of release package to /etc/udev/rules.d folde
 which is 0x4B4, if VID is changed then update it in ATTR{idVendor} section of rules file).
 
 *** IMPORTANT:
-Some distribution of linux have libusb (older version) as part of their package. Uninstall 
+Some distribution of linux have libusb (older version) as part of their package. Uninstall
 the older version and update it with libusb-1.0.9.
 
 **Note:

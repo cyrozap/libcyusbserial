@@ -39,7 +39,7 @@ typedef struct _CY_DEVICE_STRUCT {
     int interfaceFunctionality[CY_MAX_INTERFACES];
     bool isI2c;
     bool isSpi;
-    int numInterface; 
+    int numInterface;
 }CY_DEVICE_STRUCT;
 
 CY_DEVICE_STRUCT *glDevice;
@@ -127,7 +127,7 @@ int main (int argc, char **agrv)
                 printf (" : NA\n");
 
         }
-        else    
+        else
             printf ("2: Select device...No device selected !!\n");
 
         if (readWriteLength != -1 && pageAddress != -1){
@@ -165,7 +165,7 @@ int main (int argc, char **agrv)
                 tempSelectedInterfaceNum = getUserInput();
                 //printf ("Selected device number is %d %d\n",tempSelectedInterfaceNum, glDevice[tempSelectedDeviceNum].numInterface);
 
-                if (tempSelectedInterfaceNum >= glDevice[tempSelectedDeviceNum].numInterface || 
+                if (tempSelectedInterfaceNum >= glDevice[tempSelectedDeviceNum].numInterface ||
                         tempSelectedInterfaceNum == -1) {
                     printf ("Wrong interface Selection selection \n");
                     continue;
@@ -181,7 +181,7 @@ int main (int argc, char **agrv)
                 selectedDeviceNum = tempSelectedDeviceNum;
                 selectedInterfaceNum = tempSelectedInterfaceNum;
                 //pageAddress = -1;
-                //readWriteLength = -1;    
+                //readWriteLength = -1;
                 break;
             case 3:
                 if (selectedDeviceNum == -1) {
@@ -267,7 +267,7 @@ int main (int argc, char **agrv)
             case 5:
                 exitApp = true;
                 CyLibraryExit ();
-                break;    
+                break;
         }
     }while (exitApp == false);
     free (glDevice);
@@ -342,7 +342,7 @@ int spiVerifyData (int deviceNumber, int interfaceNum)
     dataBufferWrite.buffer = wbuffer;
     dataBufferRead.buffer = rbuffer;
 
-    rStatus = spiWaitForIdle (handle); 
+    rStatus = spiWaitForIdle (handle);
     if (rStatus){
         printf("Error in Waiting for EEPOM active state %d \n", rStatus);
         CyClose (handle);
@@ -378,7 +378,7 @@ int spiVerifyData (int deviceNumber, int interfaceNum)
     if (rStatus != CY_SUCCESS){
         CyClose (handle);
         printf ("Error in doing SPI data write data Write is %d data read is %d\n" , dataBufferWrite.transferCount,dataBufferRead.transferCount);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
 
     spiWaitForIdle (handle);
@@ -392,7 +392,7 @@ int spiVerifyData (int deviceNumber, int interfaceNum)
         CyClose (handle);
         printf ("The Error is %d \n", rStatus);
         printf ("Error in doing SPI data write data Write is %d data read is %d\n" , dataBufferWrite.transferCount,dataBufferRead.transferCount);
-        return CY_ERROR_REQUEST_FAILED;    
+        return CY_ERROR_REQUEST_FAILED;
     }
     printf ("Data Read back is \n");
     printf ("\n---------------------------------------------------------------------\n");
@@ -454,16 +454,16 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
         CyClose (handle);
         return -1;
     }
-    //We encountered a error in I2C read repeat the procedure again       
+    //We encountered a error in I2C read repeat the procedure again
     //Loop here untill Read vendor command passes
     i2cDataConfig.isStopBit = false;
     dataBufferWrite.length = 2;
 
     do {
-        rStatus = CyI2cWrite (handle, &i2cDataConfig, &dataBufferWrite, 5000); 
+        rStatus = CyI2cWrite (handle, &i2cDataConfig, &dataBufferWrite, 5000);
         loopCount--;
     }while (rStatus != CY_SUCCESS && loopCount != 0);
-    
+
     if (loopCount == 0 && rStatus != CY_SUCCESS){
         printf ("Error in sending read command \n");
         CyClose (handle);
@@ -473,14 +473,14 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
     dataBufferRead.buffer = rbuffer;
     rbuffer[0]= address[0];
     rbuffer[1] = 0;
-    i2cDataConfig.isStopBit = true; 
+    i2cDataConfig.isStopBit = true;
     i2cDataConfig.isNakBit = true;
-    dataBufferRead.length = length; 
+    dataBufferRead.length = length;
     dataBufferRead.buffer = rbuffer;
 
     memset (rbuffer, 0, 64);
 
-    rStatus = CyI2cRead (handle, &i2cDataConfig, &dataBufferRead, 5000); 
+    rStatus = CyI2cRead (handle, &i2cDataConfig, &dataBufferRead, 5000);
     if (rStatus != CY_SUCCESS){
         printf ("Error in doing i2c read ... Error is %d \n", rStatus);
         CyClose (handle);
@@ -500,8 +500,8 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
         printf ("Data corruption occured ..!!!\n");
     else
         printf ("Data verified successfully \n");
-    
-    CyClose (handle); 
+
+    CyClose (handle);
 }
 bool isCypressDevice (int deviceNum) {
     CY_HANDLE handle;
@@ -520,7 +520,7 @@ bool isCypressDevice (int deviceNum) {
             return false;
         }
     }
-    else 
+    else
         return false;
 }
 void printListOfDevices (bool isPrint)
@@ -536,9 +536,9 @@ void printListOfDevices (bool isPrint)
     CY_DEVICE_TYPE  deviceType[CY_MAX_INTERFACES];
     CY_RETURN_STATUS rStatus;
 
-    deviceAddedRemoved = false; 
+    deviceAddedRemoved = false;
     CyGetListofDevices (&numDevices);
-    //printf ("The number of devices is %d \n", numDevices); 
+    //printf ("The number of devices is %d \n", numDevices);
     for (i = 0; i < numDevices; i++){
         for (j = 0; j< CY_MAX_INTERFACES; j++)
             glDevice[i].interfaceFunctionality[j] = -1;
@@ -561,7 +561,7 @@ void printListOfDevices (bool isPrint)
             numInterfaces = deviceInfo.numInterfaces;
             glDevice[index].numInterface = numInterfaces;
             cyDevices++;
-            
+
             while (numInterfaces){
                 if (deviceInfo.deviceClass[interfaceNum] == CY_CLASS_VENDOR)
                 {
@@ -579,14 +579,14 @@ void printListOfDevices (bool isPrint)
                             break;
                         default:
                             strcpy (functionality, "NA");
-                            break;    
+                            break;
                     }
                 }
                 else if (deviceInfo.deviceClass[interfaceNum] == CY_CLASS_CDC){
                     strcpy (functionality, "NA");
                 }
                 if (isPrint) {
-                    printf ("%d             |%x  |%x    | %d     | %s\n", \                
+                    printf ("%d             |%x  |%x    | %d     | %s\n", \
                             index, \
                             deviceInfo.vidPid.vid, \
                             deviceInfo.vidPid.pid,  \
