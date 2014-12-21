@@ -1,9 +1,6 @@
 all:
 	gcc -g -o CyUSBSerialTestUtility Test_Utility.c -lcyusbserial -w
-	cp 90-cyusb.rules /etc/udev/rules.d 
 	cp CyUSBSerialTestUtility /usr/bin
-	cp CyUSBSerial.sh /usr/bin
-	chmod 777 /usr/bin/CyUSBSerial.sh
 clean:
 	rm -f CyUSBSerialTestUtility
 help:
