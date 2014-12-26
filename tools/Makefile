@@ -1,16 +1,16 @@
 CC = gcc
 
-TARGETS = cyusbserialtest
+TARGET = cyusbserialtest
 
 CFLAGS += -g -Wall
 LDFLAGS += -lcyusbserial
 
-all: $(TARGETS)
+all: $(TARGET)
 
 %: %.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
 
 clean:
-	rm -f $(TARGETS)
+	rm -f $(TARGET)
 
 .PHONY: all clean
