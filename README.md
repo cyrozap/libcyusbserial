@@ -33,6 +33,6 @@
 ## Note
 Refer to the [CyUSBSerial API documentation][1] for descriptions of all the
 vendor mode APIs. The header file of the library is in
-`./include/CyUSBSerial.h.`
+`./include/CyUSBSerial.h`.
 
 [1]: http://www.cypress.com/?docID=45725
