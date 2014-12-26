@@ -1,7 +1,4 @@
-================================================================================
-                      Cypress Semiconductor Corporation
-                            CyUSB Serial library.
-================================================================================
+# Cypress Semiconductor Corporation CyUSB Serial Library
 
 
 ## Pre-requisites
@@ -15,17 +12,17 @@
 ## Building the library and the test utility
 
 1. `cd` to the main directory where the library source files are extracted and
-   go to ./lib
+   go to `./lib`.
 
-2. Run `sudo make -f $MAKEFILE` where $MAKEFILE is the name of the Makefile for
-   your operating system.
+2. Run `sudo make -f $MAKEFILE` where `$MAKEFILE` is the name of the Makefile
+   for your operating system.
 
-3. This will generate shared library libcyusbserial.so.1
-   (libcyusbserial.0.1.dylib on OS X) and its soft link libcyusbserial.so
-   (libcyusbserial.dylib on OS X). Both of them will be copied/installed to
-   /usr/local/lib.
+3. This will generate shared library `libcyusbserial.so.1`
+   (`libcyusbserial.0.1.dylib` on OS X) and its soft link `libcyusbserial.so`
+   (`libcyusbserial.dylib` on OS X). Both of them will be copied/installed to
+   `/usr/local/lib`.
 
-4. Go to ./tools (I2C/SPI test utility program) and run `make`. This will
+4. Go to `./tools` (I2C/SPI test utility program) and run `make`. This will
    generate the `cyusbserialtest` binary (Refer to README in testUtility
    folder).
 
