@@ -14,19 +14,19 @@
 1. `cd` to the main directory where the library source files are extracted and
    go to `./lib`.
 
-2. Run `sudo make -f $MAKEFILE` where `$MAKEFILE` is the name of the Makefile
-   for your operating system.
+2. Run `make`.
 
 3. This will generate shared library `libcyusbserial.so.1`
    (`libcyusbserial.0.1.dylib` on OS X) and its soft link `libcyusbserial.so`
-   (`libcyusbserial.dylib` on OS X). Both of them will be copied/installed to
-   `/usr/local/lib`.
+   (`libcyusbserial.dylib` on OS X).
 
-4. Go to `./tools` (I2C/SPI test utility program) and run `make`. This will
-   generate the `cyusbserialtest` binary (Refer to README in testUtility
-   folder).
+4. Run `sudo make install` to install the libraries into `PREFIX`
+   (`/usr/local/lib` by default).
 
-5. User can launch the application and test the communication with Cypress
+5. Go to `./tools` (I2C/SPI test utility program) and run `make`. This will
+   generate the `cyusbserialtest` binary.
+
+6. User can launch the application and test the communication with Cypress
    USB-Serial DVK in vendor mode.
 
 
