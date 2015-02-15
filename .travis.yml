@@ -31,8 +31,8 @@ install:
     fi
 
 script:
-  - cd lib && make
-  - cd tools && make
+  - cd lib && make && cd -
+  - cd tools && make && cd -
 
 before_deploy:
   - tar -czf libcyusbserial-$TRAVIS_TAG-$TRAVIS_OS_NAME-$ARCH.tar.gz ./COPYING.LESSER.txt ./README.md ./include ./lib/*.so.1 ./tools/cyusbserialtest ./tools/README-Linux.txt
