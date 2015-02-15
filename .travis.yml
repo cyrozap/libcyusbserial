@@ -9,7 +9,6 @@ os:
 
 env:
   - ARCH=x86_64
-  - ARCH=i386
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ];
