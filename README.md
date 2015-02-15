@@ -1,5 +1,6 @@
 # Cypress Semiconductor Corporation CyUSB Serial Library
 
+[![Build Status](https://travis-ci.org/cyrozap/libcyusbserial.svg?branch=master)](https://travis-ci.org/cyrozap/libcyusbserial)
 
 ## Pre-requisites
 
