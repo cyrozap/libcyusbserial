@@ -1,0 +1,49 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+os:
+  - linux
+
+env:
+  - ARCH=x86_64
+  - ARCH=i386
+
+install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" ];
+    then
+      sudo apt-get update -qq;
+      if [ "$ARCH" = "x86_64" ];
+      then
+        sudo apt-get install -qq libusb-1.0-0-dev;
+      elif [ "$ARCH" = "i386" ];
+      then
+        sudo apt-get install -qq gcc-multilib libusb-1.0-0-dev:i386 pkg-config:i386;
+        export CFLAGS="-m32";
+      fi
+    fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ];
+    then
+      brew update;
+      brew install libusb;
+    fi
+
+script:
+  - cd lib && make
+  - cd tools && make
+
+before_deploy:
+  - tar -czf libcyusbserial-$TRAVIS_TAG-$TRAVIS_OS_NAME-$ARCH.tar.gz ./COPYING.LESSER.txt ./README.md ./include ./lib/*.so.1 ./tools/cyusbserialtest ./tools/README-Linux.txt
+
+deploy:
+  provider: releases
+  api_key:
+    secure: eYzcv257okDxTohG7njLqRMIjad9ytsxsE0ORqvYBaQRYlOUuG8LXlj7JCmABMXvdWXVmaNbJ4k5o0qN8hiINwIarf14TzkXzfaXnZ6oTkQh4+6QWJudbNo1vGUIHV9ax4gUw4cV/UTKnviceNq82LnCHKa4i9Ts4HrQeKjXdEw=
+  file: libcyusbserial-$TRAVIS_TAG-$TRAVIS_OS_NAME-$ARCH.tar.gz
+  on:
+    repo: cyrozap/libcyusbserial
+    tags: true
+    all_branches: true
+    condition: "$CC = gcc"
