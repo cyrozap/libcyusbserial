@@ -22,10 +22,10 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 ifeq ($(UNAME_S), Linux)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) $(LIBS) -shared -g -Wl,-soname,$@.so -o $@.so.1 $^
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -shared -g -Wl,-soname,$@.so -o $@.so.1 $^ $(LIBS)
 endif
 ifeq ($(UNAME_S), Darwin)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) $(LIBS) -dynamiclib -o $@.0.1.dylib $^
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -dynamiclib -o $@.0.1.dylib $^ $(LIBS)
 endif
 
 %.o: %.c
