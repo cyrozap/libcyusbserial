@@ -37,13 +37,20 @@ script:
   - cmake ../ && make
 
 before_deploy:
-  - tar -czf libcyusbserial-$TRAVIS_TAG-$TRAVIS_OS_NAME-$ARCH.tar.gz ./COPYING.LESSER.txt ./README.md ./include ./lib/*.so.1 ./tools/cyusbserialtest ./tools/README-Linux.txt
+  - export RELEASE_NAME=libcyusbserial-$TRAVIS_TAG-$TRAVIS_OS_NAME-$ARCH
+  - cd -
+  - mkdir -p $RELEASE_NAME/{include,lib,tools}
+  - cp ./COPYING.LESSER.txt ./README.md $RELEASE_NAME/
+  - cp ./build/include/* $RELEASE_NAME/include/
+  - cp ./build/lib/*.so{,.*} $RELEASE_NAME/lib/
+  - cp ./build/tools/{cyusbserialtest,README-Linux.txt} $RELEASE_NAME/tools/
+  - tar -czf $RELEASE_NAME.tar.gz $RELEASE_NAME
 
 deploy:
   provider: releases
   api_key:
     secure: eYzcv257okDxTohG7njLqRMIjad9ytsxsE0ORqvYBaQRYlOUuG8LXlj7JCmABMXvdWXVmaNbJ4k5o0qN8hiINwIarf14TzkXzfaXnZ6oTkQh4+6QWJudbNo1vGUIHV9ax4gUw4cV/UTKnviceNq82LnCHKa4i9Ts4HrQeKjXdEw=
-  file: libcyusbserial-$TRAVIS_TAG-$TRAVIS_OS_NAME-$ARCH.tar.gz
+  file: $RELEASE_NAME.tar.gz
   on:
     repo: cyrozap/libcyusbserial
     tags: true
