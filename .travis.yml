@@ -43,7 +43,7 @@ before_deploy:
   - cp ./COPYING.LESSER.txt ./README.md $RELEASE_NAME/
   - cp ./include/*.h $RELEASE_NAME/include/
   - cp ./build/lib/*.so{,.*} $RELEASE_NAME/lib/
-  - cp ./build/tools/{cyusbserialtest,README-Linux.txt} $RELEASE_NAME/tools/
+  - cp ./build/tools/cyusbserialtest ./tools/README-Linux.txt $RELEASE_NAME/tools/
   - tar -czf $RELEASE_NAME.tar.gz $RELEASE_NAME
 
 deploy:
