@@ -204,7 +204,7 @@ CY_RETURN_STATUS CyUartWrite (
     }
     rStatus = libusb_bulk_transfer (devHandle, device->outEndpoint, writeBuffer->buffer, writeBuffer->length,
             (int *)&((writeBuffer->transferCount)), ioTimeOut);
-    if ((rStatus == CY_SUCCESS)) {
+    if (rStatus == CY_SUCCESS) {
         CY_DEBUG_PRINT_INFO ("CY: SuccessFull in Wrting Data,%d bytes were transfered \n", (writeBuffer->transferCount));
         return CY_SUCCESS;
     }
