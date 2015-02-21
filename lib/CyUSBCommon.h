@@ -26,7 +26,7 @@
 #include <stdbool.h>
 #include <pthread.h>
 #include <libusb-1.0/libusb.h>
-#include "../include/CyUSBSerial.h"
+#include "CyUSBSerial.h"
 #pragma pack(1)
 typedef struct CY_DEVICE {
     unsigned char inEndpoint;
