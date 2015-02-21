@@ -21,13 +21,13 @@
 
 static bool glDriverInit = false;
 static libusb_device **glDeviceList;
-static UINT32 glNumDevices;
+static int glNumDevices;
 /*The API initializes the Libusb library
 */
 pthread_mutex_t criticalSection;
 CY_RETURN_STATUS CyLibraryInit ()
 {
-    UINT32 rStatus;
+    int rStatus;
     rStatus = libusb_init (NULL);
 
     if (glDriverInit != true){
@@ -104,7 +104,8 @@ CY_RETURN_STATUS CyGetDeviceInfo (
         )
 {
     struct libusb_device_descriptor deviceDesc;
-    UINT32 rStatus, numInterfaces;
+    int rStatus;
+    UINT32 numInterfaces;
     UINT8 iManufacturer, iProduct, iSerial;
     libusb_device *usbDevice;;
     struct libusb_config_descriptor *configDesc;
@@ -217,8 +218,10 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
         )
 {
     struct libusb_device_descriptor deviceDesc;
-    UINT32 rStatus = CY_ERROR_DRIVER_INIT_FAILED, numInterfaces, index = 0, devNum;
-    uint8_t iManufacturer, iProduct, iSerial;
+    int rStatus = CY_ERROR_DRIVER_INIT_FAILED;
+    UINT32 numInterfaces, index = 0;
+    int devNum;
+    UINT8 iManufacturer, iProduct, iSerial;
     libusb_device *usbDevice;
     struct libusb_config_descriptor *configDesc;
     libusb_device_handle *devHandle = NULL;
@@ -461,7 +464,7 @@ CY_RETURN_STATUS CyOpen (
     libusb_device_handle *devHandle;
     libusb_device *dev;
     CY_DEVICE *device;
-    UINT32 rStatus;
+    int rStatus;
 
     if (glDriverInit == false){
         CY_DEBUG_PRINT_ERROR ("CY:Error Library not initialised ...function is %s\n", __func__);
