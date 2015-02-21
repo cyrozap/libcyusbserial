@@ -412,7 +412,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
     device = (CY_DEVICE*)handle;
     pthread_mutex_lock (&device->notificationLock);
     if (device->deviceType == CY_TYPE_UART){
-        if ((device->uartThreadId == 0)){
+        if (device->uartThreadId == 0){
             CY_DEBUG_PRINT_ERROR ("CY:Error uart event notification not created ....function is %s \n", __func__);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_REQUEST_FAILED;
@@ -426,7 +426,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
         return CY_SUCCESS;
     }
     else if (device->deviceType == CY_TYPE_SPI){
-        if ((device->spiThreadId == 0)){
+        if (device->spiThreadId == 0){
             CY_DEBUG_PRINT_ERROR ("CY:Error spi event notification not created ....function is %s \n", __func__);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_REQUEST_FAILED;
