@@ -318,7 +318,7 @@ CY_RETURN_STATUS CySpiRead (
 			return r;
 		}
     }
-    if ((readTransfer->status == LIBUSB_TRANSFER_COMPLETED)){
+    if (readTransfer->status == LIBUSB_TRANSFER_COMPLETED){
         readBuffer->transferCount = readTransfer->actual_length;
         libusb_free_transfer (readTransfer);
         return CY_SUCCESS;
@@ -417,7 +417,7 @@ CY_RETURN_STATUS CySpiWrite (
     //because we have a sleep of 1 msec after every getstatus
     if (newIoTimeout)
         loopCount = (newIoTimeout);
-    if ((rStatus == LIBUSB_SUCCESS)){
+    if (rStatus == LIBUSB_SUCCESS){
         CY_DEBUG_PRINT_INFO ("CY: Successfully written SPI data.. %d bytes Read ...\n", writeBuffer->transferCount);
         while (loopCount){
             usleep (1000);
