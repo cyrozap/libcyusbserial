@@ -33,6 +33,7 @@ endif("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
 ################################################################################
 # Process subdirectories
 ################################################################################
+include_directories(${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(include)
 add_subdirectory(lib)
 add_subdirectory(tools)
