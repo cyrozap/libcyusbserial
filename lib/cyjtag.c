@@ -149,7 +149,7 @@ CY_RETURN_STATUS CyJtagWrite (
     }
     rStatus = libusb_bulk_transfer (devHandle, CY_JTAG_OUT_EP, writeBuffer->buffer, writeBuffer->length,
             (int*)&(writeBuffer->transferCount), ioTimeout);
-    if ((rStatus == CY_SUCCESS)) {
+    if (rStatus == CY_SUCCESS) {
         CY_DEBUG_PRINT_ERROR ("CY: Number of bytes written is .... %d \n", writeBuffer->transferCount);
         return CY_SUCCESS;
     }
