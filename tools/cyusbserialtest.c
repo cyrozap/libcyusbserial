@@ -49,7 +49,7 @@ int cyDevices, i2cDevices = 0;
 UINT8 numDevices = 0;
 int selectedDeviceNum = -1, selectedInterfaceNum = -1;
 bool exitApp = false;
-unsigned short pageAddress = -1;
+short pageAddress = -1;
 short readWriteLength = -1;
 bool deviceAddedRemoved = false;
 
