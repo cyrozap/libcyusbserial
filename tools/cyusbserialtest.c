@@ -53,7 +53,9 @@ unsigned short pageAddress = -1;
 short readWriteLength = -1;
 bool deviceAddedRemoved = false;
 
+int i2cVerifyData (int deviceNumber, int interfaceNum);
 void printListOfDevices (bool isPrint);
+int spiVerifyData (int deviceNumber, int interfaceNum);
 
 int getUserInput()
 {
