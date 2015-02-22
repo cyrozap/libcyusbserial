@@ -436,7 +436,7 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
     if (rStatus != CY_SUCCESS){
         printf("CY_I2C: Open failed \n");
         return rStatus;
-   }
+    }
     loopCount = 100;
     length = readWriteLength;
     wbuffer[0]= pageAddress;
@@ -603,4 +603,3 @@ void printListOfDevices (bool isPrint)
         printf ("---------------------------------------------------------------------------------\n\n");
     }
 }
-
