@@ -636,16 +636,14 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
         if (i2cStatus[0] & 0x80){ //Error notification is for write
             if ((i2cStatus[0] & CY_I2C_ERROR_BIT)){
                 CY_DEBUG_PRINT_INFO ("Bytes pending is %x %x %x", i2cStatus[0], i2cStatus[1], i2cStatus[2]);
-                if (i2cStatus[0] & 0x1E){
-                    //There was some error, so reset the i2c module and usb module
-                    //of the device, so branch out of the loop(Check below for the errors reported).
-                    rStatus = CyI2cReset (device, CY_I2C_MODE_WRITE);
-                    if (rStatus != CY_SUCCESS)
-                        CY_DEBUG_PRINT_INFO ("CY:i2c reset failed \n");
-                    //Report the amount of byte that were actually written
-                    memcpy(bytesPending, &i2cStatus[1], 2);
-                    errorStatus = handleI2cError (i2cStatus[0]);
-                }
+                //There was some error, so reset the i2c module and usb module
+                //of the device, so branch out of the loop(Check below for the errors reported).
+                rStatus = CyI2cReset (device, CY_I2C_MODE_WRITE);
+                if (rStatus != CY_SUCCESS)
+                    CY_DEBUG_PRINT_INFO ("CY:i2c reset failed \n");
+                //Report the amount of byte that were actually written
+                memcpy(bytesPending, &i2cStatus[1], 2);
+                errorStatus = handleI2cError (i2cStatus[0]);
             }
             else
                 errorStatus = CY_SUCCESS;
@@ -654,14 +652,12 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
         {
             if ((i2cStatus[0] & CY_I2C_ERROR_BIT)){
                 CY_DEBUG_PRINT_INFO ("Bytes pending is %x %x %x", i2cStatus[0], i2cStatus[1], i2cStatus[2]);
-                if (i2cStatus[0] & 0x1E){
-                    rStatus = CyI2cReset (device, CY_I2C_MODE_READ);
-                    if (rStatus != CY_SUCCESS)
-                        CY_DEBUG_PRINT_INFO ("CY:i2c reset failed \n");
-                    //Report the amount of byte that were actually written
-                    memcpy(bytesPending, &i2cStatus[1], 2);
-                    errorStatus = handleI2cError (i2cStatus[0]);
-                }
+                rStatus = CyI2cReset (device, CY_I2C_MODE_READ);
+                if (rStatus != CY_SUCCESS)
+                    CY_DEBUG_PRINT_INFO ("CY:i2c reset failed \n");
+                //Report the amount of byte that were actually written
+                memcpy(bytesPending, &i2cStatus[1], 2);
+                errorStatus = handleI2cError (i2cStatus[0]);
             }
             else
                 errorStatus = CY_SUCCESS;
