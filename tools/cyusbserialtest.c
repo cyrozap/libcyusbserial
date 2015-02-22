@@ -95,7 +95,7 @@ void deviceHotPlug () {
 
 int main (int argc, char **agrv)
 {
-    int index = 0, i, j, userInput;
+    int userInput;
     int tempSelectedDeviceNum, tempSelectedInterfaceNum, tempPageAddress, tempLength;
     CY_RETURN_STATUS rStatus;
     signal (SIGUSR1, deviceHotPlug);
