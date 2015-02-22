@@ -43,7 +43,7 @@ typedef struct
     BOOL cpha;
     BOOL cpol;
     BOOL isLoopback;
-    UCHAR reserver[2];
+    UCHAR reserved[2];
 } CyUsSpiConfig_t;
 #pragma pack()
 
