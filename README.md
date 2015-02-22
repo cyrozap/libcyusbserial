@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/cyrozap/libcyusbserial.svg?branch=master)](https://travis-ci.org/cyrozap/libcyusbserial)
 
+
 ## Pre-requisites
 
 1. libusb 1.0.9 (or higher) is required for compilation and functioning of the
@@ -17,16 +18,12 @@
 2. Run `cmake` on the source directory and then make. Example:
    `cmake ../ && make`
 
-3. This will generate the shared library `libcyusbserial.so.1`
-   (`libcyusbserial.0.1.dylib` on OS X) and its soft link `libcyusbserial.so`
-   (`libcyusbserial.dylib` on OS X).
-
-4. Run `sudo make install` to install the header file, libraries, and test
+3. Run `sudo make install` to install the header file, libraries, and test
    utility into `PREFIX` (`/usr/local/` by default).
 
-5. You might need to run `ldconfig` now.
+4. If you're on Linux, you might need to run `ldconfig` now.
 
-6. User can launch the application and test the communication with Cypress
+5. You can now launch the application and communication with the Cypress
    USB-Serial DVK in vendor mode.
 
 
