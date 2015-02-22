@@ -45,7 +45,8 @@ typedef struct _CY_DEVICE_STRUCT {
 CY_DEVICE_STRUCT *glDevice;
 int i2cDeviceIndex[CY_MAX_DEVICES][CY_MAX_INTERFACES];
 unsigned char *deviceNumber = NULL;
-int cyDevices, i2cDevices = 0, numDevices = 0;
+int cyDevices, i2cDevices = 0;
+UINT8 numDevices = 0;
 int selectedDeviceNum = -1, selectedInterfaceNum = -1;
 bool exitApp = false;
 unsigned short pageAddress = -1;
