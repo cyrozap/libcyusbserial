@@ -531,7 +531,7 @@ void printListOfDevices (bool isPrint)
     int i, j, devNum;
     int index = 0, numInterfaces, interfaceNum;
 
-    unsigned char functionality[64];
+    char functionality[64];
     CY_DEVICE_INFO deviceInfo;
     CY_RETURN_STATUS rStatus;
 
