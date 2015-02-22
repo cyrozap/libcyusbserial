@@ -274,6 +274,7 @@ int main (int argc, char **agrv)
         }
     }while (exitApp == false);
     free (glDevice);
+    return CY_SUCCESS;
 }
 int spiWriteEnable (CY_HANDLE handle)
 {
@@ -505,6 +506,7 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
         printf ("Data verified successfully \n");
 
     CyClose (handle);
+    return CY_SUCCESS;
 }
 bool isCypressDevice (int deviceNum) {
     CY_HANDLE handle;
