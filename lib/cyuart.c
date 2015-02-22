@@ -336,7 +336,7 @@ CY_RETURN_STATUS CyUartSetHwFlowControl (
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle..Function is %s\n", __func__);
         return CY_ERROR_INVALID_HANDLE;
     }
-    if (mode < 0 || mode > 3){
+    if (mode > 3){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid parameter..Function is %s\n", __func__);
         return CY_ERROR_INVALID_PARAMETER;
     }
