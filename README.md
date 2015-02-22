@@ -1,6 +1,7 @@
 # Cypress Semiconductor Corporation CyUSB Serial Library
 
 [![Build Status](https://travis-ci.org/cyrozap/libcyusbserial.svg?branch=master)](https://travis-ci.org/cyrozap/libcyusbserial)
+[![Coverage Status](https://coveralls.io/repos/cyrozap/libcyusbserial/badge.svg)](https://coveralls.io/r/cyrozap/libcyusbserial)
 
 
 ## Pre-requisites
@@ -13,7 +14,7 @@
 
 ## Building the library and the test utility
 
-1. Make a build directory and `cd` to it. Example: `mkdir build && cd !$`
+1. Make a build directory and `cd` to it. Example: `mkdir build && cd build`
 
 2. Run `cmake` on the source directory and then make. Example:
    `cmake ../ && make`
