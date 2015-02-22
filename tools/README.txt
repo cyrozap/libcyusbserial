@@ -9,31 +9,6 @@ Cypress CyUSBSerial DVK.
 The utility writes to I2C/SPI flash devices on the DVK, reads the data back
 and verifies the data read for integrity.
 
-Release components:
-================================================================================
-1. Test_Utility.c ==> Source file of the command line test utility
-4. Makefile       ==> make file for compiling and installing the application.
-================================================================================
-
-
-Pre-requisites:
-================================================================================
-1. libusb-1.0.9 is required for compilation and functioning of the APIs in the
-   USB Serial library.
-2. The CyUSBSerial library (libcyusbserial.dylib) should be compiled and installed
-   on the test machine.
-3. GNU Make and the GCC tool-chain are used for the build process.
-================================================================================
-
-Installation steps:
-================================================================================
-1. Change to the folder where the test utility source files are extracted ( ./mac/testUtility).
-2. Invoke 'make' to build compile the utility. This should be done from a super-user
-   (sudo) shell, because the binary need to be copied into system
-   folders (/usr/bin).
-3. Use the CyUSBSerialTestUtility command to start the test utility.
-
-================================================================================
 
 Using the test utility:
 ================================================================================
