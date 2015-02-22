@@ -173,7 +173,7 @@ int main (int argc, char **agrv)
                     printf ("Wrong interface Selection selection \n");
                     continue;
                 }
-                if ((glDevice[tempSelectedDeviceNum].interfaceFunctionality[tempSelectedInterfaceNum] == -1)){
+                if (glDevice[tempSelectedDeviceNum].interfaceFunctionality[tempSelectedInterfaceNum] == -1){
                     printf ("Selected device does not have I2C or SPI !!! \n");
                     continue;
                 }
