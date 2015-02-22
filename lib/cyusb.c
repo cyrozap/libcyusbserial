@@ -183,7 +183,7 @@ CY_RETURN_STATUS CyGetDeviceInfo (
         while ((numInterfaces) && (index_i < CY_MAX_DEVICE_INTERFACE)){
             deviceInfo->deviceClass[index_i] = (CY_DEVICE_CLASS)interface->altsetting->bInterfaceClass;
             if (deviceInfo->deviceClass[index_i] == CY_CLASS_VENDOR){
-                deviceInfo->deviceType[index_i] = (CY_DEVICE_CLASS)interface->altsetting->bInterfaceSubClass;
+                deviceInfo->deviceType[index_i] = (CY_DEVICE_TYPE)interface->altsetting->bInterfaceSubClass;
             }
             else
                 deviceInfo->deviceType[index_i] = CY_TYPE_DISABLED;
@@ -314,7 +314,7 @@ CY_RETURN_STATUS CyGetDeviceInfoVidPid (
             while ((numInterfaces) && (index_i < CY_MAX_DEVICE_INTERFACE)){
                 deviceInfo->deviceClass[index_i] = (CY_DEVICE_CLASS)interfaceDesc->altsetting->bInterfaceClass;
                 if (deviceInfo->deviceClass[index_i] == CY_CLASS_VENDOR)
-                    deviceInfo->deviceType[index_i] = (CY_DEVICE_CLASS)interfaceDesc->altsetting->bInterfaceSubClass;
+                    deviceInfo->deviceType[index_i] = (CY_DEVICE_TYPE)interfaceDesc->altsetting->bInterfaceSubClass;
                 else
                     deviceInfo->deviceType[index_i] = CY_TYPE_DISABLED;
 
@@ -444,7 +444,7 @@ void CySelectDeviceType (CY_DEVICE *device, libusb_device *libUsbdev, unsigned c
             interfaceDesc++;
         }
         if (interfaceDesc->altsetting->bInterfaceClass == CY_CLASS_VENDOR)
-            device->deviceType = (CY_DEVICE_CLASS)interfaceDesc->altsetting->bInterfaceSubClass;
+            device->deviceType = (CY_DEVICE_TYPE)interfaceDesc->altsetting->bInterfaceSubClass;
         libusb_free_config_descriptor (configDesc);
     }
     CY_DEBUG_PRINT_INFO ("CY:Info The device type is %d \n", device->deviceType);
