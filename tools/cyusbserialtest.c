@@ -332,7 +332,7 @@ int spiVerifyData (int deviceNumber, int interfaceNum)
     CY_HANDLE handle;
     bool isVerify = true;
     unsigned char wbuffer[256 + 4], rbuffer[256 + 4];
-    int rStatus, length;
+    int rStatus;
 
     memset (rbuffer, 0x00, 256);
     memset (wbuffer, 0x00, 256);
@@ -423,7 +423,7 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
     bool isVerify = true;
     int loopCount = 100, i;
     CY_RETURN_STATUS rStatus;
-    unsigned char bytesPending = 0, address[2], wbuffer[66], rbuffer[66];
+    unsigned char address[2], wbuffer[66], rbuffer[66];
     CY_I2C_DATA_CONFIG i2cDataConfig;
 
     memset (wbuffer, 0, 66);
@@ -528,15 +528,11 @@ bool isCypressDevice (int deviceNum) {
 }
 void printListOfDevices (bool isPrint)
 {
-    int  index_i = 0, index_j = 0, i, j, countOfDevice = 0, devNum;
-    int length, index = 0, numInterfaces, interfaceNum;
-    bool set1 = false;
+    int i, j, devNum;
+    int index = 0, numInterfaces, interfaceNum;
 
-    unsigned char deviceID[CY_MAX_DEVICES];
     unsigned char functionality[64];
     CY_DEVICE_INFO deviceInfo;
-    CY_DEVICE_CLASS deviceClass[CY_MAX_INTERFACES];
-    CY_DEVICE_TYPE  deviceType[CY_MAX_INTERFACES];
     CY_RETURN_STATUS rStatus;
 
     deviceAddedRemoved = false;
