@@ -492,7 +492,7 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
 
     printf ("\n Data that is read from i2c ...\n");
     printf ("\n-----------------------------------------------------------------\n");
-    for (rStatus = 0; rStatus < length; rStatus++){
+    for (i = 0; i < length; i++){
         printf ("%x ", rbuffer[rStatus]);
         if (rbuffer[rStatus] != wbuffer[rStatus + 2]){
             isVerify = false;
