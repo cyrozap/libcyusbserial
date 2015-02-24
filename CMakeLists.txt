@@ -8,9 +8,9 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
 
 include(FindLibUSB)
 
-###############################
+################################################################################
 # GCC and Clang
-###############################
+################################################################################
 if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
    "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
 
