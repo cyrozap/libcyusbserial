@@ -218,6 +218,6 @@ typedef enum CY_VENDOR_CMDS
                                            This can be accessed by the user from USB. The flash area
                                            address offset is from 0x0000 to 0x00200 and can be written to
                                            page wise (128 byte).*/
-    CY_DEVICE_RESET_CMD = 0xE3,         /*Performs a device reset from firmware*/
+    CY_DEVICE_RESET_CMD = 0xE3,         /* Performs a device reset from firmware */
 
 } CY_VENDOR_CMDS;
