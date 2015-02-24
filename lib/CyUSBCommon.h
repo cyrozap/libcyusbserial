@@ -27,6 +27,7 @@
 #include <pthread.h>
 #include <libusb-1.0/libusb.h>
 #include "CyUSBSerial.h"
+
 #pragma pack(1)
 typedef struct CY_DEVICE {
     unsigned char inEndpoint;
@@ -54,8 +55,10 @@ typedef struct CY_DEVICE {
 #pragma pack()
 
 CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
+
 #define CY_DEBUG_PRINT_INFO(...) //User need to enable this
 #define CY_DEBUG_PRINT_ERROR(...) //printf
+
 #define DUMP_DATA 1
 #ifdef DUMP_DATA
 #define CY_DUMP_DATA(INPUT,LEN)\
@@ -70,6 +73,7 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 #else
 #define CY_DUMP_DATA (INPUT, LEN) do { }while (0);
 #endif
+
 #define CY_USB_SERIAL_TIMEOUT 5000
 #define CY_EVENT_NOTIFICATION_TIMEOUT 0 //This will make the transfer infinite
 
@@ -78,6 +82,7 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 
 #define CY_CLASS_INTERFACE_REQUEST_DEVICE_TO_HOST 0XA1
 #define CY_CLASS_INTERFACE_REQUEST_HOST_TO_DEVICE 0x21
+
 //I2C related macros
 #define CY_SCB_INDEX_POS                15
 #define CY_I2C_CONFIG_LENGTH            16
@@ -94,6 +99,7 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 #define CY_I2C_BUS_BUSY_ERROR (1 << 5)
 #define CY_I2C_ENABLE_PRECISE_TIMING 1
 #define CY_I2C_EVENT_NOTIFICATION_LEN 3
+
 //SPI related Macros
 #define CY_SPI_CONFIG_LEN 16
 #define CY_SPI_EVENT_NOTIFICATION_LEN 2
@@ -103,13 +109,13 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 #define CY_SPI_GET_STATUS_LEN 4
 #define CY_SPI_UNDERFLOW_ERROR (1)
 #define CY_SPI_BUS_ERROR (1 << 1)
+
 //Vendor UART related macros
 #define CY_UART_SET_FLOW_CONTROL_CMD 0x60
 #define CY_UART_SEND_BREAK_CMD  0x17
 #define CY_UART_CONFIG_LEN 16
 #define CY_SET_LINE_CONTROL_STATE_CMD 0x22
 #define CY_UART_EVENT_NOTIFICATION_LEN 10
-
 #define CY_UART_SERIAL_STATE_CARRIER_DETECT 1
 #define CY_UART_SERIAL_STATE_TRANSMISSION_CARRIER (1 << 1)
 #define CY_UART_SERIAL_STATE_BREAK_DETECTION (1<< 2)
@@ -117,6 +123,7 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 #define CY_UART_SERIAL_STATE_FRAMING_ERROR (1 << 4)
 #define CY_UART_SERIAL_STATE_PARITY_ERROR (1 << 5)
 #define CY_UART_SERIAL_STATUE_OVERRUN (1 << 6)
+
 //Bootloader related macros
 #define CY_BOOT_CONFIG_SIZE 64
 #define CY_DEVICE_CONFIG_SIZE 512
@@ -124,10 +131,22 @@ CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 #define CY_GET_SILICON_ID_LEN 4
 #define CY_GET_FIRMWARE_VERSION_LEN 8
 #define CY_GET_SIGNATURE_LEN 4
+
+//JTAG related Macros
+#define CY_JTAG_OUT_EP 0x04
+#define CY_JTAG_IN_EP 0x85
+
+//GPIO related Macros
+#define CY_GPIO_GET_LEN 2
+#define CY_GPIO_SET_LEN 1
+
 //PHDC related macros
 #define CY_PHDC_SET_FEATURE 0X03
+#define CY_PHDC_SET_FEATURE_WVALUE 0x0101
 #define CY_PHDC_CLR_FEATURE 0X01
+#define CY_PHDC_CLR_FEATURE_WVALUE 0x1
 #define CY_PHDC_GET_DATA_STATUS 0x00
+#define CY_PHDC_GET_STATUS_LEN 2
 
 typedef enum CY_VENDOR_CMDS
 {
@@ -202,17 +221,3 @@ typedef enum CY_VENDOR_CMDS
     CY_DEVICE_RESET_CMD = 0xE3,         /*Performs a device reset from firmware*/
 
 } CY_VENDOR_CMDS;
-
-//JTAG related Macros
-#define CY_JTAG_OUT_EP 0x04
-#define CY_JTAG_IN_EP 0x85
-
-//GPIO related Macros
-#define CY_GPIO_GET_LEN 2
-#define CY_GPIO_SET_LEN 1
-
-//PHDC related macros
-#define CY_PHDC_GET_STATUS_LEN 2
-#define CY_PHDC_CLR_FEATURE_WVALUE 0x1
-#define CY_PHDC_SET_FEATURE_WVALUE 0x0101
-
