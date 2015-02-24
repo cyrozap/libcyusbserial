@@ -154,9 +154,9 @@ typedef enum CY_VENDOR_CMDS
                                            value = 0, index = 0, length = 4;
                                            data_in = 32 bit version. */
 
-    CY_GET_SIGNATURE_CMD = 0xBD,        /*Get the signature of the firmware
-                                        It is suppose to be 'CYUS' for normal firmware
-                                        and 'CYBL' for Bootloader.*/
+    CY_GET_SIGNATURE_CMD = 0xBD,        /* Get the signature of the firmware
+                                           It is suppose to be 'CYUS' for normal firmware
+                                           and 'CYBL' for Bootloader.*/
     CY_UART_GET_CONFIG_CMD = 0xC0,      /* Retreive the 16 byte UART configuration information.
                                            MS bit of value indicates the SCB index.
                                            length = 16, data_in = 16 byte configuration. */
@@ -209,15 +209,15 @@ typedef enum CY_VENDOR_CMDS
     CY_GPIO_GET_CONFIG_CMD = 0xD8,      /* Get the GPIO configuration: */
     CY_GPIO_SET_CONFIG_CMD,             /* Set the GPIO configuration */
     CY_GPIO_GET_VALUE_CMD,              /* Get GPIO value: */
-    CY_GPIO_SET_VALUE_CMD,                  /* Set the GPIO value:*/
-    CY_PROG_USER_FLASH_CMD = 0xE0,      /*Program user flash area. The total space available is 512 bytes.
-                                            This can be accessed by the user from USB. The flash area
-                                            address offset is from 0x0000 to 0x00200 and can be written to
-                                            page wise (128 byte).*/
-    CY_READ_USER_FLASH_CMD,             /*Read user flash area. The total space available is 512 bytes.
-                                            This can be accessed by the user from USB. The flash area
-                                            address offset is from 0x0000 to 0x00200 and can be written to
-                                            page wise (128 byte).*/
+    CY_GPIO_SET_VALUE_CMD,              /* Set the GPIO value:*/
+    CY_PROG_USER_FLASH_CMD = 0xE0,      /* Program user flash area. The total space available is 512 bytes.
+                                           This can be accessed by the user from USB. The flash area
+                                           address offset is from 0x0000 to 0x00200 and can be written to
+                                           page wise (128 byte).*/
+    CY_READ_USER_FLASH_CMD,             /* Read user flash area. The total space available is 512 bytes.
+                                           This can be accessed by the user from USB. The flash area
+                                           address offset is from 0x0000 to 0x00200 and can be written to
+                                           page wise (128 byte).*/
     CY_DEVICE_RESET_CMD = 0xE3,         /*Performs a device reset from firmware*/
 
 } CY_VENDOR_CMDS;
