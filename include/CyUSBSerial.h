@@ -62,10 +62,10 @@ This section contains USB Serial library version information.
 */
 
 /* Major version number for library. */
-#define CY_US_VERSION_MAJOR             (0)
+#define CY_US_VERSION_MAJOR             (1)
 
 /* Minor version number for library. */
-#define CY_US_VERSION_MINOR             (1)
+#define CY_US_VERSION_MINOR             (0)
 
 /* Patch version number for library. */
 #define CY_US_VERSION_PATCH             (0)
