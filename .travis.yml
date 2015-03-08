@@ -11,9 +11,6 @@ env:
   - ARCH=x86_64
   - ARCH=i386
 
-cache:
-  - apt
-
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ];
     then
