@@ -1,6 +1,7 @@
 # Cypress Semiconductor Corporation CyUSB Serial Library
 
 [![Build Status](https://travis-ci.org/cyrozap/libcyusbserial.svg?branch=master)](https://travis-ci.org/cyrozap/libcyusbserial)
+[![LGPLv2.1+ License](http://img.shields.io/badge/license-LGPLv2.1+-blue.svg)](https://www.gnu.org/licenses/lgpl-2.1.html)
 
 
 ## Pre-requisites
