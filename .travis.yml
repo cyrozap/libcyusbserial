@@ -2,21 +2,32 @@ sudo: false
 
 language: c
 
-compiler:
-  - gcc
-  - clang
-
-os:
-  - linux
+os: linux
 
 matrix:
   include:
-    - env: ARCH=x86_64
+    - compiler: gcc
+      env: ARCH=x86_64
       addons:
         apt:
           packages:
             - libusb-1.0-0-dev
-    - env: ARCH=i386
+    - compiler: clang
+      env: ARCH=x86_64
+      addons:
+        apt:
+          packages:
+            - libusb-1.0-0-dev
+    - compiler: gcc
+      env: ARCH=i386
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - libusb-1.0-0-dev:i386
+            - pkg-config:i386
+    - compiler: clang
+      env: ARCH=i386
       addons:
         apt:
           packages:
