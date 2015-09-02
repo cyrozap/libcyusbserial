@@ -1,0 +1,15 @@
+platform:
+  - x86
+  - x64
+
+install:
+  - ps: (new-object System.Net.WebClient).Downloadfile("https://downloads.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.19/libusb-1.0.19-rc1-win.7z", "$($env:APPVEYOR_BUILD_FOLDER)\\libusb-1.0.19-rc1-win.7z")
+  - cmd: 7z x -y "%APPVEYOR_BUILD_FOLDER%\\libusb-1.0.19-rc1-win.7z" -o "C:\\Program Files\\libusb-1.0.19"
+
+before_build:
+  - cmd: mkdir build
+  - cmd: chdir build
+
+build_script:
+  - cmd: cmake ..
+  - cmd: make
