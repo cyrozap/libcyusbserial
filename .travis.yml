@@ -1,3 +1,5 @@
+sudo: false
+
 language: c
 
 compiler:
@@ -11,16 +13,19 @@ env:
   - ARCH=x86_64
   - ARCH=i386
 
+addons:
+  apt:
+    packages:
+      - gcc-multilib
+      - libusb-1.0-0-dev
+      - libusb-1.0-0-dev:i386
+      - pkg-config:i386
+
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ];
     then
-      sudo apt-get update -qq;
-      if [ "$ARCH" = "x86_64" ];
+      if [ "$ARCH" = "i386" ];
       then
-        sudo apt-get install -qq libusb-1.0-0-dev;
-      elif [ "$ARCH" = "i386" ];
-      then
-        sudo apt-get install -qq gcc-multilib libusb-1.0-0-dev:i386 pkg-config:i386;
         export CFLAGS="-m32";
       fi
     fi
