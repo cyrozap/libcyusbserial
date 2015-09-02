@@ -9,17 +9,20 @@ compiler:
 os:
   - linux
 
-env:
-  - ARCH=x86_64
-  - ARCH=i386
-
-addons:
-  apt:
-    packages:
-      - gcc-multilib
-      - libusb-1.0-0-dev
-      - libusb-1.0-0-dev:i386
-      - pkg-config:i386
+matrix:
+  include:
+    - env: ARCH=x86_64
+      addons:
+        apt:
+          packages:
+            - libusb-1.0-0-dev
+    - env: ARCH=i386
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - libusb-1.0-0-dev:i386
+            - pkg-config:i386
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ];
