@@ -9,7 +9,4 @@ install:
 before_build:
   - cmd: mkdir build
   - cmd: chdir build
-
-build_script:
   - cmd: cmake ..
-  - cmd: make
