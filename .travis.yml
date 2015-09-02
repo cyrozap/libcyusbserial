@@ -11,7 +11,7 @@ matrix:
           packages:
             - libusb-1.0-0-dev
     - compiler: gcc
-      env: ARCH=i386
+      env: ARCH=i386 CFLAGS="-m32"
       addons:
         apt:
           packages:
@@ -25,27 +25,13 @@ matrix:
           packages:
             - libusb-1.0-0-dev
     - compiler: clang
-      env: ARCH=i386
+      env: ARCH=i386 CFLAGS="-m32"
       addons:
         apt:
           packages:
             - gcc-multilib
             - libusb-1.0-0-dev:i386
             - pkg-config:i386
-
-install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ];
-    then
-      if [ "$ARCH" = "i386" ];
-      then
-        export CFLAGS="-m32";
-      fi
-    fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ];
-    then
-      brew update;
-      brew install libusb;
-    fi
 
 before_script:
   - mkdir build && cd build
