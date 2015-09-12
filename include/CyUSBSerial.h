@@ -105,7 +105,7 @@ Cypress USB Serial driver library.
  *  The handle is used by application to communicate with USB serial device.
  *  The handle is obtained by calling CyOpen.
  *
- *  \see CyOpen
+ *  \sa CyOpen
  */
 typedef void* CY_HANDLE;
 
@@ -116,7 +116,7 @@ typedef void* CY_HANDLE;
  *  a callback with a 2 byte value bit map that reports error/events triggered during UART/SPI transaction.
  *  The bit map is defined in CY_CALLBACK_EVENTS.
  *
- *  \see CY_CALLBACK_EVENTS
+ *  \sa CY_CALLBACK_EVENTS
  */
 typedef void (*CY_EVENT_NOTIFICATION_CB_FN)(UINT16 eventsNotified);
 
@@ -125,8 +125,8 @@ typedef void (*CY_EVENT_NOTIFICATION_CB_FN)(UINT16 eventsNotified);
  *
  *  This Strucuture holds the VID and PID of a USB device.
  *
- *  \see CY_DEVICE_INFO
- *  \see CyGetDeviceInfoVidPid
+ *  \sa CY_DEVICE_INFO
+ *  \sa CyGetDeviceInfoVidPid
  */
 typedef struct _CY_VID_PID {
 
@@ -140,7 +140,7 @@ typedef struct _CY_VID_PID {
  *
  *  This structure can be used to retrive the version information of the library.
  *
- *  \see CyGetLibraryVersion
+ *  \sa CyGetLibraryVersion
  */
 typedef struct _CY_LIBRARY_VERSION {
 
@@ -157,7 +157,7 @@ typedef struct _CY_LIBRARY_VERSION {
  *  This structure holds the version information of the USB serial device.
  *  It has major version, minor version, patch number and build number.
  *
- *  \see CyGetFirmwareVersion
+ *  \sa CyGetFirmwareVersion
  */
 typedef struct _CY_FIRMWARE_VERSION {
 
@@ -173,9 +173,9 @@ typedef struct _CY_FIRMWARE_VERSION {
  *
  *  This is the list of USB device classes supported by USB Serial device.
  *
- *  \see CY_DEVICE_INFO
- *  \see CyGetDeviceInfo
- *  \see CyGetDeviceInfoVidPid
+ *  \sa CY_DEVICE_INFO
+ *  \sa CyGetDeviceInfo
+ *  \sa CyGetDeviceInfoVidPid
  */
 typedef enum _CY_DEVICE_CLASS{
 
@@ -195,9 +195,9 @@ typedef enum _CY_DEVICE_CLASS{
  *
  *  The member of CY_DEVICE_INFO structure contains the interface type.
  *
- *  \see CY_DEVICE_INFO
- *  \see CyGetDeviceInfo
- *  \see CyGetDeviceInfoVidPid
+ *  \sa CY_DEVICE_INFO
+ *  \sa CyGetDeviceInfo
+ *  \sa CyGetDeviceInfoVidPid
  */
 typedef enum _CY_DEVICE_TYPE {
 
@@ -222,9 +222,9 @@ typedef enum _CY_DEVICE_TYPE {
  *
  *  This data type information doesn't apply for non-windows operating system.
  *
- *  \see CY_DEVICE_INFO
- *  \see CyGetDeviceInfo
- *  \see CyGetDeviceInfoVidPid
+ *  \sa CY_DEVICE_INFO
+ *  \sa CyGetDeviceInfo
+ *  \sa CyGetDeviceInfoVidPid
  */
 
 typedef enum _CY_DEVICE_SERIAL_BLOCK
@@ -244,11 +244,11 @@ typedef enum _CY_DEVICE_SERIAL_BLOCK
  *  The information includes VID, PID, number of interfaces, string descriptors, device type
  *  and device class supported by each interface. Device type is valid only if the interface is CY_CLASS_VENDOR.
  *
- *  \see CY_VID_PID
- *  \see CY_DEVICE_CLASS
- *  \see CY_DEVICE_TYPE
- *  \see CyGetDeviceInfo
- *  \see CyGetDeviceInfoVidPid
+ *  \sa CY_VID_PID
+ *  \sa CY_DEVICE_CLASS
+ *  \sa CY_DEVICE_TYPE
+ *  \sa CyGetDeviceInfo
+ *  \sa CyGetDeviceInfoVidPid
  */
 typedef struct _CY_DEVICE_INFO {
 
@@ -278,13 +278,13 @@ typedef struct _CY_DEVICE_INFO {
  *  operations.
  *  Before using a variable of this strucutre users need to initialize various members appropriately.
  *
- *  \see CyUartRead
- *  \see CyUartWrite
- *  \see CyI2cRead
- *  \see CyI2cWrite
- *  \see CySpiReadWrite
- *  \see CyJtagWrite
- *  \see CyJtagRead
+ *  \sa CyUartRead
+ *  \sa CyUartWrite
+ *  \sa CyI2cRead
+ *  \sa CyI2cWrite
+ *  \sa CySpiReadWrite
+ *  \sa CyJtagWrite
+ *  \sa CyJtagRead
  */
 typedef struct _CY_DATA_BUFFER {
 
@@ -334,8 +334,8 @@ typedef enum _CY_RETURN_STATUS{
  *  Cypress USB Serial device. CyGetI2cConfig and CySetI2cConfig APIs can be used to
  *  retrieve and configure I2C module respectively.
  *
- *  \see CyGetI2cConfig
- *  \see CySetI2cConfig
+ *  \sa CyGetI2cConfig
+ *  \sa CySetI2cConfig
  */
 typedef struct _CY_I2C_CONFIG{
 
@@ -355,8 +355,8 @@ typedef struct _CY_I2C_CONFIG{
  *  (when device is in I2C slave mode), stopbit (to enable or disable) and
  *  Nak bit (to enable or disable).
  *
- *  \see CyI2cWrite
- *  \see CyI2cRead
+ *  \sa CyI2cWrite
+ *  \sa CyI2cRead
  */
 typedef struct _CY_I2C_DATA_CONFIG
 {
@@ -371,9 +371,9 @@ typedef struct _CY_I2C_DATA_CONFIG
  *
  *  These are the different protocols supported by USB-Serial SPI module.
  *
- *  \see CY_SPI_CONFIG
- *  \see CyGetSpiConfig
- *  \see CySetSpiConfig
+ *  \sa CY_SPI_CONFIG
+ *  \sa CyGetSpiConfig
+ *  \sa CySetSpiConfig
  */
 typedef enum _CY_SPI_PROTOCOL {
 
@@ -403,10 +403,10 @@ typedef enum _CY_SPI_PROTOCOL {
  *
  *  This structure defines configuration parameters that are used for configuring the SPI module .
  *
- *  \see CY_SPI_PROTOCOL
- *  \see CY_SPI_DATA_TRANSFER_MODE
- *  \see CyGetSpiConfig
- *  \see CySetSpiConfig
+ *  \sa CY_SPI_PROTOCOL
+ *  \sa CY_SPI_DATA_TRANSFER_MODE
+ *  \sa CyGetSpiConfig
+ *  \sa CySetSpiConfig
  */
 typedef struct _CY_SPI_CONFIG
 {
@@ -448,9 +448,9 @@ typedef struct _CY_SPI_CONFIG
  *  The enumeration lists the various baud rates supported by the UART when it is in UART
  *  vendor mode.
  *
- *  \see CY_UART_CONFIG
- *  \see CySetUartConfig
- *  \see CyGetUartConfig
+ *  \sa CY_UART_CONFIG
+ *  \sa CySetUartConfig
+ *  \sa CyGetUartConfig
  */
 typedef enum _CY_UART_BAUD_RATE
 {
@@ -480,9 +480,9 @@ typedef enum _CY_UART_BAUD_RATE
  *  This enumeration defines the different parity modes of USB Serial UART module.
  *  It supports odd, even, mark and space parity modes.
  *
- *  \see CY_UART_CONFIG
- *  \see CySetUartConfig
- *  \see CyGetUartConfig
+ *  \sa CY_UART_CONFIG
+ *  \sa CySetUartConfig
+ *  \sa CyGetUartConfig
  */
 typedef enum _CY_UART_PARITY_MODE {
 
@@ -497,9 +497,9 @@ typedef enum _CY_UART_PARITY_MODE {
 /**
  *  \brief Enumeration defines the different stop bit values supported by UART module of USB Serial device.
  *
- *  \see CY_UART_CONFIG
- *  \see CySetUartConfig
- *  \see CyGetUartConfig
+ *  \sa CY_UART_CONFIG
+ *  \sa CySetUartConfig
+ *  \sa CyGetUartConfig
  */
 typedef enum _CY_UART_STOP_BIT {
 
@@ -513,8 +513,8 @@ typedef enum _CY_UART_STOP_BIT {
  *
  *  The list provides the various flow control modes supported by USB Serial device.
  *
- *  \see CyUartSetHwFlowControl
- *  \see CyUartGetHwFlowControl
+ *  \sa CyUartSetHwFlowControl
+ *  \sa CyUartGetHwFlowControl
  */
 typedef enum _CY_FLOW_CONTROL_MODES {
 
@@ -532,8 +532,8 @@ typedef enum _CY_FLOW_CONTROL_MODES {
  *  CySetUartConfig and CyGetUartConfig APIs are used to configure and retrieve
  *  the UART configuration information.
  *
- *  \see CySetUartConfig
- *  \see CyGetUartConfig
+ *  \sa CySetUartConfig
+ *  \sa CyGetUartConfig
  */
 typedef struct _CY_UART_CONFIG {
 
@@ -551,7 +551,7 @@ typedef struct _CY_UART_CONFIG {
  *  Enumeration lists the bit maps that are used to report error or status during
  *  UART/SPI transfer.
  *
- *  \see CySetEventNotification
+ *  \sa CySetEventNotification
  */
 typedef enum _CY_CALLBACK_EVENTS {
 
@@ -596,8 +596,8 @@ fetching information about the device connected.
  *  \returns CY_ERROR_DRIVER_INIT_FAILED on failure
  *    (Failure could be because of not calling CyLibraryExit previously)
  *
- *  \see CyOpen
- *  \see CyLibraryExit
+ *  \sa CyOpen
+ *  \sa CyLibraryExit
  */
 CYWINEXPORT CY_RETURN_STATUS LINUXCALLCONVEN CyLibraryInit ();
 
@@ -612,9 +612,9 @@ CYWINEXPORT CY_RETURN_STATUS LINUXCALLCONVEN CyLibraryInit ();
  *  \returns CY_SUCCESS on success
  *  \returns CY_ERROR_REQUEST_FAILED on failure
  *
- *  \see CyOpen
- *  \see CyClose
- *  \see CyLibraryInit
+ *  \sa CyOpen
+ *  \sa CyClose
+ *  \sa CyLibraryInit
  */
 CYWINEXPORT CY_RETURN_STATUS LINUXCALLCONVEN CyLibraryExit ();
 
@@ -634,10 +634,10 @@ CYWINEXPORT CY_RETURN_STATUS LINUXCALLCONVEN CyLibraryExit ();
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if there are no devices attached.
  *  \returns CY_ERROR_REQUEST_FAILED if library was not initialized.
  *
- *  \see CyGetDeviceInfo
- *  \see CyGetDeviceInfoVidPid
- *  \see CyOpen
- *  \see CyClose
+ *  \sa CyGetDeviceInfo
+ *  \sa CyGetDeviceInfoVidPid
+ *  \sa CyOpen
+ *  \sa CyClose
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetListofDevices (
     UINT8* numDevices                            /**< Number of Devices connected */
@@ -658,13 +658,13 @@ CYWINEXPORT CY_RETURN_STATUS CyGetListofDevices (
  *  \returns CY_ERROR_ACCESS_DENIED if access is denied by operating system.
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if specified device number is invalid.
  *
- *  \see CY_DEVICE_INFO
- *  \see CY_DEVICE_TYPE
- *  \see CY_DEVICE_CLASS
- *  \see CyGetListofDevices
- *  \see CyGetDeviceInfoVidPid
- *  \see CyOpen
- *  \see CyClose
+ *  \sa CY_DEVICE_INFO
+ *  \sa CY_DEVICE_TYPE
+ *  \sa CY_DEVICE_CLASS
+ *  \sa CyGetListofDevices
+ *  \sa CyGetDeviceInfoVidPid
+ *  \sa CyOpen
+ *  \sa CyClose
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetDeviceInfo(
     UINT8 deviceNumber,                         /**< Device number of the device of interest */
@@ -686,13 +686,13 @@ CYWINEXPORT CY_RETURN_STATUS CyGetDeviceInfo(
  *  \returns CY_ERROR_ACCESS_DENIED if access is denied by operating system.
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if specified device number is invalid.
  *
- *  \see CY_DEVICE_INFO
- *  \see CY_DEVICE_CLASS
- *  \see CY_DEVICE_TYPE
- *  \see CyGetListofDevices
- *  \see CyGetDeviceInfo
- *  \see CyOpen
- *  \see CyClose
+ *  \sa CY_DEVICE_INFO
+ *  \sa CY_DEVICE_CLASS
+ *  \sa CY_DEVICE_TYPE
+ *  \sa CyGetListofDevices
+ *  \sa CyGetDeviceInfo
+ *  \sa CyOpen
+ *  \sa CyClose
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetDeviceInfoVidPid (
     CY_VID_PID vidPid,                          /**< VID and PID of device of interest */
@@ -719,10 +719,10 @@ CYWINEXPORT CY_RETURN_STATUS CyGetDeviceInfoVidPid (
  *  \returns CY_ERROR_ALLOCATION_FAILED if memory allocation was failed.
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if specified device number is invalid.
  *
- *  \see CyGetListofDevices
- *  \see CyGetDeviceInfoVidPid
- *  \see CyGetDeviceInfo
- *  \see CyClose
+ *  \sa CyGetListofDevices
+ *  \sa CyGetDeviceInfoVidPid
+ *  \sa CyGetDeviceInfo
+ *  \sa CyClose
  */
 CYWINEXPORT CY_RETURN_STATUS CyOpen (
     UINT8 deviceNumber,                         /**< Device number of device that needs to be opened */
@@ -742,7 +742,7 @@ CYWINEXPORT CY_RETURN_STATUS CyOpen (
  *  \returns CY_ERROR_INVALID_PARAMETER if handle is invalid in case of Windows.
  *  \returns CY_ERROR_REQUEST_FAILED on error in case of library being not initialized (Only for Linux and Mac).
  *
- *  \see CyOpen
+ *  \sa CyOpen
  */
 CYWINEXPORT CY_RETURN_STATUS CyClose (
     CY_HANDLE handle                                   /**< Handle of the device that needs to be closed */
@@ -760,7 +760,7 @@ CYWINEXPORT CY_RETURN_STATUS CyClose (
  *  \returns CY_ERROR_INVALID_PARAMETER if handle is invalid in case of Windows.
  *  \returns CY_ERROR_REQUEST_FAILED on error if request was failed by driver.
  *
- *  \see CyResetDevice
+ *  \sa CyResetDevice
  */
 CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyCyclePort (
     CY_HANDLE handle                                 /**< Valid device handle */
@@ -788,7 +788,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyCyclePort (
  *  \returns CY_ERROR_IO_TIMEOUT if the request is timed out.
  *  \returns CY_ERROR_REQUEST_FAILED on error when request is failed by USB Serial device.
  *
- *  \see CyGetGpioValue
+ *  \sa CyGetGpioValue
  */
 CYWINEXPORT CY_RETURN_STATUS CySetGpioValue (
     CY_HANDLE handle,                           /**< Valid device handle */
@@ -808,7 +808,7 @@ CYWINEXPORT CY_RETURN_STATUS CySetGpioValue (
  *  \returns CY_ERROR_IO_TIMEOUT if the request is timed out.
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device.
  *
- *  \see CySetGpioValue
+ *  \sa CySetGpioValue
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetGpioValue (
     CY_HANDLE handle,                           /**< Valid device handle */
@@ -833,7 +833,7 @@ CYWINEXPORT CY_RETURN_STATUS CyGetGpioValue (
  *
  *  \returns CY_CALLBACK_EVENTS
  *  \returns CY_EVENT_NOTIFICATION_CB_FN
- *  \see CyAbortEventNotification
+ *  \sa CyAbortEventNotification
  */
 CYWINEXPORT CY_RETURN_STATUS CySetEventNotification(
     CY_HANDLE handle,                                   /**< Valid device handle */
@@ -850,7 +850,7 @@ CYWINEXPORT CY_RETURN_STATUS CySetEventNotification(
  *  \returns CY_ERROR_INVALID_PARAMETER if specified parameters are invalid or out of range.
  *  \returns CY_ERROR_REQUEST_FAILED if API is called before registering callback.
  *
- *  \see CySetEventNotification
+ *  \sa CySetEventNotification
  */
 CYWINEXPORT CY_RETURN_STATUS CyAbortEventNotification(
     CY_HANDLE handle                               /**< Valid device handle */
@@ -863,7 +863,7 @@ CYWINEXPORT CY_RETURN_STATUS CyAbortEventNotification(
  *
  *  \returns CY_SUCCESS
  *
- *  \see CyGetFirmwareVersion
+ *  \sa CyGetFirmwareVersion
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetLibraryVersion (
     CY_HANDLE handle,                            /**< Valid device handle */
@@ -881,7 +881,7 @@ CYWINEXPORT CY_RETURN_STATUS CyGetLibraryVersion (
  *  \returns CY_ERROR_IO_TIMEOUT if the request is timed out.
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device.
  *
- *  \see CyGetLibraryVersion
+ *  \sa CyGetLibraryVersion
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetFirmwareVersion (
     CY_HANDLE handle,                                   /**< Valid device handle */
@@ -900,7 +900,7 @@ CYWINEXPORT CY_RETURN_STATUS CyGetFirmwareVersion (
  *  \returns CY_ERROR_IO_TIMEOUT if the request is timed out.
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device.
  *
- *  \see CyCyclePort
+ *  \sa CyCyclePort
  */
 CYWINEXPORT CY_RETURN_STATUS CyResetDevice (
     CY_HANDLE handle                                   /**< Valid device handle */
@@ -923,7 +923,7 @@ CYWINEXPORT CY_RETURN_STATUS CyResetDevice (
  *  \returns CY_ERROR_IO_TIMEOUT if the request is timed out.
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device.
  *
- *  \see CyReadUserFlash
+ *  \sa CyReadUserFlash
  */
 CYWINEXPORT CY_RETURN_STATUS CyProgUserFlash (
     CY_HANDLE handle,                       /**< Valid device handle */
@@ -949,7 +949,7 @@ CYWINEXPORT CY_RETURN_STATUS CyProgUserFlash (
  *  \returns CY_ERROR_IO_TIMEOUT if the request is timed out.
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device.
  *
- *  \see CyProgUserFlash
+ *  \sa CyProgUserFlash
  */
 CYWINEXPORT CY_RETURN_STATUS CyReadUserFlash (
     CY_HANDLE handle,                       /**< Valid device handle */
@@ -995,8 +995,8 @@ CYWINEXPORT CY_RETURN_STATUS CyGetSignature (
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CY_UART_CONFIG
- *  \see CySetUartConfig
+ *  \sa CY_UART_CONFIG
+ *  \sa CySetUartConfig
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetUartConfig (
     CY_HANDLE handle,                          /**< Valid device handle */
@@ -1017,8 +1017,8 @@ CYWINEXPORT CY_RETURN_STATUS CyGetUartConfig (
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CY_UART_CONFIG
- *  \see CyGetUartConfig
+ *  \sa CY_UART_CONFIG
+ *  \sa CyGetUartConfig
  */
 CYWINEXPORT CY_RETURN_STATUS CySetUartConfig (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1042,8 +1042,8 @@ CYWINEXPORT CY_RETURN_STATUS CySetUartConfig (
  *  \returns CY_ERROR_BUFFER_OVERFLOW if data received from USB Serial device is more than requested.
  *  \returns CY_ERROR_ALLOCATION_FAILED if transaction transmit buffer allocation was failed (Only in Windows).
  *
- *  \see CY_DATA_BUFFER
- *  \see CyUartWrite
+ *  \sa CY_DATA_BUFFER
+ *  \sa CyUartWrite
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartRead (
     CY_HANDLE handle,                          /**< Valid device handle */
@@ -1069,8 +1069,8 @@ CYWINEXPORT CY_RETURN_STATUS CyUartRead (
  *  \returns CY_ERROR_BUFFER_OVERFLOW if data received from USB Serial device is more than requested.
  *  \returns CY_ERROR_ALLOCATION_FAILED if transaction transmit buffer allocation was failed (Only in Windows).
  *
- *  \see CY_DATA_BUFFER
- *  \see CyUartRead
+ *  \sa CY_DATA_BUFFER
+ *  \sa CyUartRead
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartWrite (
     CY_HANDLE handle,                      /**< Valid device handle */
@@ -1090,7 +1090,7 @@ CYWINEXPORT CY_RETURN_STATUS CyUartWrite (
  *  \returns CY_ERROR_REQUEST_FAILED on error if request was failed by device or if device type
  *           is not UART.
  *
- *  \see CyUartGetHwFlowControl
+ *  \sa CyUartGetHwFlowControl
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartSetHwFlowControl(
     CY_HANDLE handle,                       /**< Valid device handle */
@@ -1109,7 +1109,7 @@ CYWINEXPORT CY_RETURN_STATUS CyUartSetHwFlowControl(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CyUartSetHwFlowControl
+ *  \sa CyUartSetHwFlowControl
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartGetHwFlowControl(
     CY_HANDLE handle,                     /**< Valid device handle */
@@ -1128,9 +1128,9 @@ CYWINEXPORT CY_RETURN_STATUS CyUartGetHwFlowControl(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CyUartClearRts
- *  \see CyUartSetDtr
- *  \see CyUartClearDtr
+ *  \sa CyUartClearRts
+ *  \sa CyUartSetDtr
+ *  \sa CyUartClearDtr
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartSetRts(
     CY_HANDLE handle                /**< Valid device handle */
@@ -1148,9 +1148,9 @@ CYWINEXPORT CY_RETURN_STATUS CyUartSetRts(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CyUartSetRts
- *  \see CyUartSetDtr
- *  \see CyUartClearDtr
+ *  \sa CyUartSetRts
+ *  \sa CyUartSetDtr
+ *  \sa CyUartClearDtr
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartClearRts(
     CY_HANDLE handle              /**< Valid device handle */
@@ -1168,9 +1168,9 @@ CYWINEXPORT CY_RETURN_STATUS CyUartClearRts(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CyUartClearRts
- *  \see CyUartSetRts
- *  \see CyUartClearDtr
+ *  \sa CyUartClearRts
+ *  \sa CyUartSetRts
+ *  \sa CyUartClearDtr
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartSetDtr(
     CY_HANDLE handle              /**< Valid device handle */
@@ -1188,9 +1188,9 @@ CYWINEXPORT CY_RETURN_STATUS CyUartSetDtr(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CyUartSetRts
- *  \see CyUartSetDtr
- *  \see CyUartClearRts
+ *  \sa CyUartSetRts
+ *  \sa CyUartSetDtr
+ *  \sa CyUartClearRts
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartClearDtr(
     CY_HANDLE handle              /**< Valid device handle */
@@ -1208,7 +1208,7 @@ CYWINEXPORT CY_RETURN_STATUS CyUartClearDtr(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not UART.
  *
- *  \see CyUartSetFlowControl
+ *  \sa CyUartSetFlowControl
  */
 CYWINEXPORT CY_RETURN_STATUS CyUartSetBreak(
     CY_HANDLE handle,                   /**< Valid device handle */
@@ -1237,8 +1237,8 @@ CYWINEXPORT CY_RETURN_STATUS CyUartSetBreak(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not I2C.
  *
- *  \see CY_I2C_CONFIG
- *  \see CySetI2cConfig
+ *  \sa CY_I2C_CONFIG
+ *  \sa CySetI2cConfig
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetI2cConfig (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1259,8 +1259,8 @@ CYWINEXPORT CY_RETURN_STATUS CyGetI2cConfig (
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not I2C.
  *
- *  \see CY_I2C_CONFIG
- *  \see CySetI2cConfig
+ *  \sa CY_I2C_CONFIG
+ *  \sa CySetI2cConfig
  */
 CYWINEXPORT CY_RETURN_STATUS  CySetI2cConfig (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1293,9 +1293,9 @@ CYWINEXPORT CY_RETURN_STATUS  CySetI2cConfig (
  *  \returns CY_ERROR_I2C_BUS_ERROR if there was any I2C bus error while an on going transaction.
  *  \returns CY_ERROR_I2C_STOP_BIT_SET if stop bit was set by I2C master.
  *
- *  \see CY_DATA_BUFFER
- *  \see CY_DATA_CONFIG
- *  \see CyI2cCWrite
+ *  \sa CY_DATA_BUFFER
+ *  \sa CY_DATA_CONFIG
+ *  \sa CyI2cCWrite
  */
 CYWINEXPORT CY_RETURN_STATUS CyI2cRead (
     CY_HANDLE handle,                           /**< Valid device handle */
@@ -1329,9 +1329,9 @@ CYWINEXPORT CY_RETURN_STATUS CyI2cRead (
  *  \returns CY_ERROR_I2C_BUS_ERROR if there was any I2C bus error while an on going transaction.
  *  \returns CY_ERROR_I2C_STOP_BIT_SET if stop bit was set by I2C master.
  *
- *  \see CY_DATA_BUFFER
- *  \see CY_DATA_CONFIG
- *  \see CyI2cRead
+ *  \sa CY_DATA_BUFFER
+ *  \sa CY_DATA_CONFIG
+ *  \sa CyI2cRead
  */
 CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyI2cWrite (
     CY_HANDLE handle,                           /**< Valid device handle */
@@ -1355,8 +1355,8 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyI2cWrite (
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not I2C.
  *
- *  \see CyI2CRead
- *  \see CyI2CWrite
+ *  \sa CyI2CRead
+ *  \sa CyI2CWrite
  */
 CYWINEXPORT CY_RETURN_STATUS CyI2cReset(
                                         CY_HANDLE handle, /**< Valid device handle */
@@ -1384,8 +1384,8 @@ CYWINEXPORT CY_RETURN_STATUS CyI2cReset(
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not SPI.
  *
- *  \see CY_SPI_CONFIG
- *  \see CySetSpiConfig
+ *  \sa CY_SPI_CONFIG
+ *  \sa CySetSpiConfig
  */
 CYWINEXPORT CY_RETURN_STATUS CyGetSpiConfig (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1406,8 +1406,8 @@ CYWINEXPORT CY_RETURN_STATUS CyGetSpiConfig (
  *  \returns CY_ERROR_REQUEST_FAILED when request is failed by USB Serial device or when device type is
  *           not SPI.
  *
- *  \see CY_SPI_CONFIG
- *  \see CyGetSpiConfig
+ *  \sa CY_SPI_CONFIG
+ *  \sa CyGetSpiConfig
  */
 CYWINEXPORT CY_RETURN_STATUS CySetSpiConfig (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1433,9 +1433,9 @@ CYWINEXPORT CY_RETURN_STATUS CySetSpiConfig (
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if device was disconnected.
  *  \returns CY_ERROR_BUFFER_OVERFLOW if data received from USB Serial device is more than requested.
  *
- *  \see CY_DATA_BUFFER
- *  \see CyGetSpiConfig
- *  \see CySetSpiConfig
+ *  \sa CY_DATA_BUFFER
+ *  \sa CyGetSpiConfig
+ *  \sa CySetSpiConfig
  */
 CYWINEXPORT CY_RETURN_STATUS CySpiReadWrite (
     CY_HANDLE handle,               /**< Valid device handle */
@@ -1467,7 +1467,7 @@ CYWINEXPORT CY_RETURN_STATUS CySpiReadWrite (
  *  \returns CY_ERROR_REQUEST_FAILED if request was failed by device or if device type
  *           is not JTAG.
  *
- *  \see CyJtagDisable
+ *  \sa CyJtagDisable
  */
 CYWINEXPORT CY_RETURN_STATUS CyJtagEnable (
     CY_HANDLE handle                          /**< Valid device handle */
@@ -1486,7 +1486,7 @@ CYWINEXPORT CY_RETURN_STATUS CyJtagEnable (
  *  \returns CY_ERROR_REQUEST_FAILED if request was failed by device or if device type
  *           is not JTAG.
  *
- *  \see CyJtagEnable
+ *  \sa CyJtagEnable
  */
 CYWINEXPORT CY_RETURN_STATUS CyJtagDisable (
     CY_HANDLE handle                          /**< Valid device handle */
@@ -1510,9 +1510,9 @@ CYWINEXPORT CY_RETURN_STATUS CyJtagDisable (
  *  \returns CY_ERROR_IO_TIMEOUT if transfer was timed out.
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if device was disconnected.
  *
- *  \see CY_DATA_BUFFER
- *  \see CyJtagRead
- *  \see CyJtagEnable
+ *  \sa CY_DATA_BUFFER
+ *  \sa CyJtagRead
+ *  \sa CyJtagEnable
  */
 CYWINEXPORT CY_RETURN_STATUS CyJtagWrite (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1539,9 +1539,9 @@ CYWINEXPORT CY_RETURN_STATUS CyJtagWrite (
  *  \returns CY_ERROR_DEVICE_NOT_FOUND if device was disconnected.
  *  \returns CY_ERROR_BUFFER_OVERFLOW if data received from USB Serial device is more than requested.
  *
- *  \see CY_DATA_BUFFER
- *  \see CyJtagWrite
- *  \see CyJtagEnable
+ *  \sa CY_DATA_BUFFER
+ *  \sa CyJtagWrite
+ *  \sa CyJtagEnable
  */
 CYWINEXPORT CY_RETURN_STATUS CyJtagRead (
     CY_HANDLE handle,                         /**< Valid device handle */
@@ -1570,8 +1570,8 @@ CYWINEXPORT CY_RETURN_STATUS CyJtagRead (
  *  \returns CY_ERROR_IO_TIMEOUT if request timed out.
  *  \returns CY_ERROR_REQUEST_FAILED if request was failed by device.
  *
- *  \see CyPhdcSetFeature
- *  \see CyPhdcGetStatus
+ *  \sa CyPhdcSetFeature
+ *  \sa CyPhdcGetStatus
  */
 CYWINEXPORT CY_RETURN_STATUS CyPhdcClrFeature (
         CY_HANDLE handle                /**< Valid device handle */
@@ -1589,8 +1589,8 @@ CYWINEXPORT CY_RETURN_STATUS CyPhdcClrFeature (
  *  \returns CY_ERROR_IO_TIMEOUT if request timed out.
  *  \returns CY_ERROR_REQUEST_FAILED if request was failed by device.
  *
- *  \see CyPhdcClrFeature
- *  \see CyPhdcGetStatus
+ *  \sa CyPhdcClrFeature
+ *  \sa CyPhdcGetStatus
  */
 CYWINEXPORT CY_RETURN_STATUS CyPhdcSetFeature (
         CY_HANDLE handle                /**< Valid device handle */
@@ -1607,8 +1607,8 @@ CYWINEXPORT CY_RETURN_STATUS CyPhdcSetFeature (
  *  \returns CY_ERROR_IO_TIMEOUT if request timed out.
  *  \returns CY_ERROR_REQUEST_FAILED if request was failed by device.
  *
- *  \see CyPhdcClrFeature
- *  \see CyPhdcSetFeature
+ *  \sa CyPhdcClrFeature
+ *  \sa CyPhdcSetFeature
  */
 CYWINEXPORT CY_RETURN_STATUS CyPhdcGetStatus (
         CY_HANDLE handle,               /**< Valid device handle */
