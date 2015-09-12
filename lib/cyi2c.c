@@ -21,18 +21,18 @@
 #pragma pack(1)
 typedef struct
 {
-    UINT32 frequency;           /* Frequency of operation. Only valid values are
-                                   100KHz and 400KHz. */
-    UINT8 sAddress;             /* Slave address to be used when in slave mode. */
-    BOOL isMsbFirst;            /* Whether to transmit most significant bit first. */
-    BOOL isMaster;              /* Whether to block is to be configured as a master:
-                                   CyTrue - The block functions as I2C master;
-                                   CyFalse - The block functions as I2C slave. */
-    BOOL sIgnore;               /* Ignore general call in slave mode. */
-    BOOL clockStretch;          /* Wheteher to stretch clock in case of no FIFO availability. */
-    BOOL isLoopback;            /* Whether to loop back TX data to RX. Valid only
-                                   for debug purposes. */
-    UCHAR reserved[6];          /*Reserved for future use*/
+    UINT32 frequency;           /**< Frequency of operation. Only valid values are
+                                     100KHz and 400KHz. */
+    UINT8 sAddress;             /**< Slave address to be used when in slave mode. */
+    BOOL isMsbFirst;            /**< Whether to transmit most significant bit first. */
+    BOOL isMaster;              /**< Whether to block is to be configured as a master:
+                                     CyTrue - The block functions as I2C master.
+                                     CyFalse - The block functions as I2C slave. */
+    BOOL sIgnore;               /**< Ignore general call in slave mode. */
+    BOOL clockStretch;          /**< Wheteher to stretch clock in case of no FIFO availability. */
+    BOOL isLoopback;            /**< Whether to loop back TX data to RX. Valid only
+                                     for debug purposes. */
+    UCHAR reserved[6];          /**< Reserved for future use */
 } CyUsI2cConfig_t;
 #pragma pack()
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
