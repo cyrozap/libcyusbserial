@@ -19,6 +19,7 @@
 
 #include "CyUSBCommon.h"
 
+libusb_context *glContext = NULL;
 static bool glDriverInit = false;
 static libusb_device **glDeviceList;
 static int glNumDevices;
@@ -27,15 +28,17 @@ static int glNumDevices;
 pthread_mutex_t criticalSection;
 CY_RETURN_STATUS CyLibraryInit ()
 {
-    int rStatus;
-    rStatus = libusb_init (NULL);
+    int rStatus = LIBUSB_SUCCESS;
+
+    if (!glContext)
+        rStatus = libusb_init (&glContext);
 
     if (glDriverInit != true){
         if (rStatus != LIBUSB_SUCCESS){
             CY_DEBUG_PRINT_ERROR ("CY:Driver Init Failed ...\n");
             return CY_ERROR_DRIVER_INIT_FAILED;
         }
-        glNumDevices = libusb_get_device_list (NULL, &glDeviceList);
+        glNumDevices = libusb_get_device_list (glContext, &glDeviceList);
         if (glNumDevices < 0){
             CY_DEBUG_PRINT_ERROR ("CY:Building device list Failed ...\n");
             glNumDevices = -1;
@@ -58,7 +61,10 @@ CY_RETURN_STATUS CyLibraryExit ()
     if (glDriverInit == true){
         if (glNumDevices >= 0)
             libusb_free_device_list (glDeviceList, 1);
-        libusb_exit (NULL);
+        if (glContext) {
+            libusb_exit (glContext);
+            glContext = NULL;
+        }
         glDriverInit = false;
         pthread_mutex_destroy (&criticalSection);
         return CY_SUCCESS;
@@ -84,7 +90,7 @@ CY_RETURN_STATUS CyGetListofDevices (
     }
     pthread_mutex_lock (&criticalSection);
     libusb_free_device_list (glDeviceList, 1);
-    glNumDevices = (*numDevices) = libusb_get_device_list (NULL, &glDeviceList);
+    glNumDevices = (*numDevices) = libusb_get_device_list (glContext, &glDeviceList);
     pthread_mutex_unlock (&criticalSection);
     if (glNumDevices < 0){
         CY_DEBUG_PRINT_ERROR ("CY:Building device list Failed ...function is %s\n", __func__);

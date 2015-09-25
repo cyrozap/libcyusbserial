@@ -305,13 +305,13 @@ CY_RETURN_STATUS CySpiRead (
     time.tv_sec = (ioTimeout / 1000);
     time.tv_usec = ((ioTimeout % 1000) * 1000);//polling timeout.
     while (readCompleted == 0){
-        r = libusb_handle_events_timeout_completed(NULL, &time, &readCompleted);
+        r = libusb_handle_events_timeout_completed(glContext, &time, &readCompleted);
         if (r < 0) {
 			if (r == LIBUSB_ERROR_INTERRUPTED)
 				continue;
 			libusb_cancel_transfer(readTransfer);
 			while (!readCompleted)
-				if (libusb_handle_events_completed(NULL, &readCompleted) < 0)
+				if (libusb_handle_events_completed(glContext, &readCompleted) < 0)
 					break;
             readBuffer->transferCount = readTransfer->actual_length;
 			libusb_free_transfer(readTransfer);

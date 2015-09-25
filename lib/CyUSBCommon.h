@@ -243,3 +243,5 @@ typedef enum CY_VENDOR_CMDS
     CY_DEVICE_RESET_CMD = 0xE3,         /**< Performs a device reset from firmware */
 
 } CY_VENDOR_CMDS;
+
+extern libusb_context *glContext;
