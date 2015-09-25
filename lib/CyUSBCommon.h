@@ -34,8 +34,8 @@
 #include <libusb-1.0/libusb.h>
 #include "CyUSBSerial.h"
 
-#pragma pack(1)
 typedef struct CY_DEVICE {
+#pragma pack(1)
     unsigned char inEndpoint;
     unsigned char outEndpoint;
     unsigned char interruptEndpoint;
@@ -52,13 +52,15 @@ typedef struct CY_DEVICE {
     libusb_device_handle *devHandle;
     pthread_t spiThreadId;
     pthread_t uartThreadId;
+#pragma pack()
     pthread_mutex_t readLock;
     pthread_mutex_t writeLock;
     pthread_mutex_t notificationLock;
+#pragma pack(1)
     CY_DEVICE_TYPE deviceType;
+#pragma pack()
 
 }CY_DEVICE,*PCY_DEVICE;
-#pragma pack()
 
 CY_RETURN_STATUS CyResetPipe (CY_HANDLE handl, UINT8);
 
