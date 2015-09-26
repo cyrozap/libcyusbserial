@@ -235,7 +235,7 @@ void* uartSetEventNotifcation (void *inputParameters)
         time.tv_sec = 0;
         time.tv_usec = 50;//polling timeout.
         while (transferCompleted == 0){
-            libusb_handle_events_timeout (NULL, &time);
+            libusb_handle_events_timeout (glContext, &time);
         }
         transferCompleted = 0;
         if (transfer->status == LIBUSB_TRANSFER_COMPLETED){
@@ -303,7 +303,7 @@ void* spiSetEventNotifcation (void *inputParameters)
         time.tv_sec = 0;
         time.tv_usec = 50;//polling timeout.
         while (transferCompleted == 0){
-            libusb_handle_events_timeout (NULL, &time);
+            libusb_handle_events_timeout (glContext, &time);
         }
         transferCompleted = 0;
         if (transfer->status == LIBUSB_TRANSFER_COMPLETED){
