@@ -30,7 +30,7 @@
     #define CppCALLCONVEN
 #endif
 
-/*This is to export Windows API*/
+/* This is to export Windows API */
 #ifdef WIN32
     #ifdef CYUSBSERIAL_EXPORTS
         #define CYWINEXPORT  CppCALLCONVEN __declspec(dllexport)
@@ -41,7 +41,7 @@
         #define WINCALLCONVEN
         #define LINUXCALLCONVEN
     #endif
-#else /*Linux and MAC*/
+#else /* Linux and MAC */
     #define CYWINEXPORT CppCALLCONVEN
     #define WINCALLCONVEN
     #define LINUXCALLCONVEN
