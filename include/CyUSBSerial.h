@@ -17,6 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/** \file CyUSBSerial.h
+ *  \brief Cypress USB Serial Library header file
+ */
+
 #ifndef _INCLUDED_CYUSBSERIAL_H_
 #define _INCLUDED_CYUSBSERIAL_H_
 

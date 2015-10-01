@@ -17,6 +17,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/** \file CyUSBCommon.h
+ *  \brief Common header file of Cypress USB Serial
+ */
+
 #include <stdio.h>
 
 #ifdef _WIN32
