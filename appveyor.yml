@@ -5,8 +5,8 @@ platform:
 install:
   - ps: (new-object System.Net.WebClient).Downloadfile("https://downloads.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.19/libusb-1.0.19-rc1-win.7z", "$($env:APPVEYOR_BUILD_FOLDER)\\libusb-1.0.19-rc1-win.7z")
   - cmd: 7z x -y "%APPVEYOR_BUILD_FOLDER%\\libusb-1.0.19-rc1-win.7z" -o"C:\\Program Files\\libusb-1.0.19"
-  - ps: (new-object System.Net.WebClient).Downloadfile("ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.tar.gz", "$($env:APPVEYOR_BUILD_FOLDER)\\pthreads-w32-2-9-1-release.tar.gz")
-  - cmd: 7z x -y "%APPVEYOR_BUILD_FOLDER%\\pthreads-w32-2-9-1-release.tar.gz" -o"C:\\Program Files\\pthreads-w32"
+  - cmd: choco install wget
+  - cmd: wget -r -nH --cut-dirs=1 -P "C:\\Program Files" "ftp://sourceware.org/pub/pthreads-win32/prebuilt-dll-2-9-1-release/"
 
 before_build:
   - cmd: mkdir build
