@@ -28,8 +28,8 @@ endif()
 ################################################################################
 # GCC and Clang
 ################################################################################
-if(${CMAKE_C_COMPILER_ID} STREQUAL "GNU" OR
-   ${CMAKE_C_COMPILER_ID} STREQUAL "Clang")
+if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR
+   CMAKE_C_COMPILER_ID STREQUAL "Clang")
 
     add_definitions(-Wall)
     add_definitions(-Wextra)
@@ -39,13 +39,13 @@ if(${CMAKE_C_COMPILER_ID} STREQUAL "GNU" OR
         add_definitions(-Werror)
     endif()
 
-    if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         add_definitions(-DDEBUG=1)
         add_definitions(-O0)
-    endif(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+    endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 
-endif(${CMAKE_C_COMPILER_ID} STREQUAL "GNU" OR
-      ${CMAKE_C_COMPILER_ID} STREQUAL "Clang")
+endif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR
+      CMAKE_C_COMPILER_ID STREQUAL "Clang")
 
 ################################################################################
 # Process subdirectories
