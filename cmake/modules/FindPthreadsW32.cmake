@@ -48,6 +48,8 @@ if(WIN32)
     endif(pthread_LIBRARY)
 
     message(STATUS "Checking for pthreads-w32...")
+    message(AUTHOR_WARNING PTHREADS_INCLUDE_DIRS)
+    message(AUTHOR_WARNING PTHREADS_LIBRARIES)
     if(PTHREADS_INCLUDE_DIRS AND PTHREADS_LIBRARIES)
         message(STATUS "pthreads-w32 found")
         set(CMAKE_REQUIRED_INCLUDES "${PTHREADS_INCLUDE_DIRS}")
