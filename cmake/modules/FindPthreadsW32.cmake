@@ -10,7 +10,7 @@ include(CheckIncludeFile)
 
 # Windows only
 if(WIN32)
-    set(PTHREADS_LIBRARY_PATH
+    set(PTHREADS_PATH
         "C:/Program Files/pthreads-w32/prebuilt-dll-2-9-1-release/"
         CACHE
         PATH
