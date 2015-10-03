@@ -18,9 +18,9 @@ if(WIN32)
     )
 
     if(CMAKE_CL_64)
-        set(PTHREADS_LIBRARY_PATH_SUFFIX dll/x64)
+        set(PTHREADS_LIBRARY_PATH_SUFFIX lib/x64)
     else(CMAKE_CL_64)
-        set(PTHREADS_LIBRARY_PATH_SUFFIX dll/x86)
+        set(PTHREADS_LIBRARY_PATH_SUFFIX lib/x86)
     endif(CMAKE_CL_64)
 
     find_file(PTHREADS_HEADER_FILE
