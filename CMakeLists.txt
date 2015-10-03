@@ -7,7 +7,7 @@ set(CMAKE_HELPERS_SOURCE_DIR ${PROJECT_SOURCE_DIR}/cmake/helpers)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
 
 include(FindLibUSB)
-include(FindPthreadsW32)
+include(FindLibPThreadsWin32)
 
 ################################################################################
 # System configuration
