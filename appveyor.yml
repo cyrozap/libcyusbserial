@@ -8,7 +8,7 @@ install:
   - cmd: choco install wget
   - cmd: wget --quiet -r -nH --cut-dirs=1 -P "C:\\Program Files" "ftp://sourceware.org/pub/pthreads-win32/prebuilt-dll-2-9-1-release/dll/"
   - cmd: wget --quiet -r -nH --cut-dirs=1 -P "C:\\Program Files" "ftp://sourceware.org/pub/pthreads-win32/prebuilt-dll-2-9-1-release/include/"
-  - cmd: dir "C:\\Program Files"
+  - cmd: dir "C:\Program Files"
 
 before_build:
   - cmd: mkdir build
