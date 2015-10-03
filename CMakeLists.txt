@@ -7,6 +7,7 @@ set(CMAKE_HELPERS_SOURCE_DIR ${PROJECT_SOURCE_DIR}/cmake/helpers)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
 
 include(FindLibUSB)
+include(FindPthreadsW32)
 
 ################################################################################
 # System configuration
@@ -23,11 +24,6 @@ if(APPLE)
     if(${isSystemDir} STREQUAL "-1")
         set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
     endif()
-endif()
-
-# Windows
-if(WIN32)
-    include(FindPthreadsW32)
 endif()
 
 ################################################################################
