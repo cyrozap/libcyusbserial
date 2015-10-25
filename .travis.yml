@@ -14,8 +14,8 @@ matrix:
           project:
             name: "cyrozap/libcyusbserial"
           notification_email: cyrozap@users.noreply.github.com
-          build_command_prepend: "mkdir build && cd build"
-          build_command: "cmake ../ && make"
+          build_command_prepend: "mkdir build && cd build && cmake ../"
+          build_command: make
           branch_pattern: coverity_scan
     - compiler: gcc
       env: ARCH=i386 CFLAGS="-m32"
