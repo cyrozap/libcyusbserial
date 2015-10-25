@@ -92,8 +92,8 @@ CY_RETURN_STATUS handleI2cError (UINT8 i2cStatus){
 CY_RETURN_STATUS CyI2cGetStatus (CY_HANDLE handle, bool mode, UCHAR *i2cStatus);
 CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UINT32 ioTimeout);
 /*
-   This API gets the current I2C config
-   for the particluar interface of the device
+ *  This API gets the current I2C config
+ *  for the particluar interface of the device
  */
 CY_RETURN_STATUS CyGetI2cConfig (
         CY_HANDLE handle,
@@ -156,8 +156,8 @@ CY_RETURN_STATUS CyGetI2cConfig (
     }
 }
 /*
-   This API sets I2C config of the device for that
-   interface
+ *  This API sets I2C config of the device for that
+ *  interface
  */
 CY_RETURN_STATUS CySetI2cConfig (
         CY_HANDLE handle,
@@ -232,8 +232,8 @@ CY_RETURN_STATUS CySetI2cConfig (
     }
 }
 /*
-   This API reads I2C data from the specified interface of the device
-   interface
+ *  This API reads I2C data from the specified interface of the device
+ *  interface
  */
 CY_RETURN_STATUS CyI2cRead (
         CY_HANDLE handle,
@@ -371,7 +371,7 @@ CY_RETURN_STATUS CyI2cRead (
     }
 }
 /*
-   This API writes I2C data into the specified interface of the device
+ *  This API writes I2C data into the specified interface of the device
  */
 CY_RETURN_STATUS CyI2cWrite (
         CY_HANDLE handle,
@@ -512,7 +512,7 @@ CY_RETURN_STATUS CyI2cWrite (
     return CY_ERROR_REQUEST_FAILED;
 }
 /*
-   This Api gets the current status of the I2C data transaction
+ *  This API gets the current status of the I2C data transaction
  */
 CY_RETURN_STATUS CyI2cGetStatus (
         CY_HANDLE handle,
@@ -554,7 +554,7 @@ CY_RETURN_STATUS CyI2cGetStatus (
     return CY_SUCCESS;
 }
 /*
-   This Api resets the I2C module
+ *  This API resets the I2C module
  */
 CY_RETURN_STATUS CyI2cReset (
         CY_HANDLE handle,
