@@ -190,12 +190,6 @@ CY_RETURN_STATUS CyJtagRead (
     UINT16 wValue, wIndex, wLength;
     UINT16 bmRequestType, bmRequest;
 
-    bmRequestType = CY_VENDOR_REQUEST_HOST_TO_DEVICE;
-    bmRequest = CY_JTAG_READ_CMD;
-    wValue = readBuffer->length;
-    wIndex = 0;
-    wLength = 0;
-
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
         return CY_ERROR_INVALID_HANDLE;
@@ -210,6 +204,13 @@ CY_RETURN_STATUS CyJtagRead (
         CY_DEBUG_PRINT_ERROR ("CY:Error device type is not jtag ... Function is %s \n", __func__);
         return CY_ERROR_REQUEST_FAILED;
     }
+
+    bmRequestType = CY_VENDOR_REQUEST_HOST_TO_DEVICE;
+    bmRequest = CY_JTAG_READ_CMD;
+    wValue = readBuffer->length;
+    wIndex = 0;
+    wLength = 0;
+
     readBuffer->transferCount = 0;
     rStatus = libusb_control_transfer (devHandle, bmRequestType, bmRequest,
             wValue, wIndex, NULL, wLength, ioTimeout);
