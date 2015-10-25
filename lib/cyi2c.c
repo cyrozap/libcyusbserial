@@ -502,9 +502,9 @@ CY_RETURN_STATUS CyI2cWrite (
     }
     else{
         CY_DEBUG_PRINT_ERROR ("CY:API busy with servicing previous request... function is %s!\n", __func__);
-        pthread_mutex_unlock (&device->writeLock);
         return CY_ERROR_REQUEST_FAILED;
     }
+    pthread_mutex_unlock (&device->writeLock);
     return CY_ERROR_REQUEST_FAILED;
 }
 /*
