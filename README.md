@@ -3,6 +3,7 @@
 [![LGPLv2.1+ License](http://img.shields.io/badge/license-LGPLv2.1+-blue.svg)](https://www.gnu.org/licenses/lgpl-2.1.html)
 [![Travis-CI Build Status](https://travis-ci.org/cyrozap/libcyusbserial.svg?branch=master)](https://travis-ci.org/cyrozap/libcyusbserial)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/2c5g7ncuqabs4h6m/branch/master?svg=true)](https://ci.appveyor.com/project/cyrozap/libcyusbserial/branch/master)
+[![Coverity Scan](https://img.shields.io/coverity/scan/4500.svg)](https://scan.coverity.com/projects/cyrozap-libcyusbserial)
 
 
 ## Pre-requisites
