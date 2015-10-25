@@ -676,7 +676,7 @@ CY_RETURN_STATUS waitForNotification (CY_HANDLE handle, UINT16 *bytesPending, UI
             CY_DEBUG_PRINT_ERROR ("CY:Error buffer overFlow in i2c transfer status ....\n");
             errorStatus = CY_ERROR_BUFFER_OVERFLOW;
         }
-        if (transfer->status != LIBUSB_TRANSFER_COMPLETED || transfer->status != LIBUSB_TRANSFER_COMPLETED){
+        if (transfer->status != LIBUSB_TRANSFER_COMPLETED){
             CY_DEBUG_PRINT_ERROR ("CY:Error in i2c transfer status ... Libusb transfer error is %d \n", transfer->status);
             errorStatus = CY_ERROR_REQUEST_FAILED;
         }
