@@ -511,7 +511,7 @@ CYWINEXPORT CY_RETURN_STATUS  WINCALLCONVEN CyReadUserFlash (
 
     if (handle == NULL)
         return CY_ERROR_INVALID_HANDLE;
-    if ((readBuffer == NULL) || (readBuffer == NULL))
+    if (readBuffer == NULL)
         return CY_ERROR_INVALID_PARAMETER;
 
     device = (CY_DEVICE *)handle;
