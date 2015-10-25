@@ -291,10 +291,6 @@ int spiWriteEnable (CY_HANDLE handle)
 
     wr_data = 0x06; /* Write enable */
     status = CySpiReadWrite (handle, &readBuf, &writeBuf, 5000);
-    if (status != CY_SUCCESS)
-    {
-        return status;
-    }
     return status;
 }
 //Helper functions for doing data transfer to/from SPI flash
