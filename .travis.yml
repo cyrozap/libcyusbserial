@@ -10,6 +10,12 @@ matrix:
         apt:
           packages:
             - libusb-1.0-0-dev
+        coverity_scan:
+          project:
+            name: "cyrozap/libcyusbserial"
+          build_command_prepend: "mkdir build && cd build"
+          build_command: "cmake ../ && make"
+          branch_pattern: coverity_scan
     - compiler: gcc
       env: ARCH=i386 CFLAGS="-m32"
       addons:
@@ -59,3 +65,7 @@ deploy:
     tags: true
     all_branches: true
     condition: "$CC = gcc"
+
+env:
+  global:
+   - secure: "kS2HsEf1Jwv2mT+QtX+vTNmXiGiR1Bq1iFw7ZTW6o9y/I0xYfQeeZKZSpGLO/WCFyQu4qZvCszTV8A+6JcKx7c0YWvzFoSPCmLxz326N/K+Ml0aTqeUdnWqiShByIdYbnvLfwNhB8GUJQc95dga8KmuWGjT2fl4onMkdONjwHyc="
