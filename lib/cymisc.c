@@ -360,6 +360,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
     if (device->deviceType == CY_TYPE_SPI){
         if (device->spiThreadId != 0) {
             CY_DEBUG_PRINT_ERROR ("CY:Error already notification thread exists ... Function is %s \n", __func__);
+            free (args);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_STATUS_MONITOR_EXIST;
         }
@@ -380,6 +381,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
     else if (device->deviceType == CY_TYPE_UART){
         if (device->uartThreadId != 0) {
             CY_DEBUG_PRINT_ERROR ("CY:Error already notification thread exists ... Function is %s \n", __func__);
+            free (args);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_STATUS_MONITOR_EXIST;
         }
@@ -399,6 +401,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
     }
     else {
         CY_DEBUG_PRINT_ERROR ("CY:Error unknown device type ....Function is %s \n", __func__);
+        free (args);
         pthread_mutex_unlock (&device->notificationLock);
         return CY_ERROR_REQUEST_FAILED;
     }
