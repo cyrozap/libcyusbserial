@@ -354,11 +354,6 @@ CY_RETURN_STATUS CyI2cRead (
             CY_DEBUG_PRINT_ERROR ("CY: Device Disconnected ....Function is %s\n", __func__);
             return CY_ERROR_DEVICE_NOT_FOUND;
         }
-        else if (rStatus == LIBUSB_ERROR_TIMEOUT){
-            pthread_mutex_unlock (&device->readLock);
-            CY_DEBUG_PRINT_ERROR ("CY:Error time out ....Function is %s\n", __func__);
-            return CY_ERROR_IO_TIMEOUT;
-        }
         else {
             pthread_mutex_unlock (&device->readLock);
             CY_DEBUG_PRINT_ERROR ("CY: Error in doing I2C read ...libusb error is %d function is %s!\n", rStatus, __func__);
