@@ -274,7 +274,7 @@ void* spiSetEventNotifcation (void *inputParameters)
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
     struct libusb_transfer *transfer;
-    UINT8 spiStatus = 0;
+    UINT16 spiStatus = 0;
     UINT16 errorStatus = 0;
     struct timeval time;
     CY_EVENT_NOTIFICATION_CB_FN callbackFn;
