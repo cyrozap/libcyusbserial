@@ -125,6 +125,7 @@ add_library(cyusbserial SHARED ${LIBCYUSBSERIAL_SOURCE})
 ################################################################################
 
 if(MSVC)
+    add_definitions(-DCYUSBSERIAL_EXPORTS)
     set(LIBCYUSBSERIAL_LIBS ${LIBCYUSBSERIAL_LIBS} ${LIBPTHREADSWIN32_LIBRARIES})
 else()
     set(LIBCYUSBSERIAL_LIBS ${LIBCYUSBSERIAL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
