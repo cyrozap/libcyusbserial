@@ -28,7 +28,7 @@ if(APPLE)
 endif()
 
 # Windows
-if(WIN32)
+if(WIN32 AND NOT CMAKE_CROSSCOMPILING)
     find_package(LibPThreadsWin32)
     if(LIBPTHREADSWIN32_FOUND)
         set(WIN_RUNTIME_ITEMS ${WIN_RUNTIME_ITEMS}
@@ -88,9 +88,7 @@ if(WIN32)
             "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_CFG_INTDIR}/licenses/libcyusbserial/COPYING.LESSER.txt"
         COMMENT "Copying libcyusbserial COPYING.LESSER.txt file to output directory..."
     )
-else ( WIN32 )
-    message(FATAL_ERROR "This file only supports Windows")
-endif ( WIN32 )
+endif(WIN32 AND NOT CMAKE_CROSSCOMPILING)
 
 ################################################################################
 # GCC and Clang
