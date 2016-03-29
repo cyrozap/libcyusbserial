@@ -6,6 +6,8 @@ set(CMAKE_HELPERS_BINARY_DIR ${PROJECT_SOURCE_DIR}/cmake/helpers)
 set(CMAKE_HELPERS_SOURCE_DIR ${PROJECT_SOURCE_DIR}/cmake/helpers)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
 
+set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+
 include(FindLibUSB)
 
 ################################################################################
@@ -25,6 +27,7 @@ if(APPLE)
     endif()
 endif()
 
+# Windows
 if(WIN32)
     find_package(LibPThreadsWin32)
     if(LIBPTHREADSWIN32_FOUND)
