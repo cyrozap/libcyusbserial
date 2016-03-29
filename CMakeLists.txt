@@ -81,7 +81,7 @@ if(WIN32)
     add_custom_command(
         OUTPUT "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_CFG_INTDIR}/licenses/libcyusbserial/COPYING.LESSER.txt"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${CMAKE_CURRENT_SOURCE_DIR}/../COPYING"
+            "${CMAKE_CURRENT_SOURCE_DIR}/COPYING.LESSER.txt"
             "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_CFG_INTDIR}/licenses/libcyusbserial/COPYING.LESSER.txt"
         COMMENT "Copying libcyusbserial COPYING.LESSER.txt file to output directory..."
     )
