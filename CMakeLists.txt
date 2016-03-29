@@ -88,7 +88,9 @@ if(WIN32)
             "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_CFG_INTDIR}/licenses/libcyusbserial/COPYING.LESSER.txt"
         COMMENT "Copying libcyusbserial COPYING.LESSER.txt file to output directory..."
     )
-endif()
+else ( WIN32 )
+    message(FATAL_ERROR "This file only supports Windows")
+endif ( WIN32 )
 
 ################################################################################
 # GCC and Clang
