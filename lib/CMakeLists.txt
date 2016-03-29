@@ -36,6 +36,7 @@ if(MSVC)
         ${LIBCYUSBSERIAL_INCLUDES} ${LIBPTHREADSWIN32_INCLUDE_DIRS})
         set(LIBCYUSBSERIAL_LIBS
         ${LIBCYUSBSERIAL_LIBS} ${LIBPTHREADSWIN32_LIBRARIES})
+        add_definitions(-DHAVE_STRUCT_TIMESPEC)
     else()
         set(HAVE_THREADS false)
     endif()
