@@ -519,8 +519,8 @@ CY_RETURN_STATUS CyOpen (
                 device->uartFlowControlMode = CY_UART_FLOW_CONTROL_DISABLE;
         }
         //initialising structure elements
-        device->spiThreadId = (pthread_t)0;
-        device->uartThreadId = (pthread_t)0;
+        device->spiThreadId = 0;
+        device->uartThreadId = 0;
         device->spiCancelEvent = false;
         device->uartCancelEvent = false;
         device->spiTransfer = NULL;
