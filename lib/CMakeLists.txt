@@ -118,7 +118,10 @@ set(LIBCYUSBSERIAL_SOURCE
 )
 
 if(MSVC)
-    set(LIBCYUSBSERIAL_SOURCE ${LIBCYUSBSERIAL_SOURCE} ${PROJECT_SOURCE_DIR}/windows/gettimeofday.c)
+    set(LIBCYUSBSERIAL_SOURCE ${LIBCYUSBSERIAL_SOURCE}
+        ${PROJECT_SOURCE_DIR}/windows/gettimeofday.c
+        ${PROJECT_SOURCE_DIR}/windows/usleep.c
+    )
 endif(MSVC)
 
 add_library(cyusbserial SHARED ${LIBCYUSBSERIAL_SOURCE})
