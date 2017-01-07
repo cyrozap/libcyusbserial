@@ -249,7 +249,7 @@ void* uartSetEventNotifcation (void *inputParameters)
             errorStatus |= CY_ERROR_EVENT_FAILED_BIT;
             if (device->uartCancelEvent == false){
                 CY_DEBUG_PRINT_ERROR ("CY:Error uart interrupt thread encountered error... Libusb transmission error is %d \n", transfer->status);
-                device->uartThreadId = 0;
+                pthread_cancel (device->uartThreadId);
                 callbackFn(errorStatus);
             }
             break;
@@ -320,7 +320,7 @@ void* spiSetEventNotifcation (void *inputParameters)
         else{
             spiStatus |= CY_ERROR_EVENT_FAILED_BIT;
             if (device->spiCancelEvent == false){
-                device->spiThreadId = 0;
+                pthread_cancel (device->spiThreadId);
                 CY_DEBUG_PRINT_ERROR ("CY:Error spi interrupt thread was cancelled... Libusb transmission error is %d \n", transfer->status);
                 callbackFn (spiStatus);
             }
@@ -342,7 +342,6 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
     CY_DEVICE *device;
     NOTIFICATION_CB_PARAM *args = NULL;
     int ret;
-    pthread_t threadID;
 
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
@@ -358,20 +357,19 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
     args->handle = handle;
     args->notificationCbFn = notificationCbFn;
     if (device->deviceType == CY_TYPE_SPI){
-        if (device->spiThreadId != 0) {
+        if (!pthread_equal(device->spiThreadId, 0)) {
             CY_DEBUG_PRINT_ERROR ("CY:Error already notification thread exists ... Function is %s \n", __func__);
             free (args);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_STATUS_MONITOR_EXIST;
         }
-        ret = pthread_create (&threadID, NULL, spiSetEventNotifcation, (void *) args);
+        ret = pthread_create (&device->spiThreadId, NULL, spiSetEventNotifcation, (void *) args);
         if (ret == 0){
-            device->spiThreadId = threadID;
             pthread_mutex_unlock (&device->notificationLock);
             return CY_SUCCESS;
         }
         else {
-            device->spiThreadId = 0;
+            pthread_cancel (device->spiThreadId);
             free (args);
             pthread_mutex_unlock (&device->notificationLock);
             CY_DEBUG_PRINT_ERROR ("CY:Error creating spi notification thread ... Function is %s \n", __func__);
@@ -379,20 +377,19 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CySetEventNotification(
         }
     }
     else if (device->deviceType == CY_TYPE_UART){
-        if (device->uartThreadId != 0) {
+        if (!pthread_equal(device->uartThreadId, 0)) {
             CY_DEBUG_PRINT_ERROR ("CY:Error already notification thread exists ... Function is %s \n", __func__);
             free (args);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_STATUS_MONITOR_EXIST;
         }
-        ret = pthread_create (&threadID, NULL, uartSetEventNotifcation, (void *) args);
+        ret = pthread_create (&device->uartThreadId, NULL, uartSetEventNotifcation, (void *) args);
         if (ret == 0){
-            device->uartThreadId = threadID;
             pthread_mutex_unlock (&device->notificationLock);
             return CY_SUCCESS;
         }
         else {
-            device->uartThreadId = 0;
+            pthread_cancel (device->uartThreadId);
             free (args);
             pthread_mutex_unlock (&device->notificationLock);
             CY_DEBUG_PRINT_ERROR ("CY:Error creating uart notification thread ... Function is %s \n", __func__);
@@ -415,7 +412,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
     device = (CY_DEVICE*)handle;
     pthread_mutex_lock (&device->notificationLock);
     if (device->deviceType == CY_TYPE_UART){
-        if (device->uartThreadId == 0){
+        if (pthread_equal(device->uartThreadId, 0)){
             CY_DEBUG_PRINT_ERROR ("CY:Error uart event notification not created ....function is %s \n", __func__);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_REQUEST_FAILED;
@@ -423,13 +420,13 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
         device->uartCancelEvent = true;
         libusb_cancel_transfer (device->uartTransfer);
         pthread_join (device->uartThreadId, NULL);
-        device->uartThreadId = 0;
+        pthread_cancel (device->uartThreadId);
         device->uartCancelEvent = false;
         pthread_mutex_unlock (&device->notificationLock);
         return CY_SUCCESS;
     }
     else if (device->deviceType == CY_TYPE_SPI){
-        if (device->spiThreadId == 0){
+        if (pthread_equal(device->spiThreadId, 0)){
             CY_DEBUG_PRINT_ERROR ("CY:Error spi event notification not created ....function is %s \n", __func__);
             pthread_mutex_unlock (&device->notificationLock);
             return CY_ERROR_REQUEST_FAILED;
@@ -437,7 +434,7 @@ CYWINEXPORT CY_RETURN_STATUS WINCALLCONVEN CyAbortEventNotification(
         device->spiCancelEvent = true;
         libusb_cancel_transfer (device->spiTransfer);
         pthread_join (device->spiThreadId, NULL);
-        device->spiThreadId = 0;
+        pthread_cancel (device->spiThreadId);
         device->spiCancelEvent = false;
         pthread_mutex_unlock (&device->notificationLock);
         return CY_SUCCESS;

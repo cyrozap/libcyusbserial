@@ -519,6 +519,8 @@ CY_RETURN_STATUS CyOpen (
                 device->uartFlowControlMode = CY_UART_FLOW_CONTROL_DISABLE;
         }
         //initialising structure elements
+        pthread_cancel(device->spiThreadId);
+        pthread_cancel(device->uartThreadId);
         device->spiCancelEvent = false;
         device->uartCancelEvent = false;
         device->spiTransfer = NULL;
@@ -574,7 +576,7 @@ CY_RETURN_STATUS CyClose (
     }
     if (glDriverInit == true){
         if (device->deviceType == CY_TYPE_SPI || device->deviceType == CY_TYPE_UART){
-            if (device->spiThreadId != NULL || device->uartThreadId != NULL){
+            if (!pthread_equal(device->spiThreadId, 0) || !pthread_equal(device->uartThreadId, 0)){
             	CyAbortEventNotification(handle);
             }
         }
