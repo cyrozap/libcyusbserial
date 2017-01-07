@@ -29,7 +29,7 @@
 #include <sys/time.h>
 
 /* FILETIME of Jan 1 1970 00:00:00, the PostgreSQL epoch */
-static const unsigned __int64 epoch = UINT64CONST(116444736000000000);
+static const unsigned __int64 epoch = 116444736000000000ULL;
 
 /*
  * FILETIME represents the number of 100-nanosecond intervals since
