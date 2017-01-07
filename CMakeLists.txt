@@ -88,6 +88,8 @@ if(WIN32 AND NOT CMAKE_CROSSCOMPILING)
             "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_CFG_INTDIR}/licenses/libcyusbserial/COPYING.LESSER.txt"
         COMMENT "Copying libcyusbserial COPYING.LESSER.txt file to output directory..."
     )
+
+    include_directories(${PROJECT_SOURCE_DIR}/windows/include)
 endif(WIN32 AND NOT CMAKE_CROSSCOMPILING)
 
 ################################################################################

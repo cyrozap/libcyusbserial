@@ -117,6 +117,10 @@ set(LIBCYUSBSERIAL_SOURCE
         cymisc.c
 )
 
+if(MSVC)
+    set(LIBCYUSBSERIAL_SOURCE ${LIBCYUSBSERIAL_SOURCE} ${PROJECT_SOURCE_DIR}/windows/gettimeofday.c)
+endif(MSVC)
+
 add_library(cyusbserial SHARED ${LIBCYUSBSERIAL_SOURCE})
 
 
