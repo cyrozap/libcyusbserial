@@ -54,8 +54,10 @@ typedef struct CY_DEVICE {
     struct libusb_transfer *spiTransfer;
     struct libusb_transfer *uartTransfer;
     libusb_device_handle *devHandle;
-    pthread_t spiThreadId;
-    pthread_t uartThreadId;
+    pthread_t spiThread;
+    bool spiThreadRunning;
+    pthread_t uartThread;
+    bool uartThreadRunning;
 #pragma pack()
     pthread_mutex_t readLock;
     pthread_mutex_t writeLock;
