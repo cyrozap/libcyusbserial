@@ -26,6 +26,8 @@
  * SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
  */
 
+#include <windows.h>
+
 #include <sys/time.h>
 
 /* FILETIME of Jan 1 1970 00:00:00, the PostgreSQL epoch */
@@ -43,7 +45,7 @@ static const unsigned __int64 epoch = 116444736000000000ULL;
  * signature, so we can just store a pointer to whichever we find. This
  * is the pointer's type.
  */
-typedef		void(WINAPI * PgGetSystemTimeFn) (LPFILETIME);
+typedef                VOID(WINAPI * PgGetSystemTimeFn) (LPFILETIME);
 
 /* One-time initializer function, must match that signature. */
 static void WINAPI init_gettimeofday(LPFILETIME lpSystemTimeAsFileTime);
