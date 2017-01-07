@@ -26,8 +26,6 @@
  * SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
  */
 
-#include "c.h"
-
 #include <sys/time.h>
 
 /* FILETIME of Jan 1 1970 00:00:00, the PostgreSQL epoch */
