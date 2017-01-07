@@ -276,6 +276,7 @@ void* spiSetEventNotifcation (void *inputParameters)
     libusb_device_handle *devHandle;
     struct libusb_transfer *transfer;
     UINT16 spiStatus = 0;
+    unsigned char spiStatusBuffer[2] = {0, 0};
     UINT16 errorStatus = 0;
     struct timeval time;
     CY_EVENT_NOTIFICATION_CB_FN callbackFn;
@@ -292,7 +293,7 @@ void* spiSetEventNotifcation (void *inputParameters)
         callbackFn (errorStatus);
         goto END;
     }
-    libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, &spiStatus, length,
+    libusb_fill_interrupt_transfer (transfer, devHandle, device->interruptEndpoint, spiStatusBuffer, length,
             spi_notification_cb, &transferCompleted, CY_EVENT_NOTIFICATION_TIMEOUT);
     while (device->spiCancelEvent == false){
         if (libusb_submit_transfer (transfer)){
@@ -307,6 +308,7 @@ void* spiSetEventNotifcation (void *inputParameters)
             libusb_handle_events_timeout (glContext, &time);
         }
         transferCompleted = 0;
+        spiStatus = (spiStatusBuffer[1] << 8) | spiStatusBuffer[0];
         if (transfer->status == LIBUSB_TRANSFER_COMPLETED){
             CY_DEBUG_PRINT_INFO ("Successfully read and recieved data %d \n", transfer->actual_length);
             if (spiStatus & CY_SPI_UNDERFLOW_ERROR){
