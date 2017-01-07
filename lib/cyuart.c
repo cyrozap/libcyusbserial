@@ -27,7 +27,7 @@ typedef struct {
     UINT8 mode;
     UINT8 parity;
     UINT8 isMsbFirst;
-    UINT8 txRetry;;
+    UINT8 txRetry;
     UINT8 rxInvertPolarity;
     UINT8 rxIgnoreError;
     UINT8 isFlowControl;
