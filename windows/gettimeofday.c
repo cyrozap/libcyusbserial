@@ -43,7 +43,7 @@ static const unsigned __int64 epoch = 116444736000000000ULL;
  * signature, so we can just store a pointer to whichever we find. This
  * is the pointer's type.
  */
-typedef		VOID(WINAPI * PgGetSystemTimeFn) (LPFILETIME);
+typedef		void(WINAPI * PgGetSystemTimeFn) (LPFILETIME);
 
 /* One-time initializer function, must match that signature. */
 static void WINAPI init_gettimeofday(LPFILETIME lpSystemTimeAsFileTime);
