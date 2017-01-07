@@ -524,7 +524,7 @@ CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle,
 {
     struct args threadParameter;
     UINT32 ret;
-    pthread_t readThreadID = (pthread_t)0;
+    pthread_t readThreadID;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
     CY_RETURN_STATUS rStatus;
