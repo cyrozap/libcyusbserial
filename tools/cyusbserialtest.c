@@ -18,11 +18,7 @@
  */
 
 #include <stdio.h>
-#ifdef _WIN32
-    #include <io.h>
-#else
-    #include <unistd.h>
-#endif
+#include <unistd.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include <string.h>

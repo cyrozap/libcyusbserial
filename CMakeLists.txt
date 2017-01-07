@@ -135,4 +135,8 @@ endif(MSVC)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(include)
 add_subdirectory(lib)
-add_subdirectory(tools)
+
+# Only build the tools on Linux
+if(NOT WIN32 OR CMAKE_CROSSCOMPILING)
+    add_subdirectory(tools)
+endif(NOT WIN32 OR CMAKE_CROSSCOMPILING)
