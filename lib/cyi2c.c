@@ -18,6 +18,7 @@
  */
 
 #include "CyUSBCommon.h"
+#include <sys/time.h>
 #pragma pack(1)
 typedef struct
 {
