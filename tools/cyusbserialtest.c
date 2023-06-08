@@ -237,6 +237,7 @@ int main (int argc, char **agrv)
                     readWriteLength = tempLength;
                     break;
                 }
+                break;
             case 4:
                 if (selectedDeviceNum == -1) {
                     printf ("Select proper device!!! \n");
