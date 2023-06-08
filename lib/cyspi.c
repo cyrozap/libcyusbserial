@@ -84,7 +84,7 @@ CY_RETURN_STATUS CyGetSpiConfig (
         )
 {
     UINT16 wValue, wIndex, wLength;
-    UINT16 bmRequestType, bmRequest;
+    UINT8 bmRequestType, bmRequest;
     CyUsSpiConfig_t localSpiConfig;
     int rStatus;
     CY_DEVICE *device;
@@ -237,7 +237,8 @@ CY_RETURN_STATUS CySpiReset (CY_HANDLE handle)
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
-    UINT16 wValue, wIndex, wLength, bmRequestType, bmRequest;;
+    UINT16 wValue, wIndex, wLength;
+    UINT8 bmRequestType, bmRequest;
     UINT16 scbIndex = 0;
     UINT32 ioTimeout = CY_USB_SERIAL_TIMEOUT;
 
@@ -362,7 +363,8 @@ CY_RETURN_STATUS CyGetSpiStatus (CY_HANDLE handle,
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
-    UINT16 wValue, wIndex, wLength, bmRequestType, bmRequest;;
+    UINT16 wValue, wIndex, wLength;
+    UINT8 bmRequestType, bmRequest;
     UINT16 scbIndex = 0;
     UINT32 ioTimeout = 0;
 
@@ -530,7 +532,7 @@ CY_RETURN_STATUS CySpiReadWrite (CY_HANDLE handle,
     CY_RETURN_STATUS rStatus;
     unsigned short spiTransferMode = 0, scbIndex = 0;
     UINT16 wValue, wIndex = 0, wLength;
-    UINT16 bmRequestType, bmRequest;
+    UINT8 bmRequestType, bmRequest;
 
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);

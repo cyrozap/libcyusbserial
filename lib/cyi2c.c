@@ -520,7 +520,8 @@ CY_RETURN_STATUS CyI2cGetStatus (
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
-    UINT16 wValue, wIndex, wLength, bmRequestType, bmRequest;;
+    UINT16 wValue, wIndex, wLength;
+    UINT8 bmRequestType, bmRequest;
     UINT16 scbIndex = 0;
     UINT32 ioTimeout = CY_USB_SERIAL_TIMEOUT;
 
@@ -561,7 +562,8 @@ CY_RETURN_STATUS CyI2cReset (
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
-    UINT16 wValue, wIndex, wLength, bmRequestType, bmRequest;
+    UINT16 wValue, wIndex, wLength;
+    UINT8 bmRequestType, bmRequest;
     UINT16 scbIndex = 0;
     UINT32 ioTimeout = CY_USB_SERIAL_TIMEOUT;
 
