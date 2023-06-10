@@ -37,17 +37,45 @@ typedef struct
 } CyUsI2cConfig_t;
 #pragma pack()
 #ifdef CY_I2C_ENABLE_PRECISE_TIMING
+#ifdef CLOCK_MONOTONIC
+struct timespec startTimeWrite, endTimeWrite, startTimeRead, endTimeRead;
+#else
 struct timeval startTimeWrite, endTimeWrite, startTimeRead, endTimeRead;
+#endif
 //Timer helper functions for proper timing
 void startI2cTick (bool isWrite) {
+#ifdef CLOCK_MONOTONIC
+    if (isWrite)
+        clock_gettime (CLOCK_MONOTONIC, &startTimeWrite);
+    else
+        clock_gettime (CLOCK_MONOTONIC, &startTimeRead);
+#else
     if (isWrite)
         gettimeofday (&startTimeWrite, NULL);
     else
         gettimeofday (&startTimeRead, NULL);
+#endif
 }
 
 UINT32 getI2cLapsedTime (bool isWrite){
 
+#ifdef CLOCK_MONOTONIC
+    signed int currentTime_sec, currentTime_nsec, currentTime;
+    if (isWrite){
+        clock_gettime (CLOCK_MONOTONIC, &endTimeWrite);
+        currentTime_sec = (endTimeWrite.tv_sec - startTimeWrite.tv_sec) * 1000;
+        currentTime_nsec = ((endTimeWrite.tv_nsec - startTimeWrite.tv_nsec)) / 1000000;
+        currentTime = currentTime_sec + currentTime_nsec;
+        return (unsigned int)currentTime;
+    }
+    else{
+        clock_gettime (CLOCK_MONOTONIC, &endTimeRead);
+        currentTime_sec = (endTimeRead.tv_sec - startTimeRead.tv_sec) * 1000;
+        currentTime_nsec = ((endTimeRead.tv_nsec - startTimeRead.tv_nsec)) / 1000000;
+        currentTime = currentTime_sec + currentTime_nsec;
+        return (unsigned int)currentTime;
+    }
+#else
     signed int currentTime_sec, currentTime_usec, currentTime;
     if (isWrite){
         gettimeofday (&endTimeWrite, NULL);
@@ -63,6 +91,7 @@ UINT32 getI2cLapsedTime (bool isWrite){
         currentTime = currentTime_sec + currentTime_usec;
         return (unsigned int)currentTime;
     }
+#endif
 }
 #endif
 CY_RETURN_STATUS handleI2cError (UINT8 i2cStatus){

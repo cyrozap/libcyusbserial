@@ -37,6 +37,17 @@ typedef struct {
 }CyUsUartConfig_t;
 #pragma pack()
 //Timer helper functions for proper timing
+#ifdef CLOCK_MONOTONIC
+UINT32 getUartLapsedTime (struct timespec startTime){
+    signed int currentTime_sec, currentTime_nsec, currentTime;
+    struct timespec endTime;
+    clock_gettime (CLOCK_MONOTONIC, &endTime);
+    currentTime_sec = (endTime.tv_sec - startTime.tv_sec) * 1000;
+    currentTime_nsec = ((endTime.tv_nsec - startTime.tv_nsec)) / 1000000;
+    currentTime = currentTime_sec + currentTime_nsec;
+    return (unsigned int)currentTime;
+}
+#else
 UINT32 getUartLapsedTime (struct timeval startTime){
     signed int currentTime_sec, currentTime_usec, currentTime;
     struct timeval endTime;
@@ -46,6 +57,7 @@ UINT32 getUartLapsedTime (struct timeval startTime){
     currentTime = currentTime_sec + currentTime_usec;
     return (unsigned int)currentTime;
 }
+#endif
 /*
    This API gets the current UART configuration of the
    device.Such as GPIO's assigned, flowcontrol, BaudRate
@@ -248,7 +260,11 @@ CY_RETURN_STATUS CyUartRead (
     UINT32 length, totalRead = 0, newIoTimeout = ioTimeOut, elapsedTime;
     int transferCount;
     UCHAR *buffer;
+#ifdef CLOCK_MONOTONIC
+    struct timespec startTime;
+#else
     struct timeval startTime;
+#endif
 
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle..Function is %s\n", __func__);
@@ -271,7 +287,11 @@ CY_RETURN_STATUS CyUartRead (
         // buffer will be pointing to new pointer
         buffer = &(readBuffer->buffer[totalRead]);
         //Start the tick
+#ifdef CLOCK_MONOTONIC
+        clock_gettime(CLOCK_MONOTONIC, &startTime);
+#else
         gettimeofday(&startTime, NULL);
+#endif
         rStatus = libusb_bulk_transfer (devHandle, device->inEndpoint, buffer, length,
                 &transferCount, newIoTimeout);
         elapsedTime = getUartLapsedTime(startTime);
