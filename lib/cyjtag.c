@@ -26,7 +26,7 @@ CY_RETURN_STATUS CyJtagEnable (
         )
 {
     UINT16 wValue, wIndex, wLength;
-    UINT16 bmRequestType, bmRequest;
+    UINT8 bmRequestType, bmRequest;
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
@@ -70,7 +70,7 @@ CY_RETURN_STATUS CyJtagDisable (
         )
 {
     UINT16 wValue, wIndex, wLength;
-    UINT16 bmRequestType, bmRequest;
+    UINT8 bmRequestType, bmRequest;
     int rStatus;
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
@@ -119,7 +119,7 @@ CY_RETURN_STATUS CyJtagWrite (
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
     UINT16 wValue, wIndex, wLength;
-    UINT16 bmRequestType, bmRequest;
+    UINT8 bmRequestType, bmRequest;
 
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);
@@ -188,7 +188,7 @@ CY_RETURN_STATUS CyJtagRead (
     CY_DEVICE *device;
     libusb_device_handle *devHandle;
     UINT16 wValue, wIndex, wLength;
-    UINT16 bmRequestType, bmRequest;
+    UINT8 bmRequestType, bmRequest;
 
     if (handle == NULL){
         CY_DEBUG_PRINT_ERROR ("CY:Error invalid handle.. Function is %s \n", __func__);

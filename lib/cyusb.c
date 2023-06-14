@@ -550,7 +550,7 @@ CY_RETURN_STATUS CyOpen (
         return CY_SUCCESS;
     }
     else{
-        CY_DEBUG_PRINT_ERROR ("CY:Error iniitalise library by calling CyLibraryInit()....function is %s\n", __func__);
+        CY_DEBUG_PRINT_ERROR ("CY:Error initialize library by calling CyLibraryInit()....function is %s\n", __func__);
         return CY_ERROR_DRIVER_OPEN_FAILED;
     }
 }
