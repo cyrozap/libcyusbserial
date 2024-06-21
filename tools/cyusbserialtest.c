@@ -237,6 +237,7 @@ int main (int argc, char **agrv)
                     readWriteLength = tempLength;
                     break;
                 }
+                break;
             case 4:
                 if (selectedDeviceNum == -1) {
                     printf ("Select proper device!!! \n");
@@ -420,7 +421,7 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
     bool isVerify = true;
     int loopCount = 100, i;
     CY_RETURN_STATUS rStatus;
-    unsigned char address[2], wbuffer[66], rbuffer[66];
+    unsigned char wbuffer[66], rbuffer[66];
     CY_I2C_DATA_CONFIG i2cDataConfig;
 
     memset (wbuffer, 0, 66);
@@ -471,7 +472,7 @@ int i2cVerifyData (int deviceNumber, int interfaceNum)
     }
 
     dataBufferRead.buffer = rbuffer;
-    rbuffer[0]= address[0];
+    rbuffer[0]= pageAddress;
     rbuffer[1] = 0;
     i2cDataConfig.isStopBit = true;
     i2cDataConfig.isNakBit = true;
