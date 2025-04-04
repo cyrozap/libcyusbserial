@@ -80,7 +80,7 @@ int getUserInput()
     return output;
 }
 
-void deviceHotPlug () {
+void deviceHotPlug (int sig) {
     CY_RETURN_STATUS rStatus;
     deviceAddedRemoved = true;
     selectedDeviceNum = -1;
